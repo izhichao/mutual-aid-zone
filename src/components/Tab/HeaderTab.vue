@@ -5,17 +5,23 @@
         </router-link>
 
         <div class="swap">
-            <span class="swap_1 page_on">帮帮我</span>
-            <span class="swap_2">我来帮</span>
+            <slot></slot>
         </div>
 
-        <a href="javascript:" class="logout">注销</a>
+        <a href="javascript:" class="logout" @click="logout">注销</a>
     </header>
 </template>
 
 <script>
 export default {
     name: "HeaderTab",
+    methods: {
+        logout() {
+            alert("注销成功")
+            localStorage.removeItem("token");
+            this.$router.push("/login");
+        }
+    }
 };
 </script>
 

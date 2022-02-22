@@ -3,20 +3,55 @@
         <h1>登录</h1>
         <div class="phone">
             <img src="/src/assets/name.png" alt />
-            <input type="text" name="username" placeholder="请输入您的用户名" />
+            <input
+                type="text"
+                name="username"
+                placeholder="请输入您的用户名"
+                v-model.lazy="username"
+                @keyup.enter="login"
+            />
         </div>
         <div class="password">
             <img src="/src/assets/password.png" alt />
-            <input type="password" name="password" placeholder="请输入您的密码" />
+            <input
+                type="password"
+                name="password"
+                placeholder="请输入您的密码"
+                v-model.lazy="password"
+                @keyup.enter="login"
+            />
         </div>
-        <input type="button" class="login" value="登 录" />
+        <input type="button" class="login" value="登 录" @click="login" />
         <router-link to="register" class="register">立即注册</router-link>
     </div>
 </template>
 
 <script>
 export default {
-    name: 'Login'
+    name: "Login",
+    data() {
+        return {
+            username: "",
+            password: "",
+        };
+    },
+    methods: {
+        async login() {
+            const { data: res } = await this.$http.post("/login", {
+                username: this.username,
+                password: this.password,
+            });
+            if (res.code === 20000) {
+                alert("登录成功");
+                localStorage.setItem("token", res.token);
+                this.$router.push('/');
+            } else {
+                alert("登录失败");
+                this.username = '',
+                this.password = ''
+            }
+        },
+    },
 };
 </script>
 
