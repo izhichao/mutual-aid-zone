@@ -1,49 +1,88 @@
 <template>
     <div>
-        <header-tab></header-tab>
+        <header-tab>
+            <span class="swap_1 page_on">商城</span>
+        </header-tab>
         <section>
-        <!-- 钱包部分 -->
-        <div class="wallet">
-            <div class="blance">
-                <img src="/src/assets/wallet.png" alt />
-                <div class="blance_sub">
-                    <h2>
-                        余额：
-                        <span class="user_blance">0</span> 元
-                    </h2>
+            <!-- 钱包部分 -->
+            <div class="wallet">
+                <div class="blance">
+                    <img src="/src/assets/wallet.png" alt />
+                    <div class="blance_sub">
+                        <h2>
+                            余额：
+                            <span class="user_blance">{{ balance }}</span> 元
+                        </h2>
+                    </div>
+                </div>
+
+                <div class="charge">
+                    <h2>充值金额(元)</h2>
+                    <input
+                        type="number"
+                        class="charge_input"
+                        v-model="chargeNum"
+                        @keyup.enter="charge"
+                    />
+                    <ul>
+                        <li class="charge10" @click="chargeNum = 10">充10元</li>
+                        <li class="charge20" @click="chargeNum = 20">充20元</li>
+                        <li class="charge50" @click="chargeNum = 50">充50元</li>
+                        <li class="charge100" @click="chargeNum = 100">充100元</li>
+                    </ul>
+                    <div class="charge_button" @click="charge">充 值</div>
                 </div>
             </div>
 
-            <div class="charge">
-                <h2>充值金额(元)</h2>
-                <input type="number" class="charge_input" />
-                <ul>
-                    <li class="charge10">充10元</li>
-                    <li class="charge20">充20元</li>
-                    <li class="charge50">充50元</li>
-                    <li class="charge100">充100元</li>
-                </ul>
-                <div class="charge_button">充 值</div>
+            <!-- 商城部分 -->
+            <div class="goods_list">
+                <!-- 从后台获取商品信息 -->
             </div>
-        </div>
-
-        <!-- 商城部分 -->
-        <div class="goods_list">
-            <!-- 从后台获取商品信息 -->
-        </div>
-    </section>
+        </section>
     </div>
 </template>
 
 <script>
-import App from '../App.vue';
-import HeaderTab from './Tab/HeaderTab.vue'
+import HeaderTab from "../Tab/HeaderTab.vue";
 export default {
     name: "Store",
     components: {
         HeaderTab,
-        App
-    }
+    },
+    data() {
+        return {
+            balance: 0,
+            chargeNum: "",
+        };
+    },
+    methods: {
+        charge() {
+            this.$http
+                .post(
+                    "/store",
+                    { charge: this.chargeNum },
+                    { headers: { token: localStorage.getItem("token") } }
+                )
+                .then((res) => {
+                    alert("充值成功");
+                    // 将新的余额赋值给balance
+                    this.balance = res.data.balance;
+                });
+            // 将输入框中的内容清空
+            this.chargeNum = "";
+        },
+        getBalance() {
+            this.$http
+                .get("/store", {
+                    headers: { token: localStorage.getItem("token") },
+                })
+                .then((res) => (this.balance = res.data));
+        },
+    },
+    created() {
+        // 获取当前余额
+        this.getBalance();
+    },
 };
 </script>
 

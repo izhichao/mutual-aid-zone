@@ -1,6 +1,11 @@
 <template>
     <div>
-        <header-tab></header-tab>
+        <!-- 通过插槽来显示不同的顶栏 -->
+        <header-tab>
+            <router-link to="/helpme" class="swap_1 page_on">帮帮我</router-link>
+            <router-link to="/ihelp" class="swap_2">我来帮</router-link>
+        </header-tab>
+        <!-- 任务发布按钮 -->
         <div class="item">
             <router-link to="/helpme/1">
                 <div class="express">

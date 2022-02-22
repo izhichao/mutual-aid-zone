@@ -3,19 +3,38 @@
         <h1>注册</h1>
         <div class="phone">
             <img src="/src/assets/name.png"/>
-            <input type="text" name="username" placeholder="请输入您的手机号" />
+            <input type="text" name="username" placeholder="请输入您的用户名" v-model.lazy="username" @keyup.enter="register"/>
         </div>
         <div class="password">
             <img src="/src/assets/password.png"/>
-            <input type="password" name="password" placeholder="请输入您的密码" />
+            <input type="password" name="password" placeholder="请输入您的密码" v-model.lazy="password" @keyup.enter="register"/>
         </div>
-        <input type="button" class="register" value="注 册" />
+        <input type="button" class="register" value="注 册" @click="register" />
     </div>
 </template>
 
 <script>
 export default {
     name: 'Register',
+    data() {
+        return {
+            username: '',
+            password: ''
+        }
+    },
+    methods: {
+        register() {
+            if (this.username === '' || this.password === '') return alert('用户名或密码不能为空')
+            this.$http.post('/register',{
+                username: this.username,
+                password: this.password
+            }).then(res => {
+                alert("注册成功");
+                this.$router.push('/login');
+            })
+        }
+    }
+
 };
 </script>
 

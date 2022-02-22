@@ -1,17 +1,17 @@
 <template>
     <div>
-        <div class="task_content ${ifLast}">
-            <h2>${obj.title}</h2>
-            <div class="task_detail">${obj.content}</div>
+        <div class="task_content">
+            <h2>{{item.title}}</h2>
+            <div class="task_detail">{{item.content}}</div>
             <ul class="task_sub">
-                <li class="task_phone">用户:123</li>
-                <li class="price">出价:123元</li>
-                <li class="task_type">类型:123</li>
+                <li class="task_phone">用户: {{item.task_setter}}</li>
+                <li class="price">出价: {{item.price}}元</li>
+                <li class="task_type">类型: {{taskType}}</li>
             </ul>
             <ul class="task_sub">
-                <li class="time">2021-21-21</li>
-                <li class="task_id">任务号:1234098号</li>
-                <li class="${edit_type}">编辑</li>
+                <li class="time">{{time}}</li>
+                <li class="task_id">任务号: {{item.id}}号</li>
+                <li class="btn" @click="btnMethods">{{ btnType }}</li>
             </ul>
         </div>
     </div>
@@ -20,6 +20,51 @@
 <script>
 export default {
     name: "TaskList",
+    // item用于接受每一条任务的数据
+    // type用于区分 所有任务、我的任务、我发布的
+    props: ["item", "type"],
+    methods: {
+        btnMethods() {
+            // TODO 待实现功能
+        }
+    },
+    computed: {
+        // 格式化类型
+        taskType() {
+            switch (this.item.type) {
+                case "express":
+                    return "拿快递";
+                case "borrow":
+                    return "借东西";
+                case "sale":
+                    return "卖二手";
+                case "study":
+                    return "一起学习";
+            }
+        },
+
+        // 格式化时间
+        time() {
+            let date = new Date(this.item.createdAt);
+            let month = date.getMonth() + 1;
+            let day = date.getDate();
+            let hour = date.getHours();
+            let minute = date.getMinutes();
+            return `${month}月${day}日 ${hour}:${minute}`;
+        },
+
+        // 动态渲染按钮类型
+        btnType() {
+            switch (this.type) {
+                case 0:
+                    return "接受";
+                case 1:
+                    return "放弃";
+                case 2:
+                    return "删除";
+            }
+        },
+    },
 };
 </script>
 
@@ -53,9 +98,11 @@ export default {
 .task_sub .abandon,
 .task_sub .delete,
 .task_sub .get {
-    /* position: relative;
-    right: 1rem; */
     cursor: pointer;
+    color: #950040;
+}
+
+.btn {
     color: #950040;
 }
 </style>
