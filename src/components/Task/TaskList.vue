@@ -24,10 +24,34 @@ export default {
     // type用于区分 所有任务、我的任务、我发布的
     props: ["item", "type"],
     methods: {
+        // 实现任务的接受、删除、放弃
         btnMethods() {
-            // TODO 待实现功能
-        }
+            this.$http
+                .get(
+                    "/taskEdit",
+                    // type=0代表接受任务
+                    // type=1代表放弃任务
+                    // type=2代表删除任务
+                    {
+                        params: { id: this.item.id, type: this.type },
+                        headers: { token: localStorage.getItem("token") },
+                    }
+                )
+                .then((res) => {
+                    if (this.type === 0) {
+                        alert("接受成功");
+                        this.$router.push("/task");
+                    } else if (this.type === 1) {
+                        alert("放弃成功");
+                        this.$router.go(0);
+                    } else {
+                        alert("删除成功");
+                        this.$router.go(0);
+                    }
+                });
+        },
     },
+    emits: ["change"],
     computed: {
         // 格式化类型
         taskType() {

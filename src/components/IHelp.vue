@@ -7,7 +7,7 @@
 
         <div class="item_task_list">
             <!-- 将各个任务通过props的方式传递给task-list组件 -->
-            <task-list v-for="(item,index) in taskList" :key="item.id" :item="item" type="0"></task-list>
+            <task-list v-for="(item,index) in taskList" :key="item.id" :item="item" :type="0"></task-list>
         </div>
         
     </div>

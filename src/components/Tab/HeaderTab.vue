@@ -1,8 +1,8 @@
 <template>
     <header>
-        <router-link to="/login" class="touxiang">
+        <span class="touxiang">
             <img src="/src/assets/touxiang.png">
-        </router-link>
+        </span>
 
         <div class="swap">
             <slot></slot>
