@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="main">
         <header-tab>
             <span class="swap_1 page_on">商城</span>
         </header-tab>
@@ -37,6 +37,8 @@
             <!-- 商城部分 -->
             <div class="goods_list">
                 <!-- 从后台获取商品信息 -->
+                <!-- 通过change事件来更新余额 -->
+                <good v-for="(item, index) in goodsList" :key="item.id" :item="item" :balance="balance" @change="getBalance()"></good>
             </div>
         </section>
     </div>
@@ -44,15 +46,18 @@
 
 <script>
 import HeaderTab from "../Tab/HeaderTab.vue";
+import Good from "./Good.vue";
 export default {
     name: "Store",
     components: {
         HeaderTab,
+        Good,
     },
     data() {
         return {
             balance: 0,
             chargeNum: "",
+            goodsList: [],
         };
     },
     methods: {
@@ -78,16 +83,24 @@ export default {
                 })
                 .then((res) => (this.balance = res.data));
         },
+        async getGoodsList() {
+            const { data: res } = await this.$http.get("/goodAdd", {
+                headers: { token: localStorage.getItem("token") },
+            });
+            this.goodsList = res;
+        },
     },
     created() {
         // 获取当前余额
         this.getBalance();
+        // 获取商品列表
+        this.getGoodsList();
     },
 };
 </script>
 
 <style scoped>
-/* shop_start */
+/* 商品列表 */
 .goods_list {
     height: auto;
     width: 95%;
@@ -96,64 +109,7 @@ export default {
     flex-direction: column;
 }
 
-.goods_content {
-    height: 8rem;
-    width: 100%;
-    margin: 1rem 0 0 0;
-    background-color: #fff;
-    border: 1px solid #f0f0f0;
-    border-radius: 2%;
-    box-sizing: border-box;
-    padding: 4%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: #666 0px 0px 3px;
-}
-
-.goods_content img {
-    width: 6rem;
-    height: 6rem;
-    background-color: yellow;
-}
-
-.introduce {
-    position: relative;
-    width: 9.5rem;
-}
-
-.introduce h2 {
-    font-weight: 700;
-    font-size: 1.3rem;
-    height: 1.3em;
-    width: 100%;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
-
-.introduce span {
-    position: relative;
-    color: red;
-    font-weight: 700;
-    font-size: 1.2rem;
-}
-
-.exchange {
-    position: relative;
-    width: 4rem;
-    height: 2rem;
-    line-height: 2rem;
-    text-align: center;
-    color: #fff;
-    font-weight: 700;
-    border-radius: 1rem;
-    background-color: #950040;
-}
-
-/* shop_end */
-
-/* wallet_start */
+/* 钱包部分 */
 .wallet {
     width: 95%;
     margin: 0 auto;
@@ -255,10 +211,12 @@ ul li {
     border-radius: 0.2rem;
 }
 
-/* wallet_end */
-
 .swap_1 {
     border-radius: 1rem !important;
     width: 12rem !important;
+}
+
+.main {
+    margin-bottom: 5rem;
 }
 </style>
