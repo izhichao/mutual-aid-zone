@@ -41,9 +41,9 @@
 
 <script lang="ts">
 import HeaderTab from '../components/Tab/HeaderTab.vue';
-import Good from '../components/Good.vue';
+import Good, { GoodProps } from '../components/Good.vue';
 import { ComponentInternalInstance, defineComponent, getCurrentInstance, ref } from 'vue';
-
+ 
 export default defineComponent({
   name: 'Store',
   components: {
@@ -52,7 +52,7 @@ export default defineComponent({
   },
   setup() {
     const { proxy } = getCurrentInstance() as ComponentInternalInstance;
-    const goodsList = ref([]);
+    const goodsList = ref<GoodProps[]>([]);
 
     // 充值功能
     const balance = ref(0);

@@ -10,11 +10,31 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, getCurrentInstance, ComponentInternalInstance } from 'vue';
+import { defineComponent, getCurrentInstance, ComponentInternalInstance, PropType } from 'vue';
+
+// 声明Good接口，并导出给StoreView使用
+export interface GoodProps {
+  id: number;
+  name: string;
+  price: number;
+  img_url: string;
+  createdAt: string;
+  updatedAt: string;
+}
 
 export default defineComponent({
   name: 'Good',
-  props: ['item', 'balance'],
+  props: {
+    item: {
+      type: Object as PropType<GoodProps>,
+      default: () => {},
+      required: true
+    },
+    balance: {
+      type: Number,
+      required: true
+    }
+  },
   emits: ['change'],
   setup(props, content) {
     const { proxy } = getCurrentInstance() as ComponentInternalInstance;

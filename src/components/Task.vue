@@ -18,14 +18,37 @@
 </template>
 
 <script lang="ts">
-import { ComponentInternalInstance, computed, defineComponent, getCurrentInstance } from 'vue';
+import { ComponentInternalInstance, computed, defineComponent, getCurrentInstance, PropType } from 'vue';
 import { useRouter } from 'vue-router';
+
+// 声明Task接口，并导出给TaskView、Store使用
+export interface TaskProps {
+  id: number;
+  title: string;
+  content: string;
+  type: string;
+  price: number;
+  task_setter: string;
+  task_getter: string;
+  createdAt: string;
+  updatedAt: string;
+}
 
 export default defineComponent({
   name: 'TaskList',
   // item用于接受每一条任务的数据
   // type用于区分 所有任务、我的任务、我发布的
-  props: ['item', 'type'],
+  props: {
+    item: {
+      type: Object as PropType<TaskProps>,
+      default: () => {},
+      required: true
+    },
+    type: {
+      type: Number,
+      required: true
+    }
+  },
   emits: ['change'],
   setup(props) {
     const { proxy } = getCurrentInstance() as ComponentInternalInstance;
@@ -82,7 +105,7 @@ export default defineComponent({
       return `${month}月${day}日 ${hour}:${minute}`;
     });
 
-   // 将任务类型存储到typeId,再使用type枚举类型进行转换为中文
+    // 将任务类型存储到typeId,再使用type枚举类型进行转换为中文
     const typeId: number = props.type;
     enum type {
       接受,
