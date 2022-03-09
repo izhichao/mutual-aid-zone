@@ -7,30 +7,30 @@
     </header-tab>
     <div class="item_task_list">
       <!-- 当headerTabStatus为true时，显示我的任务 -->
-      <task-list v-for="(item, index) in iGetList" :key="item.id" :item="item" :type="1" v-if="headerTabStatus"></task-list>
+      <task v-for="(item, index) in iGetList" :key="item.id" :item="item" :type="1" v-if="headerTabStatus"></task>
 
       <!-- 当headerTabStatus为false时，显示我发布的任务 -->
-      <task-list v-for="(item, index) in iPublishList" :key="item.id" :item="item" :type="2" v-else></task-list>
+      <task v-for="(item, index) in iPublishList" :key="item.id" :item="item" :type="2" v-else></task>
     </div>
   </div>
 </template>
-
+ 
 <script lang="ts">
-import TaskList from '../components/TaskList.vue';
+import Task, { TaskProps } from '../components/Task.vue';
 import HeaderTab from '../components/Tab/HeaderTab.vue';
 import { ComponentInternalInstance, defineComponent, getCurrentInstance, ref } from 'vue';
 
 export default defineComponent({
   name: 'Task',
   components: {
-    TaskList,
+    Task,
     HeaderTab
   },
   setup() {
     const { proxy } = getCurrentInstance() as ComponentInternalInstance;
     const headerTabStatus = ref(true);
-    const iPublishList = ref([]);
-    const iGetList = ref([]);
+    const iPublishList = ref<TaskProps[]>([]);
+    const iGetList = ref<TaskProps[]>([]);
 
     // 将我的任务转存到iGetList中
     const getIGetList = () => {

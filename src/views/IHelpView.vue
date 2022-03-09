@@ -6,26 +6,26 @@
     </header-tab>
 
     <div class="item_task_list">
-      <!-- 将各个任务通过props的方式传递给task-list组件 -->
-      <task-list v-for="(item, index) in taskList" :key="item.id" :item="item" :type="0"></task-list>
+      <!-- 将各个任务通过props的方式传递给task组件 -->
+      <task v-for="(item, index) in taskList" :key="item.id" :item="item" :type="0"></task>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import HeaderTab from '../components/Tab/HeaderTab.vue';
-import TaskList from '../components/TaskList.vue';
+import Task, { TaskProps } from '../components/Task.vue';
 import { ComponentInternalInstance, defineComponent, getCurrentInstance, ref } from 'vue';
 
 export default defineComponent({
   name: 'IHelp',
   components: {
     HeaderTab,
-    TaskList
+    Task
   },
   setup() {
     const { proxy } = getCurrentInstance() as ComponentInternalInstance;
-    const taskList = ref([]);
+    const taskList = ref<TaskProps[]>([]);
     // 获取所有任务
     proxy?.$http
       .get('/task', {
