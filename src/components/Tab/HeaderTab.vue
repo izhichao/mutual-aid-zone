@@ -1,15 +1,13 @@
 <template>
-  <header>
-    <span class="touxiang">
-      <img src="/src/assets/touxiang.png" />
-    </span>
+  <div class="header">
+    <span class="header__avatar iconfont">&#xe6de;</span>
 
-    <div class="swap">
+    <div class="header__swap">
       <slot></slot>
     </div>
 
-    <a class="logout" @click.prevent="logout">注销</a>
-  </header>
+    <a class="header__logout" @click.prevent="logout">注销</a>
+  </div>
 </template>
 
 <script lang="ts">
@@ -32,70 +30,34 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-header {
+<style lang="less" scoped>
+.header {
   display: flex;
-  background-color: #fff;
-  height: 4rem;
-  position: relative;
   align-items: center;
-  box-shadow: #666 0px 0px 3px;
-}
-
-.touxiang {
+  background-color: #fff;
+  height: (64vw / 3.75);
   position: absolute;
-  height: 3rem;
-  left: 1.5rem;
+  top: 0;
+  left: 0;
+  right: 0;
+  box-shadow: #666 0px 0px 3px;
+
+  &__avatar {
+    color: #950040;
+    font-size: (40vw / 3.75);
+    margin-left: 20px;
+  }
+
+  &__logout {
+    font-size: 16px;
+    color: #950040;
+    margin-right: 20px;
+  }
 }
 
-.touxiang img {
-  height: 3rem;
-  width: 3rem;
-}
-
-.swap {
+.header__swap {
   display: flex;
   flex: 1;
   justify-content: center;
-}
-
-.swap .swap_1,
-.swap .swap_2,
-.swap .swap_3,
-.swap .swap_4 {
-  font-size: 20px;
-  height: 3rem;
-  width: 6rem;
-  align-self: center;
-  line-height: 3rem;
-  text-align: center;
-  box-sizing: border-box;
-  color: #999;
-  border: 2px solid #950040;
-}
-
-.swap .swap_1,
-.swap .swap_3 {
-  border-right: none;
-  border-radius: 1rem 0 0 1rem;
-  box-sizing: border-box;
-  color: #950040;
-}
-
-.swap .swap_2,
-.swap .swap_4 {
-  border-radius: 0 1rem 1rem 0;
-  color: #950040;
-}
-
-.logout {
-  position: absolute;
-  font-size: 1.1rem;
-  right: 1.5rem;
-  color: #950040;
-}
-
-.logout:hover {
-  color: #950040;
 }
 </style>
