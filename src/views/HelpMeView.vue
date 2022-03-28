@@ -7,33 +7,37 @@
     </header-tab>
     <!-- 任务发布按钮 -->
     <div class="item">
-      <router-link to="/helpme/1">
-        <div class="express">
-          <img src="/src/assets/express.png" alt />
-          <span>拿快递</span>
+      <div class="item__box">
+        <div class="item__box__sub">
+          <router-link to="/helpme/1" class="item__box__link">
+            <i class="iconfont">&#xe6ab;</i>
+            <span>拿快递</span>
+          </router-link>
         </div>
-      </router-link>
 
-      <router-link to="/helpme/2">
-        <div class="borrow">
-          <img src="/src/assets/borrow.png" alt />
-          <span>借东西</span>
+        <div class="item__box__sub">
+          <router-link to="/helpme/2" class="item__box__link">
+            <i class="iconfont">&#xe64a;</i>
+            <span>借东西</span>
+          </router-link>
         </div>
-      </router-link>
+      </div>
 
-      <router-link to="/helpme/3">
-        <div class="sale">
-          <img src="/src/assets/sale.png" alt />
-          <span>卖二手</span>
+      <div class="item__box">
+        <div class="item__box__sub">
+          <router-link to="/helpme/3" class="item__box__link">
+            <i class="iconfont">&#xe82e;</i>
+            <span>卖二手</span>
+          </router-link>
         </div>
-      </router-link>
 
-      <router-link to="/helpme/4">
-        <div class="study">
-          <img src="/src/assets/study.png" alt />
-          <span>一起学习</span>
+        <div class="item__box__sub">
+          <router-link to="/helpme/4" class="item__box__link">
+            <i class="iconfont">&#xe60c;</i>
+            <span>一起学习</span>
+          </router-link>
         </div>
-      </router-link>
+      </div>
     </div>
   </div>
 </template>
@@ -50,51 +54,49 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 .item {
   position: absolute;
   width: 100%;
-  top: 4rem;
-  bottom: 4rem;
-  left: 0px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  place-items: center;
-  grid-row-gap: -2rem;
-}
-
-.item div {
+  top: (64vw / 3.75);
+  bottom: (64vw / 3.75);
+  left: 0;
+  right: 0;
   display: flex;
   flex-direction: column;
-  background-color: #950040;
-  height: 10rem;
-  width: 10rem;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-}
 
-.item div img {
-  height: 60%;
-  width: 60%;
-}
+  &__box {
+    flex: 1;
+    display: flex;
 
-.item div span {
-  font-size: 16px;
-  font-weight: 700;
-  color: #fff;
-}
+    &__sub {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
-.express,
-.borrow {
-  position: relative;
-  top: 2rem;
-}
+    &__link {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-color: #950040;
+      height: (160vw / 3.75);
+      width: (160vw / 3.75);
+      border-radius: 50%;
+      i {
+        font-size: (80vw / 3.75);
+        color: #fff;
+        margin-bottom: 10px;
+      }
 
-.sale,
-.study {
-  position: relative;
-  bottom: 2rem;
+      span {
+        font-size: (18vw / 3.75);
+        font-weight: 700;
+        color: #fff;
+      }
+    }
+  }
 }
 </style>
