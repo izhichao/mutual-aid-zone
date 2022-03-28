@@ -63,7 +63,7 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 .goods_content {
   height: 8rem;
   width: 100%;

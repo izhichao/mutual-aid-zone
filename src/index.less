@@ -1,15 +1,12 @@
 @font-face {
-  font-family: 'iconfont';  /* project id 3281864 */
-  src: url('');
-  src: url('?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_3281864_8r9zzjzi194.woff2') format('woff2'),
-  url('//at.alicdn.com/t/font_3281864_8r9zzjzi194.woff') format('woff'),
-  url('//at.alicdn.com/t/font_3281864_8r9zzjzi194.ttf') format('truetype'),
-  url('#iconfont') format('svg');
+  font-family: 'iconfont';  /* Project id 3281864 */
+  src: url('//at.alicdn.com/t/font_3281864_yqgxzfnleyi.woff2?t=1648467083995') format('woff2'),
+       url('//at.alicdn.com/t/font_3281864_yqgxzfnleyi.woff?t=1648467083995') format('woff'),
+       url('//at.alicdn.com/t/font_3281864_yqgxzfnleyi.ttf?t=1648467083995') format('truetype');
 }
 
 .iconfont {
-  font-family: "iconfont" !important;
+  font-family: 'iconfont' !important;
   font-size: 16px;
   font-style: normal;
   -webkit-font-smoothing: antialiased;
@@ -42,21 +39,21 @@ p,
 blockquote,
 th,
 td {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-    background: #eeeff4;
-    color: #666;
-    font-size: 14px;
-    font-family: "微软雅黑", Verdana, Arial, Helvetica, sans-serif;
+  background: #eeeff4;
+  color: #666;
+  font-size: 14px;
+  font-family: '微软雅黑', Verdana, Arial, Helvetica, sans-serif;
 }
 
 td,
 th,
 caption {
-    font-size: 14px;
+  font-size: 14px;
 }
 
 h1,
@@ -65,8 +62,8 @@ h3,
 h4,
 h5,
 h6 {
-    font-weight: normal;
-    font-size: 100%;
+  font-weight: normal;
+  font-size: 100%;
 }
 
 address,
@@ -78,52 +75,62 @@ em,
 strong,
 th,
 var {
-    font-style: normal;
-    font-weight: normal;
+  font-style: normal;
+  font-weight: normal;
 }
 
 a {
-    color: #333;
-    text-decoration: none;
-    -webkit-tap-highlight-color: transparent;
+  color: #333;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 a:hover {
-    color: #333;
+  color: #333;
 }
 
 img {
-    border: none;
+  border: none;
 }
 
 ol,
 ul,
 li {
-    list-style: none;
+  list-style: none;
 }
 
 input,
 textarea,
 select,
 button {
-    font: 14px Verdana, Helvetica, Arial, sans-serif;
-    border: 1px solid #333;
+  font: 14px Verdana, Helvetica, Arial, sans-serif;
+  border: 1px solid #333;
 }
 
 table {
-    border-collapse: collapse;
+  border-collapse: collapse;
 }
 
 html {
-    overflow-y: scroll;
+  overflow-y: scroll;
 }
 
 /* css common */
 .clearfix:after {
-    content: "";
-    display: block;
-    clear: both;
+  content: '';
+  display: block;
+  clear: both;
+}
 
+.button {
+  color: #fff;
+  background-color: #950040;
+  width: (288vw / 3.75);
+  height: (40vw / 3.75);
+  text-align: center;
+  line-height: (40vw / 3.75);
+  font-size: (20vw / 3.75);
+  border-radius: 5px;
 }
 
 /* swap */
@@ -131,32 +138,32 @@ html {
 .header__swap .swap_2,
 .header__swap .swap_3,
 .header__swap .swap_4 {
-    font-size: 20px;
-    height: 3rem;
-    width: 6rem;
-    align-self: center;
-    line-height: 3rem;
-    text-align: center;
-    box-sizing: border-box;
-    color: #999;
-    border: 2px solid #950040;
+  font-size: 20px;
+  height: 3rem;
+  width: 6rem;
+  align-self: center;
+  line-height: 3rem;
+  text-align: center;
+  box-sizing: border-box;
+  color: #999;
+  border: 2px solid #950040;
 }
 
 .header__swap .swap_1,
 .header__swap .swap_3 {
-    border-right: none;
-    border-radius: 1rem 0 0 1rem;
-    box-sizing: border-box;
-    color: #950040;
+  border-right: none;
+  border-radius: 1rem 0 0 1rem;
+  box-sizing: border-box;
+  color: #950040;
 }
 
 .header__swap .swap_2,
 .header__swap .swap_4 {
-    border-radius: 0 1rem 1rem 0;
-    color: #950040;
+  border-radius: 0 1rem 1rem 0;
+  color: #950040;
 }
 
 .page_on {
-    background-color: #950040;
-    color: #fff !important;
+  background-color: #950040;
+  color: #fff !important;
 }

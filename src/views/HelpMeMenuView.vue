@@ -6,37 +6,39 @@
       <router-link to="/ihelp" class="swap_2">我来帮</router-link>
     </header-tab>
     <!-- 任务表单 -->
-    <div class="public none">
-      <div class="task_type">
-        <span>类型</span>
-        <br />
-        <select name="task_type_list" disabled v-model="typeVal">
-          <option value="express">拿快递</option>
-          <option value="borrow">借东西</option>
-          <option value="sale">卖二手</option>
-          <option value="study">一起学习</option>
-        </select>
-      </div>
+    <div class="main">
+      <div class="taskinput">
+        <div class="taskinput__type">
+          <span>类型</span>
+          <br />
+          <select name="taskinput__list" disabled v-model="typeVal">
+            <option value="express">拿快递</option>
+            <option value="borrow">借东西</option>
+            <option value="sale">卖二手</option>
+            <option value="study">一起学习</option>
+          </select>
+        </div>
 
-      <div class="task_title">
-        <span>标题</span>
-        <br />
-        <input type="text" v-model="title" />
-      </div>
+        <div class="taskinput__title">
+          <span>标题</span>
+          <br />
+          <input type="text" v-model="title" />
+        </div>
 
-      <div class="task_price">
-        <span>出价</span>
-        <br />
-        <input type="text" v-model="price" />
-      </div>
+        <div class="taskinput__price">
+          <span>出价</span>
+          <br />
+          <input type="text" v-model="price" />
+        </div>
 
-      <div class="task_about">
-        <span>任务详情</span>
-        <br />
-        <textarea v-model="content"></textarea>
-      </div>
+        <div class="taskinput__about">
+          <span>任务详情</span>
+          <br />
+          <textarea v-model="content"></textarea>
+        </div>
 
-      <div class="public_button" @click="publish">发 布</div>
+        <div class="button" @click="publish">发 布</div>
+      </div>
     </div>
   </div>
 </template>
@@ -105,64 +107,64 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-.public {
+<style lang="less" scoped>
+.main {
+  position: absolute;
+  top: (70vw / 3.75);
+  bottom: (80vw / 3.75);
+  left: 0;
+  right: 0;
+  overflow-y: auto;
+}
+.taskinput {
   width: 95%;
-  height: 32rem;
-  margin: 1rem auto;
+  margin: (10vw / 3.75) auto;
+  padding-bottom: (20vw / 3.75);
   background-color: #fff;
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-size: 16px;
+  font-size: (16vw / 3.75);
   font-weight: 700;
   border-radius: 0.2rem;
   box-shadow: #666 0px 0px 3px;
-}
 
-.public select {
-  margin-top: 0.3rem;
-  width: 18rem;
-  height: 1.8rem;
-  border-radius: 0.2rem;
-  padding-left: 0.25rem;
-  outline: 0;
-  box-sizing: border-box;
-}
+  div {
+    margin-top: (16vw / 3.75);
+  }
 
-.public input {
-  margin-top: 0.3rem;
-  width: 18rem;
-  height: 1.8rem;
-  border-radius: 0.2rem;
-  padding-left: 0.25rem;
-  outline: 0;
-  box-sizing: border-box;
-}
+  select {
+    font-size: (16vw / 3.75);
+    margin-top: (4.8vw/3.75);
+    width: (288vw / 3.75);
+    height: (28.8vw / 3.75);
+    border-radius: 5px;
+    padding-left: 5px;
+    outline: 0;
+    box-sizing: border-box;
+  }
 
-.public div {
-  margin-top: 1rem;
-}
+  input {
+    font-size: (16vw / 3.75);
+    margin-top: 5px;
+    width: (288vw / 3.75);
+    height: (28.8vw / 3.75);
+    border-radius: 5px;
+    padding-left: 5px;
+    outline: 0;
+    box-sizing: border-box;
+  }
 
-.task_about textarea {
-  margin-top: 0.3rem;
-  width: 18rem;
-  border-radius: 0.2rem;
-  padding: 0.25rem;
-  outline: 0;
-  height: 10rem;
-  resize: none;
-  box-sizing: border-box;
-}
-
-.public_button {
-  width: 18rem;
-  background-color: #950040;
-  height: 2.5rem;
-  color: #fff;
-  text-align: center;
-  line-height: 2.5rem;
-  font-size: 1.2rem;
-  border-radius: 0.2rem;
+  textarea {
+    font-size: (16vw / 3.75);
+    margin-top: 5px;
+    width: (288vw / 3.75);
+    border-radius: 5px;
+    padding: 5px;
+    outline: 0;
+    height: (160vw / 3.75);
+    resize: none;
+    box-sizing: border-box;
+  }
 }
 </style>

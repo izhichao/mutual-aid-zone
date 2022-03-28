@@ -49,7 +49,7 @@ export default defineComponent({
   }
 
   &__logout {
-    font-size: 16px;
+    font-size: (16vw / 3.75);
     color: #950040;
     margin-right: 20px;
   }

@@ -125,7 +125,7 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 .task_content {
   height: 12rem;
   width: 100%;
