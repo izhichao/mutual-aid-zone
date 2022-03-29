@@ -1,9 +1,9 @@
 <template>
   <div class="main">
     <header-tab>
-      <span class="swap_1 page_on">商城</span>
+      <span class="header__swap__one header__swap--active">商城</span>
     </header-tab>
-    <section>
+    <div class="main-content">
       <!-- 钱包部分 -->
       <div class="wallet">
         <div class="blance">
@@ -35,17 +35,17 @@
         <!-- 通过change事件来更新余额 -->
         <good v-for="(item, index) in goodsList" :key="item.id" :item="item" :balance="balance" @change="getBalance()"></good>
       </div>
-    </section>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import HeaderTab from '../components/Tab/HeaderTab.vue';
-import Good, { GoodProps } from '../components/Good.vue';
+import Good, { GoodProps } from '../components/Good/Good.vue';
 import { ComponentInternalInstance, defineComponent, getCurrentInstance, ref } from 'vue';
  
 export default defineComponent({
-  name: 'Store',
+  name: 'StoreView',
   components: {
     HeaderTab,
     Good
@@ -98,7 +98,7 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 /* 商品列表 */
 .goods_list {
   height: auto;
@@ -210,12 +210,8 @@ ul li {
   border-radius: 0.2rem;
 }
 
-.swap_1 {
-  border-radius: 1rem !important;
-  width: 12rem !important;
-}
-
-.main {
-  margin-bottom: 5rem;
+.header__swap__one {
+  border-radius: (24vw / 3.75)!important;
+  width: (192vw / 3.75)!important;
 }
 </style>

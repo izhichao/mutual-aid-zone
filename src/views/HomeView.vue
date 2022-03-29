@@ -3,7 +3,7 @@
     <!-- 根据路由展示不同内容 -->
     <router-view></router-view>
     <!-- 展示页面底栏 -->
-    <footer-tab></footer-tab>
+    <FooterTab></FooterTab>
   </div>
 </template>
 

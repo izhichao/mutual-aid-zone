@@ -1,19 +1,17 @@
 <template>
-  <div>
-    <div class="task_content">
-      <h2>{{ item.title }}</h2>
-      <div class="task_detail">{{ item.content }}</div>
-      <ul class="task_sub">
-        <li class="task_phone">用户: {{ item.task_setter }}</li>
-        <li class="price">出价: {{ item.price }}元</li>
-        <li class="task_type">类型: {{ taskType }}</li>
-      </ul>
-      <ul class="task_sub">
-        <li class="time">{{ time }}</li>
-        <li class="task_id">任务号: {{ item.id }}号</li>
-        <li class="btn" @click="btnMethods">{{ btnType }}</li>
-      </ul>
-    </div>
+  <div class="task-content">
+    <h2>{{ item.title }}</h2>
+    <div class="task-content__detail">{{ item.content }}</div>
+    <ul class="task-content__sub">
+      <li class="task-content__sub__phone">用户: {{ item.task_setter }}</li>
+      <li class="task-content__sub__price">出价: {{ item.price }}元</li>
+      <li class="task-content__sub__type">类型: {{ taskType }}</li>
+    </ul>
+    <ul class="task-content__sub">
+      <li class="task-content__sub__time">{{ time }}</li>
+      <li class="task-content__sub__task-id">任务号: {{ item.id }}号</li>
+      <li class="task-content__sub__btn" @click="btnMethods">{{ btnType }}</li>
+    </ul>
   </div>
 </template>
 
@@ -35,7 +33,7 @@ export interface TaskProps {
 }
 
 export default defineComponent({
-  name: 'TaskList',
+  name: 'TaskItem',
   // item用于接受每一条任务的数据
   // type用于区分 所有任务、我的任务、我发布的
   props: {
@@ -126,40 +124,35 @@ export default defineComponent({
 </script>
 
 <style lang="less" scoped>
-.task_content {
-  height: 12rem;
+.task-content {
+  font-size: (16vw / 3.75);
+  height: (192vw / 3.75);
   width: 100%;
-  margin: 1rem 0 0 0;
+  margin-top: (10vw / 3.75);
   background-color: #fff;
   border-radius: 2%;
   box-sizing: border-box;
   box-shadow: #666 0px 0px 3px;
-  padding: 16px;
-}
+  padding: (16vw / 3.75);
 
-.task_content h2 {
-  font-weight: 700;
-  font-size: 1.3rem;
-}
+  h2 {
+    font-weight: 700;
+    font-size: (20.8vw / 3.75);
+  }
 
-.task_detail {
-  height: 4.5rem;
-  margin: 0.5rem 0;
-}
+  &__detail {
+    height: (72vw / 3.75);
+    margin: (8vw / 3.75) 0;
+  }
 
-.task_sub {
-  display: flex;
-  justify-content: space-between;
-}
+  &__sub {
+    display: flex;
+    justify-content: space-between;
 
-.task_sub .abandon,
-.task_sub .delete,
-.task_sub .get {
-  cursor: pointer;
-  color: #950040;
-}
-
-.btn {
-  color: #950040;
+    &__btn {
+      cursor: pointer;
+      color: #950040;
+    }
+  }
 }
 </style>
