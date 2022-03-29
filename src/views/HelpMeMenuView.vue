@@ -1,44 +1,42 @@
 <template>
-  <div>
-    <!-- 通过插槽来显示不同的顶栏 -->
-    <header-tab>
-      <router-link to="/helpme" class="swap_1 page_on">帮帮我</router-link>
-      <router-link to="/ihelp" class="swap_2">我来帮</router-link>
-    </header-tab>
-    <!-- 任务表单 -->
-    <div class="main">
-      <div class="taskinput">
-        <div class="taskinput__type">
-          <span>类型</span>
-          <br />
-          <select name="taskinput__list" disabled v-model="typeVal">
-            <option value="express">拿快递</option>
-            <option value="borrow">借东西</option>
-            <option value="sale">卖二手</option>
-            <option value="study">一起学习</option>
-          </select>
-        </div>
-
-        <div class="taskinput__title">
-          <span>标题</span>
-          <br />
-          <input type="text" v-model="title" />
-        </div>
-
-        <div class="taskinput__price">
-          <span>出价</span>
-          <br />
-          <input type="text" v-model="price" />
-        </div>
-
-        <div class="taskinput__about">
-          <span>任务详情</span>
-          <br />
-          <textarea v-model="content"></textarea>
-        </div>
-
-        <div class="button" @click="publish">发 布</div>
+  <!-- 通过插槽来显示不同的顶栏 -->
+  <header-tab>
+    <router-link to="/helpme" class="swap_1 page_on">帮帮我</router-link>
+    <router-link to="/ihelp" class="swap_2">我来帮</router-link>
+  </header-tab>
+  <!-- 任务表单 -->
+  <div class="main-content">
+    <div class="taskinput">
+      <div class="taskinput__type">
+        <span>类型</span>
+        <br />
+        <select name="taskinput__list" disabled v-model="typeVal">
+          <option value="express">拿快递</option>
+          <option value="borrow">借东西</option>
+          <option value="sale">卖二手</option>
+          <option value="study">一起学习</option>
+        </select>
       </div>
+
+      <div class="taskinput__title">
+        <span>标题</span>
+        <br />
+        <input type="text" v-model="title" />
+      </div>
+
+      <div class="taskinput__price">
+        <span>出价</span>
+        <br />
+        <input type="text" v-model="price" />
+      </div>
+
+      <div class="taskinput__about">
+        <span>任务详情</span>
+        <br />
+        <textarea v-model="content"></textarea>
+      </div>
+
+      <div class="button" @click="publish">发 布</div>
     </div>
   </div>
 </template>
@@ -108,14 +106,6 @@ export default defineComponent({
 </script>
 
 <style lang="less" scoped>
-.main {
-  position: absolute;
-  top: (70vw / 3.75);
-  bottom: (80vw / 3.75);
-  left: 0;
-  right: 0;
-  overflow-y: auto;
-}
 .taskinput {
   width: 95%;
   margin: (10vw / 3.75) auto;

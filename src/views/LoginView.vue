@@ -73,28 +73,31 @@ export default defineComponent({
     i {
       font-size: (32vw / 3.75);
       margin-right: (10vw / 3.75);
-      color: rgb(112, 112, 112); 
+      color: rgb(112, 112, 112);
     }
 
     input {
+      font-size: (16vw / 3.75);
       width: (160vw / 3.75);
       height: (32vw / 3.75);
-      padding: 0 0.5rem;
+      padding: 0 (8vw / 3.75);
       outline: none;
       border: 1px solid #d9d9d6;
     }
   }
 
   &__loginBtn {
+    font-size: (16vw / 3.75);
     margin-top: (20vw / 3.75);
-    height: 2.5rem;
-    width: 12rem;
+    height: (40vw / 3.75);
+    width: (192vw / 3.75);
     outline: none;
     color: #fff;
     background-color: #950040;
   }
 
   &__register {
+    font-size: (16vw / 3.75);
     margin-top: (15vw / 3.75);
     color: rgb(112, 112, 112);
   }

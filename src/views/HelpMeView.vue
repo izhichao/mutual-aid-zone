@@ -1,12 +1,11 @@
 <template>
-  <div>
     <!-- 通过插槽来显示不同的顶栏 -->
-    <header-tab>
-      <router-link to="/helpme" class="swap_1 page_on">帮帮我</router-link>
-      <router-link to="/ihelp" class="swap_2">我来帮</router-link>
-    </header-tab>
+    <HeaderTab>
+      <router-link to="/helpme" class="header__swap__one header__swap--active">帮帮我</router-link>
+      <router-link to="/ihelp" class="header__swap__two">我来帮</router-link>
+    </HeaderTab>
     <!-- 任务发布按钮 -->
-    <div class="item">
+    <div class="main-content item">
       <div class="item__box">
         <div class="item__box__sub">
           <router-link to="/helpme/1" class="item__box__link">
@@ -39,7 +38,6 @@
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script lang="ts">
@@ -56,12 +54,7 @@ export default defineComponent({
 
 <style lang="less" scoped>
 .item {
-  position: absolute;
   width: 100%;
-  top: (64vw / 3.75);
-  bottom: (64vw / 3.75);
-  left: 0;
-  right: 0;
   display: flex;
   flex-direction: column;
 

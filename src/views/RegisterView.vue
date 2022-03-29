@@ -10,6 +10,7 @@
       <input type="password" name="password" placeholder="请输入您的密码" v-model.lazy="password" @keyup.enter="register" />
     </div>
     <input type="button" class="register__registerBtn" value="注 册" @click="login" />
+    <router-link to="login" class="register__login">立即登录</router-link>
   </div>
 </template>
 
@@ -69,21 +70,29 @@ export default defineComponent({
     }
 
     input {
+      font-size: (16vw / 3.75);
       width: (160vw / 3.75);
       height: (32vw / 3.75);
-      padding: 0 0.5rem;
+      padding: 0 (8vw / 3.75);
       outline: none;
       border: 1px solid #d9d9d6;
     }
   }
 
   &__registerBtn {
+    font-size: (16vw / 3.75);
     margin-top: (20vw / 3.75);
-    height: 2.5rem;
-    width: 12rem;
+    height: (40vw / 3.75);
+    width: (192vw / 3.75);
     outline: none;
     color: #fff;
     background-color: #950040;
+  }
+
+  &__login {
+    font-size: (16vw / 3.75);
+    margin-top: (15vw / 3.75);
+    color: rgb(112, 112, 112);
   }
 }
 </style>
