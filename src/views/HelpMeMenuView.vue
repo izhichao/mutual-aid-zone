@@ -1,9 +1,9 @@
 <template>
   <!-- 通过插槽来显示不同的顶栏 -->
-  <header-tab>
-    <router-link to="/helpme" class="swap_1 page_on">帮帮我</router-link>
-    <router-link to="/ihelp" class="swap_2">我来帮</router-link>
-  </header-tab>
+  <HeaderTab>
+    <router-link to="/helpme" class="header__swap__one header__swap--active">帮帮我</router-link>
+    <router-link to="/ihelp" class="header__swap__two">我来帮</router-link>
+  </HeaderTab>
   <!-- 任务表单 -->
   <div class="main-content">
     <div class="taskinput">
@@ -44,7 +44,6 @@
 <script lang="ts">
 import { ComponentInternalInstance, defineComponent, getCurrentInstance, ref } from 'vue';
 import { useRouter } from 'vue-router';
-
 import HeaderTab from '../components/Tab/HeaderTab.vue';
 
 export default defineComponent({
