@@ -1,43 +1,35 @@
 <template>
-    <!-- 通过插槽来显示不同的顶栏 -->
-    <HeaderTab>
-      <router-link to="/helpme" class="header__swap__one header__swap--active">帮帮我</router-link>
-      <router-link to="/ihelp" class="header__swap__two">我来帮</router-link>
-    </HeaderTab>
-    <!-- 任务发布按钮 -->
-    <div class="main-content item">
-      <div class="item__box">
-        <div class="item__box__sub">
-          <router-link to="/helpme/1" class="item__box__link">
-            <i class="iconfont">&#xe6ab;</i>
-            <span>拿快递</span>
-          </router-link>
-        </div>
+  <!-- 通过插槽来显示不同的顶栏 -->
+  <HeaderTab>
+    <router-link to="/helpme" class="header__swap__one header__swap--active">帮帮我</router-link>
+    <router-link to="/ihelp" class="header__swap__two">我来帮</router-link>
+  </HeaderTab>
+  <!-- 任务发布按钮 -->
+  <div class="main-content item">
+    <div class="item__box">
+      <router-link to="/helpme/1" class="item__box__link">
+        <i class="iconfont">&#xe6ab;</i>
+        <span>拿快递</span>
+      </router-link>
 
-        <div class="item__box__sub">
-          <router-link to="/helpme/2" class="item__box__link">
-            <i class="iconfont">&#xe64a;</i>
-            <span>借东西</span>
-          </router-link>
-        </div>
-      </div>
-
-      <div class="item__box">
-        <div class="item__box__sub">
-          <router-link to="/helpme/3" class="item__box__link">
-            <i class="iconfont">&#xe82e;</i>
-            <span>卖二手</span>
-          </router-link>
-        </div>
-
-        <div class="item__box__sub">
-          <router-link to="/helpme/4" class="item__box__link">
-            <i class="iconfont">&#xe60c;</i>
-            <span>一起学习</span>
-          </router-link>
-        </div>
-      </div>
+      <router-link to="/helpme/3" class="item__box__link">
+        <i class="iconfont">&#xe82e;</i>
+        <span>卖二手</span>
+      </router-link>
     </div>
+
+    <div class="item__box">
+      <router-link to="/helpme/2" class="item__box__link">
+        <i class="iconfont">&#xe64a;</i>
+        <span>借东西</span>
+      </router-link>
+
+      <router-link to="/helpme/4" class="item__box__link">
+        <i class="iconfont">&#xe60c;</i>
+        <span>一起学习</span>
+      </router-link>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -56,18 +48,13 @@ export default defineComponent({
 .item {
   width: 100%;
   display: flex;
-  flex-direction: column;
 
   &__box {
     flex: 1;
     display: flex;
-
-    &__sub {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
 
     &__link {
       display: flex;

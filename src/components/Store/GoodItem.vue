@@ -1,11 +1,11 @@
 <template>
-  <div class="goods_content">
+  <div class="good">
     <img :src="item.img_url" alt="" />
-    <div class="introduce">
+    <div class="good__introduce">
       <h2>{{ item.name }}</h2>
-      <span class="price">￥ {{ item.price }}</span>
+      <span class="good__introduce__price">￥ {{ item.price }}</span>
     </div>
-    <div class="exchange" @click="exchange">兑 换</div>
+    <div class="good__exchange" @click="exchange">兑 换</div>
   </div>
 </template>
 
@@ -23,7 +23,7 @@ export interface GoodProps {
 }
 
 export default defineComponent({
-  name: 'Good',
+  name: 'GoodItem',
   props: {
     item: {
       type: Object as PropType<GoodProps>,
@@ -64,57 +64,54 @@ export default defineComponent({
 </script>
 
 <style lang="less" scoped>
-.goods_content {
-  height: 8rem;
+.good {
+  height: (128vw / 3.75);
   width: 100%;
-  margin: 1rem 0 0 0;
+  margin: (16vw / 3.75) 0 0 0;
   background-color: #fff;
   border: 1px solid #f0f0f0;
   border-radius: 2%;
-  box-sizing: border-box;
   padding: 4%;
+  box-sizing: border-box;
   display: flex;
   justify-content: space-between;
   align-items: center;
   box-shadow: #666 0px 0px 3px;
-}
 
-.goods_content img {
-  width: 6rem;
-  height: 6rem;
-}
+  img {
+    width: (96vw / 3.75);
+    height: (96vw / 3.75);
+  }
 
-.introduce {
-  position: relative;
-  width: 9.5rem;
-}
+  &__introduce {
+    width: (152vw / 3.75);
 
-.introduce h2 {
-  font-weight: 700;
-  font-size: 1.3rem;
-  height: 1.3em;
-  width: 100%;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
+    h2 {
+      font-weight: 700;
+      font-size: (19.2vw / 3.75);
+      width: 100%;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
 
-.introduce span {
-  position: relative;
-  color: red;
-  font-weight: 700;
-  font-size: 1.2rem;
-}
+    span {
+      color: red;
+      font-weight: 700;
+      font-size: (19.2vw / 3.75);
+    }
+  }
 
-.exchange {
-  position: relative;
-  width: 4rem;
-  height: 2rem;
-  line-height: 2rem;
-  text-align: center;
-  color: #fff;
-  font-weight: 700;
-  border-radius: 1rem;
-  background-color: #950040;
+  &__exchange {
+    background-color: #950040;
+    color: #fff;
+    font-weight: 700;
+    font-size: (14vw / 3.75);
+    width: (64vw / 3.75);
+    height: (32vw / 3.75);
+    line-height: (32vw / 3.75);
+    text-align: center;
+    border-radius: (16vw / 3.75);
+  }
 }
 </style>
