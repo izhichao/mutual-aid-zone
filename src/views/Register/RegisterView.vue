@@ -9,7 +9,7 @@
       <i class="iconfont">&#xe736;</i>
       <input type="password" name="password" placeholder="请输入您的密码" v-model.lazy="password" @keyup.enter="register" />
     </div>
-    <input type="button" class="register__registerBtn" value="注 册" @click="login" />
+    <input type="button" class="register__registerBtn" value="注 册" @click="register" />
     <router-link to="login" class="register__login">立即登录</router-link>
   </div>
 </template>

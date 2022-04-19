@@ -7,18 +7,12 @@
   <div class="main-content">
     <TaskList :type="0" />
   </div>
+
+  <Docker :currentIndex="0"/>
 </template>
 
-<script lang="ts">
-import HeaderTab from '../components/Tab/HeaderTab.vue';
-import TaskList from '../components/Task/TaskList.vue';
-import { defineComponent } from 'vue';
-
-export default defineComponent({
-  name: 'IHelpView',
-  components: {
-    HeaderTab,
-    TaskList
-  }
-});
+<script lang="ts" setup>
+import HeaderTab from '../../components/Tab/HeaderTab.vue';
+import TaskList from '../../components/Task/TaskList.vue';
+import Docker from '../../components/Docker.vue';
 </script>
