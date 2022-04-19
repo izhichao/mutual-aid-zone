@@ -11,24 +11,14 @@
     <!-- type=2时 显示我发布的 -->
     <TaskList :type="2" v-else />
   </div>
+  <Docker :currentIndex='1'/>
 </template>
 
-<script lang="ts">
-import TaskList from '../components/Task/TaskList.vue';
-import HeaderTab from '../components/Tab/HeaderTab.vue';
-import { defineComponent, ref } from 'vue';
+<script lang="ts" setup>
+import { ref } from 'vue';
+import TaskList from '../../components/Task/TaskList.vue';
+import HeaderTab from '../../components/Tab/HeaderTab.vue';
+import Docker from '../../components/Docker.vue';
 
-export default defineComponent({
-  name: 'TaskView',
-  components: {
-    HeaderTab,
-    TaskList
-  },
-  setup() {
-    const headerTabStatus = ref(true);
-    return {
-      headerTabStatus
-    };
-  }
-});
+const headerTabStatus = ref(true);
 </script>

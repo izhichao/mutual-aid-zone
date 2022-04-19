@@ -1,6 +1,6 @@
 import { createApp } from 'vue';
 import App from './App.vue';
-import './index.less';
+import './style/index.less';
 import router from './router';
 import axios from 'axios';
 import { createPinia } from 'pinia';

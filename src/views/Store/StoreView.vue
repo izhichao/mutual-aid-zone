@@ -6,12 +6,14 @@
     <Wallet />
     <GoodList />
   </div>
+  <Docker :currentIndex='2'/>
 </template>
 
 <script lang="ts">
-import HeaderTab from '../components/Tab/HeaderTab.vue';
-import Wallet from '../components/Store/Wallet.vue'
-import GoodList from '../components/Store/GoodList.vue';
+import HeaderTab from '../../components/Tab/HeaderTab.vue';
+import Wallet from './Wallet.vue';
+import GoodList from './GoodList.vue';
+import Docker from '../../components/Docker.vue';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
@@ -19,7 +21,8 @@ export default defineComponent({
   components: {
     HeaderTab,
     Wallet,
-    GoodList
+    GoodList,
+    Docker
   }
 });
 </script>
