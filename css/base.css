@@ -1,23 +1,18 @@
-@import './variables.less';
-
 html {
   font-size: 100px;
 }
-
 body {
   font-size: 0.12rem;
-  --van-button-primary-background-color: @themeColor;
-  --van-button-primary-border-color: @themeColor;
+  --van-button-primary-background-color: #950040;
+  --van-button-primary-border-color: #950040;
 }
-
 a {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
-
 .main-content {
   position: absolute;
-  top: (68vw / 3.75);
-  bottom: (68vw / 3.75);
+  top: 18.13333333vw;
+  bottom: 18.13333333vw;
   left: 0;
   right: 0;
   overflow-y: auto;
