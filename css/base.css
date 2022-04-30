@@ -1,8 +1,4 @@
-html {
-  font-size: 100px;
-}
 body {
-  font-size: 0.12rem;
   --van-button-primary-background-color: #950040;
   --van-button-primary-border-color: #950040;
 }
@@ -11,8 +7,8 @@ a {
 }
 .main-content {
   position: absolute;
-  top: 18.13333333vw;
-  bottom: 18.13333333vw;
+  top: 68px;
+  bottom: 68px;
   left: 0;
   right: 0;
   overflow-y: auto;

@@ -28,13 +28,13 @@ const dockerList = [
   position: absolute;
   display: flex;
   align-items: center;
-  height: 0.5rem;
+  height: 50px;
   left: 0;
   right: 0;
   bottom: 0;
   background-color: #fff;
-  border-top: 0.01rem solid #ccc;
-  padding: 0 0.2rem;
+  border-top: 1px solid #ccc;
+  padding: 0 20px;
   box-sizing: border-box;
 
   &__item {
@@ -47,12 +47,12 @@ const dockerList = [
 
     i {
       color: #707070;
-      font-size: 0.22rem;
+      font-size: 22px;
     }
 
     p {
       color: #707070;
-      font-size: 0.12rem;
+      font-size: 12px;
     }
 
     &:last-child {
@@ -64,12 +64,12 @@ const dockerList = [
     &--active {
       i {
         color: @themeColor;
-        font-size: 0.22rem;
+        font-size: 22px;
       }
 
       p {
         color: @themeColor;
-        font-size: 0.12rem;
+        font-size: 12px;
       }
     }
   }
