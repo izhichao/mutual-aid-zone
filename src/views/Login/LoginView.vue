@@ -56,22 +56,22 @@ const login = () => {
   // align-items: center;
 
   h1 {
-    margin: 1rem 0 .5rem;
-    font-size: 0.32rem;
+    margin: 100px 0 50px;
+    font-size: 32px;
   }
   &__loginBtn {
     display: block;
-    font-size: 0.16rem;
-    height: 0.4rem;
-    width: 2rem;
-    margin: 0.3rem auto;
+    font-size: 16px;
+    height: 40px;
+    width: 200px;
+    margin: 30px auto;
   }
 
   &__register {
     display: block;
-    font-size: 0.16rem;
-    margin-top: 0.2rem;
-    color: rgb(112, 112, 112);
+    font-size: 16px;
+    margin-top: 20px;
+    color: #707070;
   }
 }
 </style>
