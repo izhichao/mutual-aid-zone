@@ -1,102 +1,74 @@
 <template>
   <div class="register">
     <h1>注册</h1>
-    <div class="register__phone">
-      <i class="iconfont">&#xe74c;</i>
-      <input type="text" name="username" placeholder="请输入您的用户名" v-model.lazy="username" @keyup.enter="register" />
-    </div>
-    <div class="register__password">
-      <i class="iconfont">&#xe736;</i>
-      <input type="password" name="password" placeholder="请输入您的密码" v-model.lazy="password" @keyup.enter="register" />
-    </div>
-    <input type="button" class="register__registerBtn" value="注 册" @click="register" />
-    <router-link to="login" class="register__login">立即登录</router-link>
+    <van-cell-group inset>
+      <van-field v-model="username" type="text" label="用户名" placeholder="请输入您的用户名" @keyup.enter="handleRegister" />
+      <van-field v-model="password" type="password" label="密码" placeholder="请输入您的密码" @keyup.enter="handleRegister" />
+      <van-field v-model="passwordAgain" type="password" label="确认密码" placeholder="请确认您的密码" @keyup.enter="handleRegister" />
+    </van-cell-group>
+    <van-button type="primary" class="register__btn" @click="handleRegister">注 册</van-button>
+    <router-link :to="{ name: 'Login' }" class="register__login">立即登录</router-link>
   </div>
 </template>
 
-<script lang="ts">
-import { ComponentInternalInstance, defineComponent, getCurrentInstance, ref } from 'vue';
+<script lang="ts" setup>
+import { ComponentInternalInstance, getCurrentInstance, ref } from 'vue';
 import { useRouter } from 'vue-router';
-export default defineComponent({
-  name: 'RegisterView',
-  setup() {
-    const { proxy } = getCurrentInstance() as ComponentInternalInstance;
-    const username = ref('');
-    const password = ref('');
-    const router = useRouter();
-    const register = () => {
-      if (username.value === '' || password.value === '') return alert('用户名或密码不能为空');
-      proxy?.$http
-        .post('/register', {
-          username: username.value,
-          password: password.value
-        })
-        .then(() => {
-          alert('注册成功');
-          router.push('/login');
-        });
-    };
-    return {
-      username,
-      password,
-      register
-    };
-  }
-});
+import { Toast } from 'vant';
+
+const { proxy } = getCurrentInstance() as ComponentInternalInstance;
+const router = useRouter();
+
+const useRegisterEffect = () => {
+  const username = ref('');
+  const password = ref('');
+  const passwordAgain = ref('');
+  const handleRegister = () => {
+    if (username.value === '' || password.value === '') return Toast('用户名或密码不能为空');
+    proxy?.$http
+      .post('/register', {
+        username: username.value,
+        password: password.value
+      })
+      .then(() => {
+        Toast('注册成功');
+        router.push('/login');
+      });
+  };
+  return { username, password, passwordAgain, handleRegister };
+};
+
+const { username, password, passwordAgain, handleRegister } = useRegisterEffect();
 </script>
 
 <style lang="less" scoped>
+@import '../../style/variables.less';
+
 .register {
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: #eeeff4;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  background-color: @themeBgColor;
+  text-align: center;
 
   h1 {
-    font-size: (32vw / 3.75);
+    margin: 100px 0 50px;
+    font-size: 32px;
   }
-
-  &__phone,
-  &__password {
-    margin-top: (10vw / 3.75);
-    display: flex;
-
-    i {
-      font-size: (32vw / 3.75);
-      margin-right: (10vw / 3.75);
-      color: rgb(112, 112, 112); 
-    }
-
-    input {
-      font-size: (16vw / 3.75);
-      width: (160vw / 3.75);
-      height: (32vw / 3.75);
-      padding: 0 (8vw / 3.75);
-      outline: none;
-      border: 1px solid #d9d9d6;
-    }
-  }
-
-  &__registerBtn {
-    font-size: (16vw / 3.75);
-    margin-top: (20vw / 3.75);
-    height: (40vw / 3.75);
-    width: (192vw / 3.75);
-    outline: none;
-    color: #fff;
-    background-color: #950040;
+  &__btn {
+    display: block;
+    font-size: 16px;
+    height: 40px;
+    width: 200px;
+    margin: 30px auto;
   }
 
   &__login {
-    font-size: (16vw / 3.75);
-    margin-top: (15vw / 3.75);
-    color: rgb(112, 112, 112);
+    display: block;
+    font-size: 16px;
+    color: #707070;
   }
 }
 </style>

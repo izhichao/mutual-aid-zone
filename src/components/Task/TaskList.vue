@@ -30,7 +30,7 @@ export default defineComponent({
         headers: { token: localStorage.getItem('token') }
       })
       .then((res) => {
-        console.log(JSON.stringify(res.data));
+        // console.log(JSON.stringify(res.data));
         // 将所有任务转存到taskList中
         taskList.value = res.data;
       });

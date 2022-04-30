@@ -2,11 +2,11 @@
   <div class="login">
     <h1>登录</h1>
     <van-cell-group inset>
-      <van-field v-model="username" type="text" label="用户名" placeholder="请输入您的用户名" @keyup.enter="login" />
-      <van-field v-model="password" type="password" label="密码" placeholder="请输入您的密码" @keyup.enter="login" />
+      <van-field v-model="username" type="text" label="用户名" placeholder="请输入您的用户名" @keyup.enter="handleLogin" />
+      <van-field v-model="password" type="password" label="密码" placeholder="请输入您的密码" @keyup.enter="handleLogin" />
     </van-cell-group>
-    <van-button type="primary" class="login__loginBtn" @click="login">登 录</van-button>
-    <router-link to="register" class="login__register">立即注册</router-link>
+    <van-button type="primary" class="login__btn" @click="handleLogin">登 录</van-button>
+    <router-link :to="{ name: 'Register' }" class="login__register">立即注册</router-link>
   </div>
 </template>
 
@@ -14,29 +14,35 @@
 import { ComponentInternalInstance, getCurrentInstance, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { Toast } from 'vant';
+
 const { proxy } = getCurrentInstance() as ComponentInternalInstance;
-const username = ref('');
-const password = ref('');
 const router = useRouter();
-const login = () => {
-  Toast('登录测试');
-  proxy?.$http
-    .post('/login', {
-      username: username.value,
-      password: password.value
-    })
-    .then((res) => {
-      if (res.data.code === 20000) {
-        alert('登录成功');
-        localStorage.setItem('token', res.data.token);
-        router.push('/');
-      } else {
-        alert('登录失败');
-        username.value = '';
-        password.value = '';
-      }
-    });
+
+const useLoginEffect = () => {
+  const username = ref('');
+  const password = ref('');
+  const handleLogin = () => {
+    proxy?.$http
+      .post('/login', {
+        username: username.value,
+        password: password.value
+      })
+      .then((res) => {
+        if (res.data.code === 20000) {
+          Toast('登录成功');
+          localStorage.setItem('token', res.data.token);
+          router.push('/');
+        } else {
+          Toast('登录失败');
+          username.value = '';
+          password.value = '';
+        }
+      });
+  };
+  return { username, password, handleLogin };
 };
+
+const { username, password, handleLogin } = useLoginEffect();
 </script>
 
 <style lang="less" scoped>
@@ -50,16 +56,12 @@ const login = () => {
   right: 0;
   background-color: @themeBgColor;
   text-align: center;
-  // display: flex;
-  // flex-direction: column;
-  // justify-content: center;
-  // align-items: center;
 
   h1 {
     margin: 100px 0 50px;
     font-size: 32px;
   }
-  &__loginBtn {
+  &__btn {
     display: block;
     font-size: 16px;
     height: 40px;
@@ -70,7 +72,6 @@ const login = () => {
   &__register {
     display: block;
     font-size: 16px;
-    margin-top: 20px;
     color: #707070;
   }
 }

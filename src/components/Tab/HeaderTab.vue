@@ -35,7 +35,7 @@ export default defineComponent({
   display: flex;
   align-items: center;
   background-color: #fff;
-  height: (64vw / 3.75);
+  height: 50px;
   position: absolute;
   top: 0;
   left: 0;
