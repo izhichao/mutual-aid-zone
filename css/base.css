@@ -7,8 +7,8 @@ a {
 }
 .main-content {
   position: absolute;
-  top: 68px;
-  bottom: 68px;
+  top: 50px;
+  bottom: 50px;
   left: 0;
   right: 0;
   overflow-y: auto;

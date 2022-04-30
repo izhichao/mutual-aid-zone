@@ -48,20 +48,20 @@ const router = createRouter({
   routes
 });
 
-router.beforeEach((to, from, next) => {
-  const token = localStorage.getItem('token');
-  // 有token时，访问登录注册页跳转至首页
-  const { name } = to;
-  const isLoginOrRegister = name === 'Login' || name === 'Register';
+// router.beforeEach((to, from, next) => {
+//   const token = localStorage.getItem('token');
+//   // 有token时，访问登录注册页跳转至首页
+//   const { name } = to;
+//   const isLoginOrRegister = name === 'Login' || name === 'Register';
 
-  // 当没有token时，且访问的页面不是登录注册页时，跳转到登录页
-  if (!token && !isLoginOrRegister) {
-    next({ name: 'Login' });
-  } else if (token && isLoginOrRegister) {
-    next({ name: 'Home' });
-  } else {
-    next();
-  }
-});
+//   // 当没有token时，且访问的页面不是登录注册页时，跳转到登录页
+//   if (!token && !isLoginOrRegister) {
+//     next({ name: 'Login' });
+//   } else if (token && isLoginOrRegister) {
+//     next({ name: 'Home' });
+//   } else {
+//     next();
+//   }
+// });
 
 export default router;
