@@ -50,6 +50,7 @@ store.getBalance();
 
 <style lang="less" scoped>
 @import '../../style/variables.less';
+@import '../../style/mixins.less';
 .wallet {
   padding: 0 10px;
 
@@ -62,8 +63,7 @@ store.getBalance();
     margin-top: 10px;
     padding: 0 30px;
     background-color: #fff;
-    border: 1px solid @borderColor;
-    border-radius: 5px;
+    // .card;
 
     i {
       font-size: 70px;
@@ -91,8 +91,7 @@ store.getBalance();
     background-color: #fff;
     margin: 10px 0 0 0;
     padding: 10px 24px;
-    border: 1px solid @borderColor;
-    border-radius: 5px;
+    // .card;
 
     h2 {
       font-size: 20px;

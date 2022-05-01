@@ -5,7 +5,6 @@
       <h2>{{ item.name }}</h2>
       <span class="good__introduce__price">&yen; {{ item.price }}</span>
     </div>
-    <!-- <div class="good__exchange" @click="exchange">兑 换</div> -->
     <van-button type="primary" class="good__exchange" @click="exchange">兑 换</van-button>
   </div>
 </template>
@@ -70,8 +69,7 @@ const exchange = () => {
   background-color: #fff;
   padding: 0 20px;
   box-sizing: border-box;
-  border: 1px solid @borderColor;
-  border-radius: 5px;
+  // .card;
 
   img {
     width: 60px;
