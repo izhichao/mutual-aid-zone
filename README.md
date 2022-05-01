@@ -4,7 +4,7 @@
 
 本项目源自于之前用jQuery写的校园互助平台，这次用Vue重构了一遍。后端用的Egg写的屎山接口，还没有来得及重构。后台管理暂时也还没有写。
 
-**jQuery版**：https://github.com/LBVIIC/front-end-example/tree/master/3.mutual-aid-zone
+**[jQuery版](https://demo.lbviic.com/%E9%9D%99%E6%80%81%E9%A1%B5%E9%9D%A2/%E4%BA%92%E5%8A%A9%E5%9C%88)**：手动在localStorage添加一个token即可绕过登录
 
 ## 介绍
 

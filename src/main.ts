@@ -10,7 +10,7 @@ import 'vant/lib/index.css';
 
 const app = createApp(App);
 const pinia = createPinia();
-axios.defaults.baseURL = 'http://127.0.0.1:7001';
+axios.defaults.baseURL = 'http://192.168.123.232:7001';
 app.config.globalProperties.$http = axios;
 
 app.use(router);

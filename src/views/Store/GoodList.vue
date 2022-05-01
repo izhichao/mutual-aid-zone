@@ -41,6 +41,6 @@ export default defineComponent({
 
 <style lang="less" scoped>
 .good-list {
-  padding: 0 (10vw / 3.75) (10vw / 3.75);
+  padding: 0 10px 10px;
 }
 </style>
