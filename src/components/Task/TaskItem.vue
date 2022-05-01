@@ -1,16 +1,13 @@
 <template>
   <div class="task-content">
     <h2>{{ item.title }}</h2>
-    <div class="task-content__detail">{{ item.content }}</div>
+    <p class="task-content__detail">
+      {{ item.content }}
+    </p>
     <ul class="task-content__sub">
-      <li class="task-content__sub__phone">用户: {{ item.task_setter }}</li>
-      <li class="task-content__sub__price">出价: {{ item.price }}元</li>
-      <li class="task-content__sub__type">类型: {{ taskType }}</li>
-    </ul>
-    <ul class="task-content__sub">
-      <li class="task-content__sub__time">{{ time }}</li>
-      <li class="task-content__sub__task-id">任务号: {{ item.id }}号</li>
-      <li class="task-content__sub__btn" @click="btnMethods">{{ btnType }}</li>
+      <li class="task-content__sub__time">2022/01/10 22:28</li>
+      <li class="task-content__sub__status">状态：已接受</li>
+      <li class="task-content__sub__price">&yen; 99.99</li>
     </ul>
   </div>
 </template>
@@ -124,34 +121,50 @@ export default defineComponent({
 </script>
 
 <style lang="less" scoped>
+@import '../../style/variables.less';
+@import '../../style/mixins.less';
 .task-content {
-  font-size: (16vw / 3.75);
-  height: (192vw / 3.75);
+  position: relative;
+  height: 150px;
   width: 100%;
-  margin-top: (10vw / 3.75);
+  margin-top: 10px;
+  padding: 10px 16px;
   background-color: #fff;
-  border-radius: 2%;
   box-sizing: border-box;
-  box-shadow: #666 0px 0px 3px;
-  padding: (16vw / 3.75);
+  // .card;
 
   h2 {
-    font-weight: 700;
-    font-size: (20.8vw / 3.75);
+    color: #000;
+    font-size: 16px;
+    font-weight: 500;
+    .ellipsis;
   }
 
   &__detail {
-    height: (72vw / 3.75);
-    margin: (8vw / 3.75) 0;
+    margin-top: 10px;
+    // 多行文字隐藏
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
   }
 
   &__sub {
+    position: absolute;
+    left: 16px;
+    right: 16px;
+    bottom: 10px;
     display: flex;
     justify-content: space-between;
+    height: 18px;
+    line-height: 18px;
 
-    &__btn {
-      cursor: pointer;
-      color: #950040;
+    &__price {
+      // 防止价格长短不一 导致时间与状态位置偏移
+      width: 60px;
+      text-align: right;
+      color: @priceColor;
     }
   }
 }

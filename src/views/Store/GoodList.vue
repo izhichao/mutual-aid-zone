@@ -19,7 +19,7 @@ export default defineComponent({
     const goodsList = ref<GoodProps[]>([]);
     const store = mainStore();
     const { balance } = storeToRefs(store);
-    
+
     // 获取商品列表
     const getGoodsList = () => {
       proxy?.$http

@@ -10,6 +10,9 @@
     <TaskList :type="0" />
   </div>
 
+  <router-link :to="{ name: 'Add' }">
+    <van-button round icon="plus" type="primary" class="addBtn"></van-button>
+  </router-link>
   <Docker :currentIndex="0" />
 </template>
 
@@ -20,6 +23,10 @@ import Docker from '../../components/Docker.vue';
 
 <style lang="less" scoped>
 .header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
   display: flex;
   align-items: center;
   background-color: #fff;
@@ -37,17 +44,28 @@ import Docker from '../../components/Docker.vue';
       height: 100%;
     }
   }
-}
-::v-deep(.van-search) {
-  flex: 1;
-  height: 49px;
 
-  &__content {
-    background: #eeeff4;
+  ::v-deep(.van-search) {
+    flex: 1;
+    height: 49px;
+
+    &__content {
+      background: #eeeff4;
+    }
+  }
+
+  ::v-deep(.van-field__control) {
+    color: #666;
   }
 }
 
-::v-deep(.van-field__control) {
-  color: #666;
+.addBtn {
+  position: absolute;
+  z-index: 1;
+  bottom: 74px;
+  right: 24px;
+  height: 44px;
+  width: 44px;
+  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.5);
 }
 </style>

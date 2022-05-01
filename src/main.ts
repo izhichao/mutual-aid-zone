@@ -1,12 +1,12 @@
 import { createApp } from 'vue';
 import App from './App.vue';
-import './style/index.less';
 import router from './router';
 import axios from 'axios';
 import { createPinia } from 'pinia';
 import { AxiosStatic } from 'axios';
 import Vant from 'vant';
 import 'vant/lib/index.css';
+import './style/index.less';
 
 const app = createApp(App);
 const pinia = createPinia();

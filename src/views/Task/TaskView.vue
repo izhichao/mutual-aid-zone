@@ -34,6 +34,12 @@ watch(
 
 <style lang="less" scoped>
 @import '../../style/variables.less';
+::v-deep(.van-tabs__wrap) {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
 
 ::v-deep(.van-tabs) {
   &__wrap {
