@@ -129,7 +129,7 @@ export default defineComponent({
   width: 100%;
   margin-top: 10px;
   padding: 16px 16px 0;
-  background-color: #fff;
+  background: @cardBgColor;
   box-sizing: border-box;
   // .card;
 

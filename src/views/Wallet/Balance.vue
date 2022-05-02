@@ -18,7 +18,7 @@
         <li @click="chargeNum = 50">充50元</li>
         <li @click="chargeNum = 100">充100元</li>
       </ul>
-      <van-button type="primary" class="wallet__charge__btn" @click="handleCharge">充 值</van-button>
+      <van-button type="primary" round class="wallet__charge__btn" @click="handleCharge">充 值</van-button>
     </div>
   </div>
 </template>
@@ -62,7 +62,7 @@ store.getBalance();
     height: 100px;
     margin-top: 10px;
     padding: 0 30px;
-    background-color: #fff;
+    background: @cardBgColor;
     // .shadow;
     // .card;
 
@@ -89,7 +89,7 @@ store.getBalance();
     justify-content: space-around;
     height: 230px;
     width: 100%;
-    background-color: #fff;
+    background: @cardBgColor;
     margin: 10px 0 0 0;
     padding: 10px 24px;
     // .shadow;

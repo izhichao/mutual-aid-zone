@@ -1,7 +1,7 @@
 <template>
-  <van-nav-bar title="我的" />
-
   <div class="main-content">
+    <!-- <div class="title">我的</div> -->
+
     <div class="bg"></div>
 
     <div class="content">
@@ -12,20 +12,22 @@
       <div class="content__id">手机号: 1069643013</div>
 
       <div class="content__select">
-        <div class="content__select__item" v-for="item in selectList" :key="item.text">
+        <div class="content__select__item" v-for="(item, index) in selectList" :key="item.text">
           <div class="content__select__item__icon iconfont" v-html="item.icon"></div>
           <div class="content__select__item__title">{{ item.text }}</div>
           <div class="content__select__item__enter iconfont">&#xe679;</div>
         </div>
       </div>
     </div>
-    <van-button type="primary" class="content__logout-btn">退 出 登 录</van-button>
+    <van-button type="primary" round class="content__logout-btn" @click="handleLogout">退 出 登 录</van-button>
   </div>
 
   <Docker :currentIndex="3" />
 </template>
 
 <script lang="ts" setup>
+import { Toast } from 'vant';
+import { useRouter } from 'vue-router';
 import Docker from '../../components/Docker.vue';
 
 const selectList = [
@@ -33,11 +35,22 @@ const selectList = [
   { icon: '&#xe628;', text: '修改密码' },
   { icon: '&#xe605;', text: '联系客服' }
 ];
+
+const router = useRouter();
+
+const handleLogout = () => {
+  Toast('注销成功');
+  localStorage.removeItem('token');
+  router.push({ name: 'Home' });
+};
 </script>
 
 <style lang="less" scoped>
 @import '../../style/variables.less';
 @import '../../style/mixins.less';
+.main-content {
+  top: 0;
+}
 
 .bg {
   position: absolute;
@@ -54,7 +67,7 @@ const selectList = [
 .content {
   position: relative;
   margin: 120px 18px 0;
-  background-color: #fff;
+  background: #fff;
   border-radius: 8px;
   text-align: center;
   .shadow;
@@ -100,10 +113,10 @@ const selectList = [
       }
 
       &__title {
+        color: @fontColor;
         line-height: 22px;
         margin-left: 17px;
         font-size: 14px;
-        color: #262626;
       }
 
       &__enter {
@@ -120,7 +133,7 @@ const selectList = [
 
   &__logout-btn {
     display: block;
-    width: 280px;
+    width: 120px;
     margin: 20px auto;
     height: 40px;
     font-weight: 500;

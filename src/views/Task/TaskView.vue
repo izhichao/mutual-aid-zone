@@ -44,11 +44,11 @@ watch(
 ::v-deep(.van-tabs) {
   &__wrap {
     height: 49px;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid @borderColor;
   }
 
   &__line {
-    background-color: @themeColor;
+    background: @themeColor;
   }
 }
 </style>

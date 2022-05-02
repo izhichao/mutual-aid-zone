@@ -8,7 +8,7 @@
       <van-field v-model="password" type="password" label="密码" placeholder="请输入您的密码" @keyup.enter="handleRegister" />
       <van-field v-model="passwordAgain" type="password" label="确认密码" placeholder="请再次输入您的密码" @keyup.enter="handleRegister" />
     </van-cell-group>
-    <van-button type="primary" class="register__btn" @click="handleRegister">注 册</van-button>
+    <van-button type="primary" round class="register__btn" @click="handleRegister">注 册</van-button>
     <router-link :to="{ name: 'Login' }" class="register__login">立即登录</router-link>
   </div>
 </template>
@@ -65,12 +65,12 @@ const { username, phone, email, password, passwordAgain, handleRegister } = useR
     display: block;
     font-size: 16px;
     height: 40px;
-    width: 200px;
+    width: 120px;
     margin: 30px auto 20px;
   }
 
   &__login {
-    color: #707070;
+    color: @fontLightColor;
   }
 }
 </style>
