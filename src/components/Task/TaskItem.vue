@@ -125,16 +125,16 @@ export default defineComponent({
 @import '../../style/mixins.less';
 .task-content {
   position: relative;
-  height: 150px;
+  height: 140px;
   width: 100%;
   margin-top: 10px;
-  padding: 10px 16px;
+  padding: 16px 16px 0;
   background-color: #fff;
   box-sizing: border-box;
   // .card;
 
   h2 {
-    color: #000;
+    color: #333;
     font-size: 16px;
     font-weight: 500;
     .ellipsis;

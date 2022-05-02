@@ -22,6 +22,7 @@ import Docker from '../../components/Docker.vue';
 </script>
 
 <style lang="less" scoped>
+@import '../../style/mixins.less';
 .header {
   position: absolute;
   top: 0;
@@ -66,6 +67,6 @@ import Docker from '../../components/Docker.vue';
   right: 24px;
   height: 44px;
   width: 44px;
-  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.5);
+  .shadow;
 }
 </style>

@@ -5,6 +5,7 @@ import axios from 'axios';
 import { createPinia } from 'pinia';
 import { AxiosStatic } from 'axios';
 import Vant from 'vant';
+import 'normalize.css';
 import 'vant/lib/index.css';
 import './style/index.less';
 

@@ -3,8 +3,10 @@
     <h1>注册</h1>
     <van-cell-group inset>
       <van-field v-model="username" type="text" label="用户名" placeholder="请输入您的用户名" @keyup.enter="handleRegister" />
+      <van-field v-model="phone" type="tel" label="手机号" placeholder="请输入您的手机号" @keyup.enter="handleRegister" />
+      <van-field v-model="email" type="email" label="邮箱" placeholder="请输入您的邮箱" @keyup.enter="handleRegister" />
       <van-field v-model="password" type="password" label="密码" placeholder="请输入您的密码" @keyup.enter="handleRegister" />
-      <van-field v-model="passwordAgain" type="password" label="确认密码" placeholder="请确认您的密码" @keyup.enter="handleRegister" />
+      <van-field v-model="passwordAgain" type="password" label="确认密码" placeholder="请再次输入您的密码" @keyup.enter="handleRegister" />
     </van-cell-group>
     <van-button type="primary" class="register__btn" @click="handleRegister">注 册</van-button>
     <router-link :to="{ name: 'Login' }" class="register__login">立即登录</router-link>
@@ -21,6 +23,8 @@ const router = useRouter();
 
 const useRegisterEffect = () => {
   const username = ref('');
+  const phone = ref('');
+  const email = ref('');
   const password = ref('');
   const passwordAgain = ref('');
   const handleRegister = () => {
@@ -35,10 +39,10 @@ const useRegisterEffect = () => {
         router.push('/login');
       });
   };
-  return { username, password, passwordAgain, handleRegister };
+  return { username, phone, email, password, passwordAgain, handleRegister };
 };
 
-const { username, password, passwordAgain, handleRegister } = useRegisterEffect();
+const { username, phone, email, password, passwordAgain, handleRegister } = useRegisterEffect();
 </script>
 
 <style lang="less" scoped>
@@ -54,7 +58,7 @@ const { username, password, passwordAgain, handleRegister } = useRegisterEffect(
   text-align: center;
 
   h1 {
-    margin: 100px 0 50px;
+    margin: 70px 0 30px;
     font-size: 32px;
   }
   &__btn {
@@ -62,12 +66,10 @@ const { username, password, passwordAgain, handleRegister } = useRegisterEffect(
     font-size: 16px;
     height: 40px;
     width: 200px;
-    margin: 30px auto;
+    margin: 30px auto 20px;
   }
 
   &__login {
-    display: block;
-    font-size: 16px;
     color: #707070;
   }
 }
