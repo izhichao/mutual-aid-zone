@@ -27,12 +27,12 @@ body {
 }
 
 a {
-  color: #333;
+  color: @fontColor;
   text-decoration: none;
   -webkit-tap-highlight-color: transparent;
 
   &:hover {
-    color: #333;
+    color: @fontColor;
   }
 }
 
@@ -41,10 +41,7 @@ a {
   top: 0;
   left: 0;
   right: 0;
-
-  &__content {
-    border-bottom: 1px solid #ccc;
-  }
+  border-bottom: 1px solid @borderColor;
 }
 
 // 主体部分

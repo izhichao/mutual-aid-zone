@@ -2,16 +2,6 @@ import { createRouter, createWebHashHistory } from 'vue-router';
 
 const routes = [
   {
-    path: '/helpme',
-    name: 'Helpme',
-    component: () => import(/* webpackChunkName: "helpme */ './views/HelpMeView.vue')
-  },
-  {
-    path: '/helpme/:id',
-    name: 'HelpmeMenu',
-    component: () => import(/* webpackChunkName: "helpme */ './views/HelpMeMenuView.vue')
-  },
-  {
     path: '/',
     name: 'Home',
     component: () => import(/* webpackChunkName: "home */ './views/Home/HomeView.vue')
@@ -27,9 +17,9 @@ const routes = [
     component: () => import(/* webpackChunkName: "task */ './views/Task/TaskView.vue')
   },
   {
-    path: '/store',
-    name: 'Store',
-    component: () => import(/* webpackChunkName: "store" */ './views/Store/StoreView.vue')
+    path: '/wallet',
+    name: 'Wallet',
+    component: () => import(/* webpackChunkName: "wallet" */ './views/Wallet/WalletView.vue')
   },
   {
     path: '/my',

@@ -5,7 +5,7 @@
       <h2>{{ item.name }}</h2>
       <span class="good__introduce__price">&yen; {{ item.price }}</span>
     </div>
-    <van-button type="primary" class="good__exchange" @click="exchange">兑 换</van-button>
+    <van-button type="primary" round class="good__exchange" @click="exchange">兑 换</van-button>
   </div>
 </template>
 
@@ -66,7 +66,7 @@ const exchange = () => {
   align-items: center;
   height: 100px;
   margin: 8px 0 0 0;
-  background-color: #fff;
+  background: @cardBgColor;
   padding: 0 20px;
   box-sizing: border-box;
   // .shadow;
@@ -98,7 +98,6 @@ const exchange = () => {
   &__exchange {
     font-weight: 500;
     height: 32px;
-    border-radius: 16px;
   }
 }
 </style>

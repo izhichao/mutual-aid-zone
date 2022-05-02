@@ -5,7 +5,7 @@
       <van-field v-model="username" type="text" label="用户名" placeholder="请输入您的用户名" @keyup.enter="handleLogin" />
       <van-field v-model="password" type="password" label="密码" placeholder="请输入您的密码" @keyup.enter="handleLogin" />
     </van-cell-group>
-    <van-button type="primary" class="login__btn" @click="handleLogin">登 录</van-button>
+    <van-button type="primary" round class="login__btn" @click="handleLogin">登 录</van-button>
     <div class="login__link">
       <router-link :to="{ name: 'Register' }">立即注册</router-link>
       <router-link :to="{ name: 'Register' }">忘记密码</router-link>
@@ -57,7 +57,7 @@ const { username, password, handleLogin } = useLoginEffect();
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: @themeBgColor;
+  background: @themeBgColor;
   text-align: center;
 
   h1 {
@@ -65,16 +65,15 @@ const { username, password, handleLogin } = useLoginEffect();
     font-size: 32px;
   }
   &__btn {
-    display: block;
     font-size: 16px;
     height: 40px;
-    width: 200px;
+    width: 120px;
     margin: 30px auto 20px;
   }
 
   &__link {
     a {
-      color: #707070;
+      color: @fontLightColor;
       margin: 0 10px;
     }
   }
