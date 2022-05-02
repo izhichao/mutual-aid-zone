@@ -69,6 +69,7 @@ const exchange = () => {
   background-color: #fff;
   padding: 0 20px;
   box-sizing: border-box;
+  // .shadow;
   // .card;
 
   img {

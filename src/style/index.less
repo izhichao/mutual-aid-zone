@@ -1,108 +1,59 @@
 @import './iconfont.less';
-@import './base.less';
+@import './variables.less';
 
-body,
-div,
-dl,
-dt,
-dd,
-ul,
-ol,
-li,
 h1,
 h2,
 h3,
 h4,
 h5,
 h6,
-pre,
-code,
-form,
-fieldset,
-legend,
-input,
-button,
-textarea,
-p,
-blockquote,
-th,
-td {
+p {
   margin: 0;
   padding: 0;
-}
-
-body {
-  font-family: '微软雅黑', Verdana, Arial, Helvetica, sans-serif;
-}
-
-td,
-th,
-caption {
-  font-size: 14px;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
   font-weight: normal;
   font-size: 100%;
 }
 
-address,
-caption,
-cite,
-code,
-dfn,
-em,
-strong,
-th,
-var {
-  font-style: normal;
-  font-weight: normal;
+body {
+  background: #eeeff4;
+  color: #666;
+  font-size: 14px;
+  --van-button-primary-background-color: @themeColor;
+  --van-button-primary-border-color: @themeColor;
+  --van-nav-bar-text-color: @themeColor;
+  --van-nav-bar-icon-color: @themeColor;
+  --van-nav-bar-height: 49px;
+  font-family: '微软雅黑', Verdana, Arial, Helvetica, sans-serif;
 }
 
 a {
   color: #333;
   text-decoration: none;
   -webkit-tap-highlight-color: transparent;
+
+  &:hover {
+    color: #333;
+  }
 }
 
-a:hover {
-  color: #333;
+.van-nav-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  &__content {
+    border-bottom: 1px solid #ccc;
+  }
 }
 
-img {
-  border: none;
-}
-
-ol,
-ul,
-li {
-  list-style: none;
-}
-
-input,
-textarea,
-select,
-button {
-  font: 14px Verdana, Helvetica, Arial, sans-serif;
-  border: 1px solid #333;
-}
-
-table {
-  border-collapse: collapse;
-}
-
-html {
-  overflow-y: scroll;
-}
-
-/* css common */
-.clearfix:after {
-  content: '';
-  display: block;
-  clear: both;
+// 主体部分
+.main-content {
+  position: absolute;
+  top: 50px;
+  bottom: 50px;
+  left: 0;
+  right: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
 }

@@ -63,6 +63,7 @@ store.getBalance();
     margin-top: 10px;
     padding: 0 30px;
     background-color: #fff;
+    // .shadow;
     // .card;
 
     i {
@@ -91,6 +92,7 @@ store.getBalance();
     background-color: #fff;
     margin: 10px 0 0 0;
     padding: 10px 24px;
+    // .shadow;
     // .card;
 
     h2 {
@@ -125,7 +127,6 @@ store.getBalance();
 
     &__btn {
       height: 40px;
-      font-size: 18px;
       font-weight: 500;
     }
   }
