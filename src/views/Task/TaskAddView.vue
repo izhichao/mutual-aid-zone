@@ -1,5 +1,5 @@
 <template>
-  <van-nav-bar title="添加任务" left-text="返回" left-arrow @click="handleBack" />
+  <van-nav-bar :title="title" left-text="返回" left-arrow @click-left="handleBack" />
   <div class="main-content">
     <van-form>
       <van-cell-group inset>
@@ -13,25 +13,30 @@
         </van-field>
       </van-cell-group>
 
-      <van-button round block type="primary" native-type="submit">发布</van-button>
+      <van-button round block type="primary" native-type="submit">提 交</van-button>
     </van-form>
   </div>
 </template>
 
 <script lang="ts" setup>
+import { ref } from 'vue';
+
 const handleBack = () => history.back();
+const title = ref('发布任务');
 </script>
 
 <style lang="less" scoped>
+@import '../../style/mixins.less';
 .main-content {
   bottom: 0;
 }
 
-.van-form {
-  padding-top: 20px;
+.van-button {
+  margin: 30px auto 0;
 }
 
-.van-button {
-  margin: 20px auto 0;
+.van-cell-group {
+  margin-top: 20px;
+  .shadow;
 }
 </style>

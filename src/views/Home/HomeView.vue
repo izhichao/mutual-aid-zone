@@ -102,7 +102,7 @@ const isLogin = ref(false);
 }
 
 .task-list {
-  padding: 0 10px 10px;
+  padding: 0 0px 10px;
 }
 
 .addBtn {

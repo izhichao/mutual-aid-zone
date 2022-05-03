@@ -1,18 +1,16 @@
 <template>
   <div class="main-content">
-    <!-- <div class="title">我的</div> -->
-
     <div class="bg"></div>
 
     <div class="content">
       <div class="content__img">
-        <img src="https://zhichao.org/profile.jpg" />
+        <van-image fit="cover" round src="https://zhichao.org/profile.jpg" />
       </div>
       <div class="content__name">只抄</div>
       <div class="content__id">手机号: 1069643013</div>
 
       <div class="content__select">
-        <div class="content__select__item" v-for="(item, index) in selectList" :key="item.text">
+        <div class="content__select__item" v-for="(item, index) in selectList" :key="item.text" @click="handleEnter(index)">
           <div class="content__select__item__icon iconfont" v-html="item.icon"></div>
           <div class="content__select__item__title">{{ item.text }}</div>
           <div class="content__select__item__enter iconfont">&#xe679;</div>
@@ -22,14 +20,26 @@
     <van-button type="primary" round block class="content__logout-btn" @click="handleLogout">退 出 登 录</van-button>
   </div>
 
+  <van-overlay :show="show" @click="show = false">
+    <van-form @click.stop>
+      <van-cell-group inset>
+        <van-field type="password" label="原密码" placeholder="请输入您的密码" />
+        <van-field type="password" label="新密码" placeholder="请输入您的密码" />
+        <van-field type="password" label="确认密码" placeholder="请再次输入您的密码" />
+        <van-button type="primary" round block class="register__btn" native-type="submit">提交</van-button>
+      </van-cell-group>
+    </van-form>
+  </van-overlay>
+
   <Docker :currentIndex="3" />
 </template>
 
 <script lang="ts" setup>
+import { ref } from '@vue/runtime-dom';
 import { Toast } from 'vant';
 import { useRouter } from 'vue-router';
 import Docker from '../../components/Docker.vue';
-
+const show = ref(false);
 const selectList = [
   { icon: '&#xe660;', text: '个人信息' },
   { icon: '&#xe628;', text: '修改密码' },
@@ -37,6 +47,20 @@ const selectList = [
 ];
 
 const router = useRouter();
+
+const handleEnter = (index: number) => {
+  switch (index) {
+    case 0:
+      router.push({ name: 'Info' });
+      break;
+    case 1:
+      show.value = true;
+      break;
+    case 2:
+      // location.href = 'mailto:43055550@qq.com';
+      break;
+  }
+};
 
 const handleLogout = () => {
   Toast('注销成功');
@@ -66,7 +90,7 @@ const handleLogout = () => {
 
 .content {
   position: relative;
-  margin: 120px 18px 0;
+  margin: 120px 16px 0;
   background: #fff;
   border-radius: 8px;
   text-align: center;
@@ -81,11 +105,6 @@ const handleLogout = () => {
     height: 94px;
     border-radius: 50%;
     overflow: hidden;
-
-    img {
-      width: 100%;
-      height: 100%;
-    }
   }
   &__name {
     padding-top: 59px;
@@ -132,7 +151,20 @@ const handleLogout = () => {
   }
 
   &__logout-btn {
-    margin: 20px auto;
+    margin: 30px auto;
+  }
+}
+
+.van-overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.van-cell-group {
+  padding: 20px 10px 10px;
+
+  .van-button {
+    margin: 10px auto;
   }
 }
 </style>
