@@ -1,11 +1,14 @@
 <template>
   <div class="login">
     <h1>登录</h1>
-    <van-cell-group inset>
-      <van-field v-model="username" type="text" label="用户名" placeholder="请输入您的用户名" @keyup.enter="handleLogin" />
-      <van-field v-model="password" type="password" label="密码" placeholder="请输入您的密码" @keyup.enter="handleLogin" />
-    </van-cell-group>
-    <van-button type="primary" round class="login__btn" @click="handleLogin">登 录</van-button>
+    <van-form @submit="handleLogin">
+      <van-cell-group inset>
+        <van-field v-model="username" type="text" label="用户名" placeholder="请输入您的用户名" @keyup.enter="handleLogin" />
+        <van-field v-model="password" type="password" label="密码" placeholder="请输入您的密码" @keyup.enter="handleLogin" />
+      </van-cell-group>
+      <van-button type="primary" round class="login__btn" native-type="submit">登 录</van-button>
+    </van-form>
+
     <div class="login__link">
       <router-link :to="{ name: 'Register' }">立即注册</router-link>
       <router-link :to="{ name: 'Register' }">忘记密码</router-link>

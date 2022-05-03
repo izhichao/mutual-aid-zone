@@ -30,7 +30,7 @@ export interface TaskProps {
 }
 
 export default defineComponent({
-  name: 'TaskItem',
+  name: 'Task',
   // item用于接受每一条任务的数据
   // type用于区分 所有任务、我的任务、我发布的
   props: {
@@ -40,8 +40,7 @@ export default defineComponent({
       required: true
     },
     type: {
-      type: Number,
-      required: true
+      type: Number
     }
   },
   emits: ['change'],
@@ -101,7 +100,7 @@ export default defineComponent({
     });
 
     // 将任务类型存储到typeId,再使用type枚举类型进行转换为中文
-    const typeId: number = props.type;
+    const typeId: number = props.type || 0;
     enum type {
       接受,
       放弃,
@@ -121,8 +120,8 @@ export default defineComponent({
 </script>
 
 <style lang="less" scoped>
-@import '../../style/variables.less';
-@import '../../style/mixins.less';
+@import '../style/variables.less';
+@import '../style/mixins.less';
 .task-content {
   position: relative;
   height: 140px;
@@ -136,7 +135,7 @@ export default defineComponent({
   h2 {
     color: #333;
     font-size: 16px;
-    font-weight: 500;
+    font-weight: 700;
     .ellipsis;
   }
 

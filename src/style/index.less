@@ -23,6 +23,8 @@ body {
   --van-nav-bar-text-color: @themeColor;
   --van-nav-bar-icon-color: @themeColor;
   --van-nav-bar-height: 49px;
+  --van-nav-bar-title-text-color: @fontColor;
+  --van-font-weight-bold: 700;
   font-family: '微软雅黑', Verdana, Arial, Helvetica, sans-serif;
 }
 
@@ -42,6 +44,16 @@ a {
   left: 0;
   right: 0;
   border-bottom: 1px solid @borderColor;
+}
+
+.van-button {
+  height: 40px;
+  width: 120px;
+  // font-weight: 700;
+
+  &__icon {
+    font-weight: 700;
+  }
 }
 
 // 主体部分

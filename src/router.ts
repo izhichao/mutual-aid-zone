@@ -9,12 +9,17 @@ const routes = [
   {
     path: '/add',
     name: 'Add',
-    component: () => import(/* webpackChunkName: "add */ './views/Home/TaskAddView.vue')
+    component: () => import(/* webpackChunkName: "add */ './views/TaskAdd/TaskAddView.vue')
   },
   {
     path: '/task',
     name: 'Task',
     component: () => import(/* webpackChunkName: "task */ './views/Task/TaskView.vue')
+  },
+  {
+    path: '/task/:id',
+    name: 'TaskDetail',
+    component: () => import(/* webpackChunkName: "taskDetail */ './views/TaskDetail/TaskDetailView.vue')
   },
   {
     path: '/wallet',

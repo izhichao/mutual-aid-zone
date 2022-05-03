@@ -81,7 +81,7 @@ const exchange = () => {
     width: 150px;
 
     h2 {
-      font-weight: 500;
+      font-weight: 700;
       font-size: 18px;
       width: 100%;
       .ellipsis;
@@ -90,13 +90,13 @@ const exchange = () => {
     span {
       color: @themeColor;
       color: @priceColor;
-      font-weight: 500;
+      font-weight: 700;
       font-size: 18px;
     }
   }
 
   &__exchange {
-    font-weight: 500;
+    width: auto;
     height: 32px;
   }
 }
