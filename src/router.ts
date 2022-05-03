@@ -7,19 +7,24 @@ const routes = [
     component: () => import(/* webpackChunkName: "home */ './views/Home/HomeView.vue')
   },
   {
-    path: '/add',
-    name: 'Add',
-    component: () => import(/* webpackChunkName: "add */ './views/TaskAdd/TaskAddView.vue')
-  },
-  {
     path: '/task',
     name: 'Task',
     component: () => import(/* webpackChunkName: "task */ './views/Task/TaskView.vue')
   },
   {
+    path: '/task/add',
+    name: 'Add',
+    component: () => import(/* webpackChunkName: "taskAdd */ './views/Task/TaskAddView.vue')
+  },
+  {
+    path: '/task/edit/:id',
+    name: 'Edit',
+    component: () => import(/* webpackChunkName: "taskEdit */ './views/Task/TaskEditView.vue')
+  },
+  {
     path: '/task/:id',
-    name: 'TaskDetail',
-    component: () => import(/* webpackChunkName: "taskDetail */ './views/TaskDetail/TaskDetailView.vue')
+    name: 'Detail',
+    component: () => import(/* webpackChunkName: "taskDetail */ './views/Task/TaskDetailView.vue')
   },
   {
     path: '/wallet',
@@ -30,6 +35,11 @@ const routes = [
     path: '/my',
     name: 'My',
     component: () => import(/* webpackChunkName: "my" */ './views/My/MyView.vue')
+  },
+  {
+    path: '/my/info',
+    name: 'Info',
+    component: () => import(/* webpackChunkName: "my" */ './views/My/MyInfo.vue')
   },
   {
     path: '/login',

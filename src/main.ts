@@ -11,7 +11,7 @@ import './style/index.less';
 
 const app = createApp(App);
 const pinia = createPinia();
-axios.defaults.baseURL = 'http://192.168.43.2:7001';
+axios.defaults.baseURL = 'http://192.168.123.232:7001';
 app.config.globalProperties.$http = axios;
 
 app.use(router);

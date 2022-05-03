@@ -1,15 +1,17 @@
 <template>
-  <div class="task-content">
-    <h2>{{ item.title }}</h2>
-    <p class="task-content__detail">
-      {{ item.content }}
-    </p>
-    <ul class="task-content__sub">
-      <li class="task-content__sub__time">2022/01/10 22:28</li>
-      <li class="task-content__sub__status">状态：已接受</li>
-      <li class="task-content__sub__price">&yen; 99.99</li>
-    </ul>
-  </div>
+  <router-link :to="{ name: 'Detail', params: { id: 1 } }">
+    <div class="task-content">
+      <h2>{{ item.title }}</h2>
+      <p class="task-content__detail">
+        {{ item.content }}
+      </p>
+      <ul class="task-content__sub">
+        <li class="task-content__sub__time">2022/01/10 22:28</li>
+        <li class="task-content__sub__status">状态：已接受</li>
+        <li class="task-content__sub__price">&yen; 99.99</li>
+      </ul>
+    </div>
+  </router-link>
 </template>
 
 <script lang="ts">
