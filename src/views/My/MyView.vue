@@ -19,7 +19,7 @@
         </div>
       </div>
     </div>
-    <van-button type="primary" round class="content__logout-btn" @click="handleLogout">退 出 登 录</van-button>
+    <van-button type="primary" round block class="content__logout-btn" @click="handleLogout">退 出 登 录</van-button>
   </div>
 
   <Docker :currentIndex="3" />
@@ -132,11 +132,7 @@ const handleLogout = () => {
   }
 
   &__logout-btn {
-    display: block;
-    width: 120px;
     margin: 20px auto;
-    height: 40px;
-    font-weight: 500;
   }
 }
 </style>

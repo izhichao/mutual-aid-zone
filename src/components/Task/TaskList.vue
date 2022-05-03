@@ -1,13 +1,13 @@
 <template>
   <div class="task-list">
     <!-- 将各个任务通过props的方式传递给task组件 -->
-    <TaskItem v-for="(item, index) in taskList" :key="item.id" :item="item" :type="type"></TaskItem>
+    <Task v-for="(item, index) in taskList" :key="item.id" :item="item" :type="type"></Task>
   </div>
 </template>
 
 <script lang="ts">
 import { ComponentInternalInstance, defineComponent, getCurrentInstance, ref } from 'vue';
-import TaskItem, { TaskProps } from './TaskItem.vue';
+import Task, { TaskProps } from '../Task.vue';
 
 export default defineComponent({
   name: 'TaskList',
@@ -18,7 +18,7 @@ export default defineComponent({
     }
   },
   components: {
-    TaskItem
+    Task: Task
   },
   setup(props) {
     const { proxy } = getCurrentInstance() as ComponentInternalInstance;

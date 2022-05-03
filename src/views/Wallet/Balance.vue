@@ -72,7 +72,7 @@ store.getBalance();
     }
 
     h2 {
-      font-weight: 500;
+      font-weight: 700;
       font-size: 20px;
       height: 20px;
       span {
@@ -97,7 +97,7 @@ store.getBalance();
 
     h2 {
       font-size: 20px;
-      font-weight: 500;
+      font-weight: 700;
     }
 
     input {
@@ -126,8 +126,7 @@ store.getBalance();
     }
 
     &__btn {
-      height: 40px;
-      font-weight: 500;
+      width: 100%;
     }
   }
 }

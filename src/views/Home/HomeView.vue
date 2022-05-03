@@ -1,19 +1,23 @@
 <template>
+  <!-- 顶栏 -->
   <div class="header">
     <router-link :to="{ name: 'My' }" class="header__img" v-if="isLogin">
       <img src="https://zhichao.org/profile.jpg" />
     </router-link>
-
     <router-link :to="{ name: 'Login' }" class="header__login iconfont" v-else="isLogin">&#xe6de;</router-link>
-
     <van-search shape="round" placeholder="请输入搜索关键词" />
     <router-link :to="{ name: 'Home' }" class="header__chat iconfont">&#xe70a;</router-link>
   </div>
 
   <div class="main-content">
-    <TaskList :type="0" />
+    <!-- <TaskList :type="0" /> -->
+    <div class="task-list">
+      <!-- 将各个任务通过props的方式传递给task组件 -->
+      <Task v-for="(item, index) in taskList" :key="item.id" :item="item"></Task>
+    </div>
   </div>
 
+  <!-- 底栏 -->
   <router-link :to="{ name: 'Add' }">
     <van-button round icon="plus" type="primary" class="addBtn"></van-button>
   </router-link>
@@ -21,10 +25,24 @@
 </template>
 
 <script lang="ts" setup>
-import TaskList from '../../components/Task/TaskList.vue';
+import Task, { TaskProps } from '../../components/Task.vue';
 import Docker from '../../components/Docker.vue';
-import { ref } from 'vue';
+import { ComponentInternalInstance, defineComponent, getCurrentInstance, ref } from 'vue';
 
+const { proxy } = getCurrentInstance() as ComponentInternalInstance;
+const taskList = ref<TaskProps[]>([]);
+// 获取所有任务
+proxy?.$http
+  .get('/task', {
+    params: { type: 0 },
+    headers: { token: localStorage.getItem('token') }
+  })
+  .then((res) => {
+    // console.log(JSON.stringify(res.data));
+    // 将所有任务转存到taskList中
+    taskList.value = res.data;
+  });
+  
 const isLogin = ref(false);
 </script>
 
@@ -81,6 +99,10 @@ const isLogin = ref(false);
   ::v-deep(.van-field__control) {
     color: #666;
   }
+}
+
+.task-list {
+  padding: 0 10px 10px;
 }
 
 .addBtn {
