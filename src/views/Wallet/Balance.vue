@@ -52,7 +52,7 @@ store.getBalance();
 @import '../../style/variables.less';
 @import '../../style/mixins.less';
 .wallet {
-  padding: 0 10px;
+  // padding: 0 10px;
 
   &__balance {
     box-sizing: border-box;

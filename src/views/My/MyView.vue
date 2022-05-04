@@ -26,7 +26,7 @@
         <van-field type="password" label="原密码" placeholder="请输入您的密码" />
         <van-field type="password" label="新密码" placeholder="请输入您的密码" />
         <van-field type="password" label="确认密码" placeholder="请再次输入您的密码" />
-        <van-button type="primary" round block class="register__btn" native-type="submit">提交</van-button>
+        <van-button type="primary" round block native-type="submit">提交</van-button>
       </van-cell-group>
     </van-form>
   </van-overlay>
@@ -169,7 +169,7 @@ const handleLogout = () => {
   padding: 20px 10px 10px;
 
   .van-button {
-    margin: 10px auto;
+    margin: 20px auto 10px;
   }
 }
 </style>

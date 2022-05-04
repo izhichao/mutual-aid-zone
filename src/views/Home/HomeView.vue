@@ -27,7 +27,7 @@
 <script lang="ts" setup>
 import Task, { TaskProps } from '../../components/Task.vue';
 import Docker from '../../components/Docker.vue';
-import { ComponentInternalInstance, defineComponent, getCurrentInstance, ref } from 'vue';
+import { ComponentInternalInstance, getCurrentInstance, ref } from 'vue';
 
 const { proxy } = getCurrentInstance() as ComponentInternalInstance;
 const taskList = ref<TaskProps[]>([]);
@@ -102,7 +102,7 @@ const isLogin = ref(false);
 }
 
 .task-list {
-  padding: 0 0px 10px;
+  padding: 0 0 10px;
 }
 
 .addBtn {
