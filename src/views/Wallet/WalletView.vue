@@ -36,6 +36,6 @@ getGoodsList();
 
 <style lang="less" scoped>
 .good-list {
-  padding: 0 10px 10px;
+  padding: 0 0 10px;
 }
 </style>
