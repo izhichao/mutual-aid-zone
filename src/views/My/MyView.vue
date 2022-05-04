@@ -105,6 +105,11 @@ const handleLogout = () => {
     height: 94px;
     border-radius: 50%;
     overflow: hidden;
+
+    .van-image {
+      width: 94px;
+      height: 94px;
+    }
   }
   &__name {
     padding-top: 59px;

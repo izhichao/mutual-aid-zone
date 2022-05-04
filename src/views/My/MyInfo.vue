@@ -44,7 +44,6 @@ const handleBack = () => history.back();
   text-align: center;
   padding: 20px 0;
   .van-image {
-    text-align: center;
     width: 94px;
     height: 94px;
   }
