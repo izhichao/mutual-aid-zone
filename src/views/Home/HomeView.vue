@@ -30,11 +30,15 @@ import Docker from '../../components/Docker.vue';
 import { ref } from 'vue';
 import { getTasks } from '../../api/task';
 
-
 // 获取所有任务
 const taskList = ref<TaskProps[]>([]);
-const { data: res } = await getTasks();
-taskList.value = res.data;
+
+const useTaskList = async () => {
+  const { data: res } = await getTasks();
+  taskList.value = res.data;
+};
+
+useTaskList();
 
 // 顶栏头像(登录/未登录)
 const isLogin = ref(false);

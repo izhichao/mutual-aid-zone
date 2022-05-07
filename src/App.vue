@@ -1,5 +1,5 @@
 <template>
-  <suspense>
+  <!-- <suspense> -->
     <router-view></router-view>
-  </suspense>
+  <!-- </suspense> -->
 </template>

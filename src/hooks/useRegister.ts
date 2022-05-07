@@ -3,9 +3,8 @@ import { useRouter } from 'vue-router';
 import { Toast } from 'vant';
 import { register } from '../api/user';
 
-const router = useRouter();
-
 export const useRegister = () => {
+  const router = useRouter();
   const registerModel = reactive({
     username: '',
     phone: '',
@@ -32,12 +31,17 @@ export const useRegister = () => {
   ];
 
   const handleRegister = async () => {
-    if (registerModel.username === '' || registerModel.password === '') return Toast('用户名或密码不能为空');
-    const { data: res } = await register(registerModel.username, registerModel.phone, registerModel.email, registerModel.password);
+    try {
+      const { data: res } = await register(registerModel.username, registerModel.phone, registerModel.email, registerModel.password);
 
-    if (res.errno === 0) {
-      Toast('注册成功');
-      router.push('/login');
+      if (res.errno === 0) {
+        Toast('注册成功');
+        router.push('/login');
+      } else {
+        Toast('注册失败');
+      }
+    } catch {
+      Toast('网络异常');
     }
   };
 
