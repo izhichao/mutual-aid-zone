@@ -14,16 +14,18 @@ export const useLogin = () => {
   const passwordRules = [{ pattern: /^[a-zA-Z0-9_!]{6,16}$/, message: '密码长度为6-16位' }];
 
   const handleLogin = async () => {
-    const { data: res } = await login(loginModel.username, loginModel.password);
-
-    if (res.errno === 0) {
-      Toast('登录成功');
-      localStorage.setItem('token', res.token);
-      router.push('/');
-    } else {
-      Toast('登录失败');
-      loginModel.username = '';
-      loginModel.password = '';
+    try {
+      const { data: res } = await login(loginModel.username, loginModel.password);
+      
+      if (res.errno === 0) {
+        Toast('登录成功');
+        localStorage.setItem('token', res.token);
+        router.push('/');
+      } else {
+        Toast('登录失败');
+      }
+    } catch {
+      Toast('网络异常');
     }
   };
 
