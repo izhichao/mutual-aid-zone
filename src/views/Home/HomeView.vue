@@ -27,23 +27,20 @@
 <script lang="ts" setup>
 import Task, { TaskProps } from '../../components/Task.vue';
 import Docker from '../../components/Docker.vue';
-import { ComponentInternalInstance, getCurrentInstance, ref } from 'vue';
+import { ref } from 'vue';
+import { getTasks } from '../../api/task';
 
-const { proxy } = getCurrentInstance() as ComponentInternalInstance;
-const taskList = ref<TaskProps[]>([]);
+
 // 获取所有任务
-proxy?.$http
-  .get('/task', {
-    params: { type: 0 },
-    headers: { token: localStorage.getItem('token') }
-  })
-  .then((res) => {
-    // console.log(JSON.stringify(res.data));
-    // 将所有任务转存到taskList中
-    taskList.value = res.data;
-  });
-  
+const taskList = ref<TaskProps[]>([]);
+const { data: res } = await getTasks();
+taskList.value = res.data;
+
+// 顶栏头像(登录/未登录)
 const isLogin = ref(false);
+if (localStorage.getItem('token')) {
+  isLogin.value = true;
+}
 </script>
 
 <style lang="less" scoped>

@@ -1,10 +1,26 @@
 <template>
   <div class="login">
     <h1>登录</h1>
-    <van-form @submit="handleLogin">
+    <van-form @submit="handleLogin" validate-trigger="onSubmit">
       <van-cell-group inset>
-        <van-field v-model="username" type="text" label="用户名" placeholder="请输入您的用户名" @keyup.enter="handleLogin" />
-        <van-field v-model="password" type="password" label="密码" placeholder="请输入您的密码" @keyup.enter="handleLogin" />
+        <van-field
+          v-model="username"
+          type="text"
+          label="用户名"
+          :rules="usernameRules"
+          placeholder="请输入您的用户名"
+          autoComplete="true"
+          @keyup.enter="handleLogin"
+        />
+        <van-field
+          v-model="password"
+          type="password"
+          label="密码"
+          :rules="passwordRules"
+          autocomplete="true"
+          placeholder="请输入您的密码"
+          @keyup.enter="handleLogin"
+        />
       </van-cell-group>
       <van-button type="primary" round class="login__btn" native-type="submit">登 录</van-button>
     </van-form>
@@ -17,38 +33,8 @@
 </template>
 
 <script lang="ts" setup>
-import { ComponentInternalInstance, getCurrentInstance, ref } from 'vue';
-import { useRouter } from 'vue-router';
-import { Toast } from 'vant';
-
-const { proxy } = getCurrentInstance() as ComponentInternalInstance;
-const router = useRouter();
-
-const useLoginEffect = () => {
-  const username = ref('');
-  const password = ref('');
-  const handleLogin = () => {
-    proxy?.$http
-      .post('/login', {
-        username: username.value,
-        password: password.value
-      })
-      .then((res) => {
-        if (res.data.code === 20000) {
-          Toast('登录成功');
-          localStorage.setItem('token', res.data.token);
-          router.push('/');
-        } else {
-          Toast('登录失败');
-          username.value = '';
-          password.value = '';
-        }
-      });
-  };
-  return { username, password, handleLogin };
-};
-
-const { username, password, handleLogin } = useLoginEffect();
+import { useLogin } from '../../hooks/useLogin';
+const { username, password, usernameRules, passwordRules, handleLogin } = useLogin();
 </script>
 
 <style lang="less" scoped>
