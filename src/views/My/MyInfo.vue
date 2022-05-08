@@ -9,6 +9,7 @@
         <van-field type="text" label="用户名" placeholder="请输入您的用户名" />
         <van-field type="tel" label="手机号" placeholder="请输入您的手机号" />
         <van-field type="email" label="邮箱" placeholder="请输入您的邮箱" />
+        <van-field rows="3" autosize label="收货地址" type="textarea" maxlength="45" placeholder="请输入收货地址"/>
         <van-field name="uploader" label="头像">
           <template #input>
             <van-uploader />
