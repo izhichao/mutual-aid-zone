@@ -24,15 +24,22 @@
 </template>
 
 <script lang="ts" setup>
-import { storeToRefs } from 'pinia';
 import { ComponentInternalInstance, getCurrentInstance, ref } from 'vue';
-import { mainStore } from '../../store';
 import { Toast } from 'vant';
+import { getBalance } from '../../api/store';
 
 const { proxy } = getCurrentInstance() as ComponentInternalInstance;
-const store = mainStore();
+
+const balance = ref(0);
+const useBalance = async () => {
+  const { data: res } = await getBalance();
+  balance.value = res.data.balance;
+};
+
+useBalance();
+
 // 充值功能
-const { balance } = storeToRefs(store);
+// const { balance } = storeToRefs(store);
 const chargeNum = ref<number>();
 const handleCharge = () => {
   proxy?.$http.post('/store', { charge: chargeNum.value }, { headers: { token: localStorage.getItem('token') } }).then((res) => {
@@ -43,9 +50,6 @@ const handleCharge = () => {
   // 将输入框中的内容清空
   chargeNum.value = undefined;
 };
-
-// 获取余额
-store.getBalance();
 </script>
 
 <style lang="less" scoped>
