@@ -18,13 +18,19 @@
       <van-steps>
         <van-step>未接单</van-step>
         <van-step>已接单</van-step>
-        <van-step>任务完成</van-step>
+        <van-step>已完成</van-step>
       </van-steps>
     </div>
 
     <!-- <van-button round block type="primary">接 受</van-button> -->
-    <!-- <van-button round block type="danger">删 除</van-button> -->
-    <!-- <van-button round block type="warning">放 弃</van-button> -->
+    <!-- <div class="btns">
+      <van-button round block type="danger">删 除</van-button>
+      <van-button round block type="primary">编 辑</van-button>
+    </div> -->
+    <div class="btns">
+      <van-button round block type="warning">放 弃</van-button>
+      <van-button round block type="primary">完 成</van-button>
+    </div>
   </div>
 </template>
 
@@ -41,6 +47,15 @@ const handleBack = () => history.back();
 
 .van-button {
   margin: 30px auto;
+}
+
+.btns {
+  display: flex;
+  justify-content: center;
+
+  .van-button {
+    margin: 30px 10px;
+  }
 }
 
 .task-content {

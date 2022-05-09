@@ -1,5 +1,4 @@
 <template>
-  <!-- 顶栏 -->
   <div class="header">
     <router-link :to="{ name: 'My' }" class="header__img" v-if="isLogin">
       <img src="https://zhichao.org/profile.jpg" />
@@ -10,10 +9,9 @@
   </div>
 
   <div class="main-content">
-    <!-- <TaskList :type="0" /> -->
     <div class="task-list">
       <!-- 将各个任务通过props的方式传递给task组件 -->
-      <Task v-for="(item, index) in taskList" :key="item.id" :item="item"></Task>
+      <Task v-for="(item, index) in taskList" :key="item._id" :item="item"></Task>
     </div>
   </div>
 
