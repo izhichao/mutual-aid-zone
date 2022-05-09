@@ -27,9 +27,9 @@ const routes = [
     component: () => import(/* webpackChunkName: "taskDetail */ './views/Task/TaskDetailView.vue')
   },
   {
-    path: '/wallet',
-    name: 'Wallet',
-    component: () => import(/* webpackChunkName: "wallet" */ './views/Wallet/WalletView.vue')
+    path: '/store',
+    name: 'Store',
+    component: () => import(/* webpackChunkName: "store" */ './views/Store/StoreView.vue')
   },
   {
     path: '/my',
