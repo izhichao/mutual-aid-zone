@@ -1,5 +1,5 @@
 <template>
-  <van-nav-bar title="钱包" />
+  <van-nav-bar title="商城" />
   <div class="main-content">
     <Balance />
     <div class="good-list">

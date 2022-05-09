@@ -15,7 +15,7 @@ const props = defineProps({
 const dockerList = [
   { icon: '&#xe600;', text: '互助圈', to: { name: 'Home' } },
   { icon: '&#xe651;', text: '任务', to: { name: 'Task' } },
-  { icon: '&#xe64a;', text: '钱包', to: { name: 'Wallet' } },
+  { icon: '&#xe71e;', text: '商城', to: { name: 'Store' } },
   { icon: '&#xe636;', text: '我的', to: { name: 'My' } }
 ];
 </script>
