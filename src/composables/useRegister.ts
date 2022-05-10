@@ -13,7 +13,7 @@ export const useRegister = () => {
     passwordAgain: ''
   });
 
-  const usernameRules = [{ pattern: /^[a-zA-Z0-9_!]{4,12}$/, message: '用户名长度为4-12位' }];
+  const usernameRules = [{ pattern: /^[a-zA-Z0-9_!]{2,12}$/, message: '用户名长度为2-12位' }];
 
   const phoneRules = [{ pattern: /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/, message: '请输入正确的手机号' }];
 
