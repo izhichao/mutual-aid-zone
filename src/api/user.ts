@@ -15,3 +15,7 @@ export const register = (username: string, phone: string, email: string, passwor
     password
   });
 };
+
+export const getDetail = () => {
+  return instance.get('/api/user/detail');
+}

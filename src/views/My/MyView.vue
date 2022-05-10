@@ -4,10 +4,10 @@
 
     <div class="content">
       <div class="content__img">
-        <van-image fit="cover" round src="https://zhichao.org/profile.jpg" />
+        <van-image fit="cover" round :src="userDetail.avatar" />
       </div>
-      <div class="content__name">只抄</div>
-      <div class="content__id">手机号: 1069643013</div>
+      <div class="content__name">{{ userDetail.username }}</div>
+      <div class="content__id">手机号: {{ userDetail.phone }}</div>
 
       <div class="content__select">
         <div class="content__select__item" v-for="(item, index) in selectList" :key="item.text" @click="handleEnter(index)">
@@ -23,9 +23,9 @@
   <van-overlay :show="show" @click="show = false">
     <van-form @click.stop>
       <van-cell-group inset>
-        <van-field type="password" label="原密码" placeholder="请输入您的密码" />
-        <van-field type="password" label="新密码" placeholder="请输入您的密码" />
-        <van-field type="password" label="确认密码" placeholder="请再次输入您的密码" />
+        <van-field type="password" label="原密码" placeholder="请输入您的密码" autocomplete="off" />
+        <van-field type="password" label="新密码" placeholder="请输入您的密码" autocomplete="off"/>
+        <van-field type="password" label="确认密码" placeholder="请再次输入您的密码" autocomplete="off"/>
         <van-button type="primary" round block native-type="submit">提交</van-button>
       </van-cell-group>
     </van-form>
@@ -35,10 +35,13 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from '@vue/runtime-dom';
-import { Toast } from 'vant';
+import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { Toast } from 'vant';
+import { useUserDetail } from '../../composables/useUserDetail';
 import Docker from '../../components/Docker.vue';
+const { userDetail } = useUserDetail();
+
 const show = ref(false);
 const selectList = [
   { icon: '&#xe660;', text: '个人信息' },

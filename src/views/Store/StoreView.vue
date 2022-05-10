@@ -3,7 +3,7 @@
   <div class="main-content">
     <Balance />
     <div class="good-list">
-      <Good v-for="(item, index) in goodsList" :key="item.id" :item="item" :balance="balance" @change="getBalance()"></Good>
+      <Good v-for="(item, index) in goodsList" :key="item._id" :item="item"></Good>
     </div>
   </div>
   <Docker :currentIndex="2" />
@@ -11,27 +11,18 @@
 
 <script lang="ts" setup>
 import Balance from './Balance.vue';
-import Docker from '../../components/Docker.vue';
 import Good, { GoodProps } from './Good.vue';
-import { storeToRefs } from 'pinia';
-import { ComponentInternalInstance, getCurrentInstance, ref } from 'vue';
-import { mainStore } from '../../store';
-
-const { proxy } = getCurrentInstance() as ComponentInternalInstance;
-const goodsList = ref<GoodProps[]>([]);
-const store = mainStore();
-const { balance } = storeToRefs(store);
-const { getBalance } = store;
+import Docker from '../../components/Docker.vue';
+import { getGoods } from '../../api/store';
+import { ref } from 'vue';
 
 // 获取商品列表
-const getGoodsList = () => {
-  proxy?.$http
-    .get('/goodAdd', {
-      headers: { token: localStorage.getItem('token') }
-    })
-    .then((res) => (goodsList.value = res.data));
+const goodsList = ref<GoodProps[]>([]);
+const handleGoods = async () => {
+  const { data: res } = await getGoods();
+  goodsList.value = res.data;
 };
-getGoodsList();
+handleGoods();
 </script>
 
 <style lang="less" scoped>

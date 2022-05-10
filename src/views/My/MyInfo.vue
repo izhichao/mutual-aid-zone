@@ -3,16 +3,16 @@
   <div class="main-content">
     <van-form>
       <van-cell-group inset>
-        <div class="img">
-          <van-image fit="cover" round src="https://cdn.jsdelivr.net/npm/@vant/assets/cat.jpeg" />
+        <div class="avatar">
+          <van-image fit="cover" round :src="userDetail.avatar" />
         </div>
-        <van-field type="text" label="用户名" placeholder="请输入您的用户名" />
-        <van-field type="tel" label="手机号" placeholder="请输入您的手机号" />
-        <van-field type="email" label="邮箱" placeholder="请输入您的邮箱" />
-        <van-field rows="3" autosize label="收货地址" type="textarea" maxlength="45" placeholder="请输入收货地址"/>
+        <van-field type="text" label="用户名" placeholder="请输入您的用户名" v-model="userDetail.username" />
+        <van-field type="tel" label="手机号" placeholder="请输入您的手机号" v-model="userDetail.phone" />
+        <van-field type="email" label="邮箱" placeholder="请输入您的邮箱" v-model="userDetail.email" />
+        <van-field rows="3" autosize label="收货地址" type="textarea" maxlength="45" placeholder="请输入收货地址" v-model="userDetail.address" />
         <van-field name="uploader" label="头像">
           <template #input>
-            <van-uploader />
+            <van-uploader v-model="userDetail.avatarFile" />
           </template>
         </van-field>
       </van-cell-group>
@@ -23,7 +23,9 @@
 </template>
 
 <script lang="ts" setup>
+import { useUserDetail } from '../../composables/useUserDetail';
 const handleBack = () => history.back();
+const { userDetail } = useUserDetail();
 </script>
 
 <style lang="less" scoped>
@@ -41,7 +43,7 @@ const handleBack = () => history.back();
   padding-bottom: 10px;
   .shadow;
 }
-.img {
+.avatar {
   text-align: center;
   padding: 20px 0;
   .van-image {

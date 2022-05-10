@@ -1,6 +1,6 @@
 <template>
   <div class="good">
-    <img :src="item.img_url" alt="" />
+    <img :src="item.img" alt="" />
     <div class="good__introduce">
       <h2>{{ item.name }}</h2>
       <span class="good__introduce__price">&yen; {{ item.price }}</span>
@@ -12,15 +12,14 @@
 <script lang="ts" setup>
 import { getCurrentInstance, ComponentInternalInstance, PropType } from 'vue';
 import { Toast } from 'vant';
+import { useBalance } from '../../composables/useBalance';
 
 // 声明Good接口，并导出给StoreView使用
 export interface GoodProps {
-  id: number;
+  _id: string;
   name: string;
   price: number;
-  img_url: string;
-  createdAt: string;
-  updatedAt: string;
+  img: string;
 }
 
 const props = defineProps({
@@ -28,18 +27,16 @@ const props = defineProps({
     type: Object as PropType<GoodProps>,
     default: () => {},
     required: true
-  },
-  balance: {
-    type: Number,
-    required: true
   }
 });
+
+const { balance } = useBalance();
 
 const emits = defineEmits(['change']);
 const { proxy } = getCurrentInstance() as ComponentInternalInstance;
 const exchange = () => {
   // 判断余额是否足够
-  if (props.balance <= props.item.price) {
+  if (balance.value <= props.item.price) {
     Toast('余额不足,请充值！');
     return;
   }
