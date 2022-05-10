@@ -5,14 +5,15 @@
       <h2>{{ item.name }}</h2>
       <span class="good__introduce__price">&yen; {{ item.price }}</span>
     </div>
-    <van-button type="primary" round class="good__exchange" @click="exchange">兑 换</van-button>
+    <van-button type="primary" round class="good__exchange" @click="handleExchange(item._id)">兑 换</van-button>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { getCurrentInstance, ComponentInternalInstance, PropType } from 'vue';
+import { PropType } from 'vue';
 import { Toast } from 'vant';
 import { useBalance } from '../../composables/useBalance';
+import { exchange, getBalance } from '../../api/store';
 
 // 声明Good接口，并导出给StoreView使用
 export interface GoodProps {
@@ -32,25 +33,17 @@ const props = defineProps({
 
 const { balance } = useBalance();
 
-const emits = defineEmits(['change']);
-const { proxy } = getCurrentInstance() as ComponentInternalInstance;
-const exchange = () => {
-  // 判断余额是否足够
+const handleExchange = async (_id: string) => {
   if (balance.value <= props.item.price) {
     Toast('余额不足,请充值！');
     return;
   }
-  // 发送请求进行兑换
-  proxy?.$http
-    .get('/storeExchange', {
-      params: { price: props.item.price },
-      headers: { token: localStorage.getItem('token') }
-    })
-    .then(() => {
+
+  const { data: res } = await exchange(_id);
+  if (res.errno === 0) {
       Toast('兑换成功');
-      // 兑换成功后使用自定义事件通知父组件
-      emits('change');
-    });
+      getBalance();
+  }
 };
 </script>
 
