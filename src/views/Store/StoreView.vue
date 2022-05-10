@@ -3,7 +3,7 @@
   <div class="main-content">
     <Balance />
     <div class="good-list">
-      <Good v-for="(item, index) in goodsList" :key="item._id" :item="item"></Good>
+      <Good v-for="item in goodsList" :key="item._id" :item="item"></Good>
     </div>
   </div>
   <Docker :currentIndex="2" />

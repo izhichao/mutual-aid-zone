@@ -26,5 +26,5 @@ export const useBalance = () => {
     }
   };
 
-  return { balance, rechargeNum, handleRecharge };
+  return { balance, rechargeNum, handleBalance, handleRecharge };
 };
