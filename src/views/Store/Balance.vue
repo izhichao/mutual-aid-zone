@@ -11,45 +11,22 @@
 
     <div class="wallet__charge">
       <h2>充值金额(元)</h2>
-      <input type="number" v-model="chargeNum" @keyup.enter="handleCharge" />
+      <input type="number" v-model="rechargeNum" @keyup.enter="handleRecharge" />
       <ul>
-        <li @click="chargeNum = 10">充10元</li>
-        <li @click="chargeNum = 20">充20元</li>
-        <li @click="chargeNum = 50">充50元</li>
-        <li @click="chargeNum = 100">充100元</li>
+        <li @click="rechargeNum = 10">充10元</li>
+        <li @click="rechargeNum = 20">充20元</li>
+        <li @click="rechargeNum = 50">充50元</li>
+        <li @click="rechargeNum = 100">充100元</li>
       </ul>
-      <van-button type="primary" round class="wallet__charge__btn" @click="handleCharge">充 值</van-button>
+      <van-button type="primary" round class="wallet__charge__btn" @click="handleRecharge">充 值</van-button>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ComponentInternalInstance, getCurrentInstance, ref } from 'vue';
-import { Toast } from 'vant';
-import { getBalance } from '../../api/store';
+import { useBalance } from '../../composables/useBalance';
 
-const { proxy } = getCurrentInstance() as ComponentInternalInstance;
-
-const balance = ref(0);
-const useBalance = async () => {
-  const { data: res } = await getBalance();
-  balance.value = res.data.balance;
-};
-
-useBalance();
-
-// 充值功能
-// const { balance } = storeToRefs(store);
-const chargeNum = ref<number>();
-const handleCharge = () => {
-  proxy?.$http.post('/store', { charge: chargeNum.value }, { headers: { token: localStorage.getItem('token') } }).then((res) => {
-    Toast('充值成功');
-    // 将新的余额赋值给balance
-    balance.value = res.data.balance;
-  });
-  // 将输入框中的内容清空
-  chargeNum.value = undefined;
-};
+const { balance, rechargeNum, handleRecharge } = useBalance();
 </script>
 
 <style lang="less" scoped>
