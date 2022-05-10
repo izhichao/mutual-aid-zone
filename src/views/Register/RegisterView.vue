@@ -56,7 +56,7 @@
 </template>
 
 <script lang="ts" setup>
-import { useRegister } from '../../hooks/useRegister';
+import { useRegister } from '../../composables/useRegister';
 const { username, phone, email, password, passwordAgain, usernameRules, phoneRules, emailRules, passwordRules, passwordAgainRules, handleRegister } =
   useRegister();
 </script>

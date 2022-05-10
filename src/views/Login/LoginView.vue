@@ -33,7 +33,7 @@
 </template>
 
 <script lang="ts" setup>
-import { useLogin } from '../../hooks/useLogin';
+import { useLogin } from '../../composables/useLogin';
 const { username, password, usernameRules, passwordRules, handleLogin } = useLogin();
 </script>
 
