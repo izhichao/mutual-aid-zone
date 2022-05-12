@@ -31,12 +31,12 @@ import { getTasks } from '../../api/task';
 // 获取所有任务
 const taskList = ref<TaskProps[]>([]);
 
-const useTaskList = async () => {
+const handleTaskList = async () => {
   const { data: res } = await getTasks();
   taskList.value = res.data;
 };
 
-useTaskList();
+handleTaskList();
 
 // 顶栏头像(登录/未登录)
 const isLogin = ref(false);
