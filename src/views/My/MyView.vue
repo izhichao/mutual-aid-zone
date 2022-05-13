@@ -21,11 +21,18 @@
   </div>
 
   <van-overlay :show="show" @click="show = false">
-    <van-form @click.stop>
+    <van-form @click.stop @submit="handlePassword" validate-trigger="onSubmit">
       <van-cell-group inset>
-        <van-field type="password" label="原密码" placeholder="请输入您的密码" autocomplete="off" />
-        <van-field type="password" label="新密码" placeholder="请输入您的密码" autocomplete="off"/>
-        <van-field type="password" label="确认密码" placeholder="请再次输入您的密码" autocomplete="off"/>
+        <van-field v-model="oldPassword" :rules="passwordRules" type="password" label="原密码" placeholder="请输入您的密码" autocomplete="true" />
+        <van-field v-model="password" :rules="passwordRules" type="password" label="新密码" placeholder="请输入您的密码" autocomplete="true" />
+        <van-field
+          v-model="passwordAgain"
+          :rules="passwordAgainRules"
+          type="password"
+          label="确认密码"
+          placeholder="请再次输入您的密码"
+          autocomplete="true"
+        />
         <van-button type="primary" round block native-type="submit">提交</van-button>
       </van-cell-group>
     </van-form>
@@ -40,7 +47,10 @@ import { useRouter } from 'vue-router';
 import { Toast } from 'vant';
 import { useUserDetail } from '../../composables/useUserDetail';
 import Docker from '../../components/Docker.vue';
+import { usePassword } from '../../composables/usePassword';
+
 const { userDetail } = useUserDetail();
+const { oldPassword, password, passwordAgain, passwordRules, passwordAgainRules, handlePassword } = usePassword();
 
 const show = ref(false);
 const selectList = [
