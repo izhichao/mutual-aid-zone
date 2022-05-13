@@ -16,14 +16,14 @@
 import { ref, watch } from 'vue';
 import Task, { TaskProps } from '../../components/Task.vue';
 import Docker from '../../components/Docker.vue';
-import { getAcceptTasks, getDispatchTasks } from '../../api/task';
+import { getAcceptTasks, getPublishTasks } from '../../api/task';
 
 const useTaskList = () => {
   const taskList = ref<TaskProps[]>([]);
   const active = ref(0);
   const handleTaskList = async (active: number) => {
     if (active === 0) {
-      const { data: res } = await getDispatchTasks();
+      const { data: res } = await getPublishTasks();
       taskList.value = res.data;
     } else {
       const { data: res } = await getAcceptTasks();

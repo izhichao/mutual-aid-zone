@@ -1,4 +1,4 @@
-import { reactive, toRefs } from 'vue';
+import { reactive } from 'vue';
 import { useRouter } from 'vue-router';
 import { Toast } from 'vant';
 import { register } from '../api/user';
@@ -45,14 +45,8 @@ export const useRegister = () => {
     }
   };
 
-  const { username, phone, email, password, passwordAgain } = toRefs(registerModel);
-
   return {
-    username,
-    phone,
-    email,
-    password,
-    passwordAgain,
+    registerModel,
     usernameRules,
     phoneRules,
     emailRules,

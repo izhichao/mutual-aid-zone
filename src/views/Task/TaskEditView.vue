@@ -1,14 +1,23 @@
 <template>
-  <van-nav-bar :title="title" left-text="返回" left-arrow @click-left="handleBack" />
+  <van-nav-bar title="编辑任务" left-text="返回" left-arrow @click-left="handleBack" />
   <div class="main-content">
     <van-form>
       <van-cell-group inset>
-        <van-field name="标题" label="标题" placeholder="请输入标题" />
-        <van-field name="价格" label="价格" placeholder="请输入价格" />
-        <van-field rows="3" autosize label="描述" type="textarea" maxlength="70" placeholder="请输入描述" show-word-limit />
+        <van-field v-model="taskModel.title" label="标题" placeholder="请输入标题" />
+        <van-field v-model="taskModel.price" label="价格" placeholder="请输入价格" />
+        <van-field
+          v-model="taskModel.content"
+          rows="3"
+          autosize
+          label="描述"
+          type="textarea"
+          maxlength="70"
+          placeholder="请输入描述"
+          show-word-limit
+        />
         <van-field name="uploader" label="图片上传">
           <template #input>
-            <van-uploader />
+            <van-uploader v-model="taskModel.images" />
           </template>
         </van-field>
       </van-cell-group>
@@ -19,10 +28,23 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
-
+import { UploaderFileListItem } from 'vant';
+import { reactive } from 'vue';
 const handleBack = () => history.back();
-const title = ref('编辑任务')
+
+interface Task {
+  title: string;
+  price: number;
+  content: string;
+  images: UploaderFileListItem[];
+}
+
+const taskModel = reactive<Task>({
+  title: '',
+  price: null,
+  content: '',
+  images: []
+});
 </script>
 
 <style lang="less" scoped>

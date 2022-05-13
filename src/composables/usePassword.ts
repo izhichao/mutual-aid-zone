@@ -1,4 +1,4 @@
-import { reactive, toRefs } from "vue";
+import { reactive } from "vue";
 import { changePassword } from "../api/user";
 import { Toast } from 'vant';
 
@@ -23,12 +23,8 @@ export const usePassword = () => {
     Toast.success(res.msg);
   };
 
-  const { oldPassword, password, passwordAgain } = toRefs(passwordModel);
-
   return {
-    oldPassword,
-    password,
-    passwordAgain,
+    passwordModel,
     passwordRules,
     passwordAgainRules,
     handlePassword
