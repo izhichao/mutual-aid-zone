@@ -23,10 +23,24 @@
   <van-overlay :show="show" @click="show = false">
     <van-form @click.stop @submit="handlePassword" validate-trigger="onSubmit">
       <van-cell-group inset>
-        <van-field v-model="oldPassword" :rules="passwordRules" type="password" label="原密码" placeholder="请输入您的密码" autocomplete="true" />
-        <van-field v-model="password" :rules="passwordRules" type="password" label="新密码" placeholder="请输入您的密码" autocomplete="true" />
         <van-field
-          v-model="passwordAgain"
+          v-model="passwordModel.oldPassword"
+          :rules="passwordRules"
+          type="password"
+          label="原密码"
+          placeholder="请输入您的密码"
+          autocomplete="true"
+        />
+        <van-field
+          v-model="passwordModel.password"
+          :rules="passwordRules"
+          type="password"
+          label="新密码"
+          placeholder="请输入您的密码"
+          autocomplete="true"
+        />
+        <van-field
+          v-model="passwordModel.passwordAgain"
           :rules="passwordAgainRules"
           type="password"
           label="确认密码"
@@ -50,7 +64,7 @@ import Docker from '../../components/Docker.vue';
 import { usePassword } from '../../composables/usePassword';
 
 const { userDetail } = useUserDetail();
-const { oldPassword, password, passwordAgain, passwordRules, passwordAgainRules, handlePassword } = usePassword();
+const { passwordModel, passwordRules, passwordAgainRules, handlePassword } = usePassword();
 
 const show = ref(false);
 const selectList = [

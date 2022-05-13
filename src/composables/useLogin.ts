@@ -1,4 +1,4 @@
-import { reactive, toRefs } from 'vue';
+import { reactive } from 'vue';
 import { useRouter } from 'vue-router';
 import { Toast } from 'vant';
 import { login } from '../api/user';
@@ -38,7 +38,5 @@ export const useLogin = () => {
     }
   };
 
-  const { username, password } = toRefs(loginModel);
-
-  return { username, password, usernameRules, passwordRules, handleLogin, user };
+  return { loginModel, usernameRules, passwordRules, handleLogin, user };
 };

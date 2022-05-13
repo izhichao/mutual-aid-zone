@@ -20,21 +20,21 @@
       </van-steps>
     </div>
 
-    <!-- <van-button round block type="primary">接 受</van-button> -->
-    <!-- <div class="btns">
-      <van-button round block type="danger">删 除</van-button>
-      <van-button round block type="primary">编 辑</van-button>
-    </div> -->
-    <div class="btns">
-      <van-button round block type="warning">放 弃</van-button>
-      <van-button round block type="primary">完 成</van-button>
+    <div class="btns" v-if="btnStatus.publish">
+      <van-button round block type="danger" @click="handleDelete">删 除</van-button>
+      <van-button round block type="primary" @click="handleEdit">编 辑</van-button>
     </div>
+    <div class="btns" v-if="btnStatus.accept">
+      <van-button round block type="warning" @click="handleUnaccept">放 弃</van-button>
+      <van-button round block type="primary" @click="handleFinish">完 成</van-button>
+    </div>
+    <van-button round block type="primary" v-if="btnStatus.unaccept" @click="handleAccept">接 受</van-button>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { ImagePreview } from 'vant';
-import { ref } from 'vue';
+import { reactive, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { getDetail } from '../../api/task';
 import { formatTime } from '../../utils/formatTime';
@@ -42,6 +42,7 @@ const route = useRoute();
 const handleBack = () => history.back();
 
 const taskItem = ref({
+  _id: '',
   title: '',
   content: '',
   price: 0,
@@ -52,12 +53,66 @@ const taskItem = ref({
   created: ''
 });
 
-const useDetail = async () => {
+const btnStatus = reactive({
+  publish: false,
+  unaccept: false,
+  accept: false
+});
+
+const userId = '123456';
+
+const handleDetail = async () => {
   const { data: res } = await getDetail(route.params.id as string);
   res.data.created = formatTime(res.data.created);
   taskItem.value = res.data;
+
+  if (res.data.status === 2) {
+    return;
+  }
+
+  if (res.data.setter === userId) {
+    // 任务发布者
+    btnStatus.publish = true;
+  } else if (res.data.getter === userId) {
+    // 任务接收者
+    btnStatus.accept = true;
+  } else if (res.data.status !== 1) {
+    // 任务未接单时，路人浏览
+    btnStatus.unaccept = true;
+  }
 };
-useDetail();
+handleDetail();
+
+const useTaskButton = () => {
+  const handleDelete = () => {
+    // console.log('删除');
+    console.log(taskItem.value._id);
+  };
+  const handleEdit = () => {
+    console.log('编辑');
+  };
+  const handleUnaccept = () => {
+    console.log('放弃');
+  };
+  const handleFinish = () => {
+    console.log('完成');
+  };
+  const handleAccept = () => {
+    console.log('接受');
+  };
+
+  return {
+    handleDelete,
+    handleEdit,
+    handleUnaccept,
+    handleFinish,
+    handleAccept
+  };
+};
+
+const { handleDelete, handleEdit, handleUnaccept, handleFinish, handleAccept } = useTaskButton();
+
+// 图片放大功能
 const handleImagePreview = (pos: number) => {
   ImagePreview({
     images: taskItem.value.imgs,

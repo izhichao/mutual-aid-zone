@@ -6,8 +6,8 @@ export const getTasks = () => {
 };
 
 /** 获取我发布的 */
-export const getDispatchTasks = () => {
-  return instance.get('/api/task/dispatch');
+export const getPublishTasks = () => {
+  return instance.get('/api/task/publish');
 };
 
 /** 获取我接受的 */

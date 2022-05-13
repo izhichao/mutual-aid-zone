@@ -4,7 +4,7 @@
     <van-form @submit="handleRegister" validate-trigger="onSubmit">
       <van-cell-group inset>
         <van-field
-          v-model="username"
+          v-model="registerModel.username"
           type="text"
           label="用户名"
           :rules="usernameRules"
@@ -13,7 +13,7 @@
           @keyup.enter="handleRegister"
         />
         <van-field
-          v-model="phone"
+          v-model="registerModel.phone"
           type="tel"
           label="手机号"
           :rules="phoneRules"
@@ -22,7 +22,7 @@
           @keyup.enter="handleRegister"
         />
         <van-field
-          v-model="email"
+          v-model="registerModel.email"
           type="text"
           label="邮箱"
           :rules="emailRules"
@@ -31,7 +31,7 @@
           @keyup.enter="handleRegister"
         />
         <van-field
-          v-model="password"
+          v-model="registerModel.password"
           type="password"
           label="密码"
           :rules="passwordRules"
@@ -40,7 +40,7 @@
           @keyup.enter="handleRegister"
         />
         <van-field
-          v-model="passwordAgain"
+          v-model="registerModel.passwordAgain"
           type="password"
           label="确认密码"
           :rules="passwordAgainRules"
@@ -57,8 +57,7 @@
 
 <script lang="ts" setup>
 import { useRegister } from '../../composables/useRegister';
-const { username, phone, email, password, passwordAgain, usernameRules, phoneRules, emailRules, passwordRules, passwordAgainRules, handleRegister } =
-  useRegister();
+const { registerModel, usernameRules, phoneRules, emailRules, passwordRules, passwordAgainRules, handleRegister } = useRegister();
 </script>
 
 <style lang="less" scoped>
