@@ -1,18 +1,18 @@
 <template>
   <van-nav-bar title="修改信息" left-text="返回" left-arrow @click-left="handleBack" />
   <div class="main-content">
-    <van-form>
+    <van-form @submit="handleEdit" validate-trigger="onSubmit">
       <van-cell-group inset>
         <div class="avatar">
-          <van-image fit="cover" round :src="userDetail.avatar" />
+          <van-image fit="cover" round :src="userModel.avatar" />
         </div>
-        <van-field type="text" label="用户名" placeholder="请输入您的用户名" v-model="userDetail.username" />
-        <van-field type="tel" label="手机号" placeholder="请输入您的手机号" v-model="userDetail.phone" />
-        <van-field type="email" label="邮箱" placeholder="请输入您的邮箱" v-model="userDetail.email" />
-        <van-field rows="3" autosize label="收货地址" type="textarea" maxlength="45" placeholder="请输入收货地址" v-model="userDetail.address" />
+        <van-field v-model="userModel.username" :rules="usernameRules" type="text" label="用户名" placeholder="请输入您的用户名" />
+        <van-field v-model="userModel.phone" :rules="phoneRules" type="tel" label="手机号" placeholder="请输入您的手机号" />
+        <van-field v-model="userModel.email" :rules="emailRules" type="email" label="邮箱" placeholder="请输入您的邮箱" />
+        <van-field v-model="userModel.address" rows="3" autosize label="收货地址" type="textarea" maxlength="45" placeholder="请输入收货地址" />
         <van-field name="uploader" label="头像">
           <template #input>
-            <van-uploader v-model="userDetail.avatarFile" />
+            <van-uploader v-model="userModel.avatarFile" />
           </template>
         </van-field>
       </van-cell-group>
@@ -23,9 +23,10 @@
 </template>
 
 <script lang="ts" setup>
-import { useUserDetail } from '../../composables/useUserDetail';
+import { useUser } from '../../composables/useUser';
 const handleBack = () => history.back();
-const { userDetail } = useUserDetail();
+const { userModel, usernameRules, phoneRules, emailRules, handleEdit, handleDetail } = useUser();
+handleDetail();
 </script>
 
 <style lang="less" scoped>

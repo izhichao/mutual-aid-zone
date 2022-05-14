@@ -45,3 +45,12 @@ export const changePassword = (password: string) => {
     password
   });
 };
+
+/**
+ * 修改用户信息
+ * @param formData 用户信息
+ * @returns 
+ */
+export const editUser = (formData: FormData) => {
+  return instance.post('/api/user/edit', formData);
+};
