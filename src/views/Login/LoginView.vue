@@ -4,7 +4,7 @@
     <van-form @submit="handleLogin" validate-trigger="onSubmit">
       <van-cell-group inset>
         <van-field
-          v-model="loginModel.username"
+          v-model="userModel.username"
           type="text"
           label="用户名"
           :rules="usernameRules"
@@ -13,7 +13,7 @@
           @keyup.enter="handleLogin"
         />
         <van-field
-          v-model="loginModel.password"
+          v-model="userModel.password"
           type="password"
           label="密码"
           :rules="passwordRules"
@@ -33,8 +33,8 @@
 </template>
 
 <script lang="ts" setup>
-import { useLogin } from '../../composables/useLogin';
-const { loginModel, usernameRules, passwordRules, handleLogin } = useLogin();
+import { useUser } from '../../composables/useUser';
+const { userModel, usernameRules, passwordRules, handleLogin } = useUser();
 </script>
 
 <style lang="less" scoped>

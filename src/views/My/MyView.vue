@@ -4,10 +4,10 @@
 
     <div class="content">
       <div class="content__img">
-        <van-image fit="cover" round :src="userDetail.avatar" />
+        <van-image fit="cover" round :src="userModel.avatar" />
       </div>
-      <div class="content__name">{{ userDetail.username }}</div>
-      <div class="content__id">手机号: {{ userDetail.phone }}</div>
+      <div class="content__name">{{ userModel.username }}</div>
+      <div class="content__id">手机号: {{ userModel.phone }}</div>
 
       <div class="content__select">
         <div class="content__select__item" v-for="(item, index) in selectList" :key="item.text" @click="handleEnter(index)">
@@ -24,7 +24,7 @@
     <van-form @click.stop @submit="handlePassword" validate-trigger="onSubmit">
       <van-cell-group inset>
         <van-field
-          v-model="passwordModel.oldPassword"
+          v-model="userModel.oldPassword"
           :rules="passwordRules"
           type="password"
           label="原密码"
@@ -32,7 +32,7 @@
           autocomplete="true"
         />
         <van-field
-          v-model="passwordModel.password"
+          v-model="userModel.password"
           :rules="passwordRules"
           type="password"
           label="新密码"
@@ -40,7 +40,7 @@
           autocomplete="true"
         />
         <van-field
-          v-model="passwordModel.passwordAgain"
+          v-model="userModel.passwordAgain"
           :rules="passwordAgainRules"
           type="password"
           label="确认密码"
@@ -60,8 +60,7 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { Toast } from 'vant';
 import Docker from '../../components/Docker.vue';
-import { usePassword } from '../../composables/usePassword';
-import { getUserDetail } from '../../api/user';
+import { useUser } from '../../composables/useUser';
 
 const router = useRouter();
 const show = ref(false);
@@ -70,26 +69,6 @@ const selectList = [
   { icon: '&#xe628;', text: '修改密码' },
   { icon: '&#xe605;', text: '联系客服' }
 ];
-
-// 获取用户信息
-const useUserDetail = () => {
-  const userDetail = ref({
-    username: '',
-    phone: '',
-    email: '',
-    address: '',
-    avatar: '',
-    avatarFile: []
-  });
-
-  const handleDetail = async () => {
-    const { data: res } = await getUserDetail();
-    userDetail.value = res.data;
-  };
-  handleDetail();
-
-  return { userDetail };
-};
 
 const handleEnter = (index: number) => {
   switch (index) {
@@ -111,8 +90,8 @@ const handleLogout = () => {
   router.push({ name: 'Home' });
 };
 
-const { userDetail } = useUserDetail();
-const { passwordModel, passwordRules, passwordAgainRules, handlePassword } = usePassword();
+const { userModel, passwordRules, passwordAgainRules, handlePassword, handleDetail } = useUser();
+handleDetail();
 </script>
 
 <style lang="less" scoped>

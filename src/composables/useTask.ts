@@ -50,7 +50,7 @@ export const useTask = () => {
     // 格式化时间
     res.data.created = formatTime(res.data.created);
     taskModel.value = res.data;
-    taskModel.value = { ...taskModel.value, files: [] };
+    // taskModel.value.files = [];
     return taskModel;
   };
 
@@ -77,7 +77,7 @@ export const useTask = () => {
     formData.append('title', taskModel.value.title);
     formData.append('price', taskModel.value.price.toString());
     formData.append('content', taskModel.value.content);
-    taskModel.value.files.forEach((item) => {
+    taskModel.value.files && taskModel.value.files.forEach((item) => {
       formData.append('files', item.file);
     });
 
