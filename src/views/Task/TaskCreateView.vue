@@ -1,12 +1,13 @@
 <template>
   <van-nav-bar title="发布任务" left-text="返回" left-arrow @click-left="handleBack" />
   <div class="main-content">
-    <van-form @submit="handleSubmit('create')">
+    <van-form @submit="handleSubmit('create')" validate-trigger="onSubmit">
       <van-cell-group inset>
-        <van-field v-model="taskModel.title" label="标题" placeholder="请输入标题" />
-        <van-field v-model="taskModel.price" label="价格" placeholder="请输入价格" />
+        <van-field v-model="taskModel.title" label="标题" placeholder="请输入标题" :rules="rules" />
+        <van-field v-model="taskModel.price" type="number" label="价格" placeholder="请输入价格" :rules="rules" />
         <van-field
           v-model="taskModel.content"
+          :rules="rules"
           rows="3"
           autosize
           label="描述"
@@ -29,7 +30,7 @@
 <script lang="ts" setup>
 import { useTask } from '../../composables/useTask';
 const handleBack = () => history.back();
-const { taskModel, handleSubmit } = useTask();
+const { rules, taskModel, handleSubmit } = useTask();
 </script>
 
 <style lang="less" scoped>

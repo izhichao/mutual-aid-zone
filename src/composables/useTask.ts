@@ -7,6 +7,8 @@ export const useTask = () => {
   const route = useRoute();
   const router = useRouter();
 
+  const rules = [{ required: true, message: '请填写完整' }];
+
   interface Task {
     _id?: string;
     title: string;
@@ -45,8 +47,10 @@ export const useTask = () => {
   /** 根据id获取任务详情 */
   const handleDetail = async () => {
     const { data: res } = await getTaskDetail(route.params.id as string);
+    // 格式化时间
     res.data.created = formatTime(res.data.created);
     taskModel.value = res.data;
+    taskModel.value = { ...taskModel.value, files: [] };
     return taskModel;
   };
 
@@ -73,7 +77,7 @@ export const useTask = () => {
     formData.append('title', taskModel.value.title);
     formData.append('price', taskModel.value.price.toString());
     formData.append('content', taskModel.value.content);
-    taskModel.value.files.forEach((item) => {      
+    taskModel.value.files.forEach((item) => {
       formData.append('files', item.file);
     });
 
@@ -101,6 +105,7 @@ export const useTask = () => {
   };
 
   return {
+    rules,
     taskModel,
     btnStatus,
     handleSubmit,
