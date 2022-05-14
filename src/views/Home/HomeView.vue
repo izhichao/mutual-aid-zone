@@ -16,7 +16,7 @@
   </div>
 
   <!-- 底栏 -->
-  <router-link :to="{ name: 'Add' }">
+  <router-link :to="{ name: 'Create' }">
     <van-button round icon="plus" type="primary" class="addBtn"></van-button>
   </router-link>
   <Docker :currentIndex="0" />

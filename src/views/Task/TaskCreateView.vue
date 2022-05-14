@@ -1,23 +1,23 @@
 <template>
   <van-nav-bar title="发布任务" left-text="返回" left-arrow @click-left="handleBack" />
   <div class="main-content">
-    <van-form @submit="handleSubmit">
+    <van-form @submit="handleSubmit('create')">
       <van-cell-group inset>
-        <van-field label="标题" placeholder="请输入标题" v-model="taskModel.title" />
-        <van-field label="价格" placeholder="请输入价格" v-model="taskModel.price" />
+        <van-field v-model="taskModel.title" label="标题" placeholder="请输入标题" />
+        <van-field v-model="taskModel.price" label="价格" placeholder="请输入价格" />
         <van-field
+          v-model="taskModel.content"
           rows="3"
           autosize
           label="描述"
           type="textarea"
           maxlength="70"
           placeholder="请输入描述"
-          v-model="taskModel.content"
           show-word-limit
         />
         <van-field name="uploader" label="图片上传">
           <template #input>
-            <van-uploader :max-count="6" v-model="taskModel.images" />
+            <van-uploader :max-count="6" v-model="taskModel.files" />
           </template>
         </van-field>
       </van-cell-group>
@@ -27,27 +27,9 @@
 </template>
 
 <script lang="ts" setup>
-import { UploaderFileListItem } from 'vant/lib/uploader/types';
-import { reactive } from 'vue';
+import { useTask } from '../../composables/useTask';
 const handleBack = () => history.back();
-
-interface Task {
-  title: string;
-  price: number;
-  content: string;
-  images: UploaderFileListItem[];
-}
-
-const taskModel = reactive<Task>({
-  title: '',
-  price: null,
-  content: '',
-  images: []
-});
-
-const handleSubmit = () => {
-
-};
+const { taskModel, handleSubmit } = useTask();
 </script>
 
 <style lang="less" scoped>

@@ -31,7 +31,7 @@ export const register = (username: string, phone: string, email: string, passwor
 };
 
 /** 获取用户详情 */
-export const getDetail = () => {
+export const getUserDetail = () => {
   return instance.get('/api/user/detail');
 };
 

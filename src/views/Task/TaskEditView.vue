@@ -1,7 +1,7 @@
 <template>
   <van-nav-bar title="编辑任务" left-text="返回" left-arrow @click-left="handleBack" />
   <div class="main-content">
-    <van-form>
+    <van-form @submit="handleSubmit('edit')">
       <van-cell-group inset>
         <van-field v-model="taskModel.title" label="标题" placeholder="请输入标题" />
         <van-field v-model="taskModel.price" label="价格" placeholder="请输入价格" />
@@ -17,34 +17,19 @@
         />
         <van-field name="uploader" label="图片上传">
           <template #input>
-            <van-uploader v-model="taskModel.images" />
+            <van-uploader :max-count="6" v-model="taskModel.files" />
           </template>
         </van-field>
       </van-cell-group>
-
       <van-button round block type="primary" native-type="submit">提 交</van-button>
     </van-form>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { UploaderFileListItem } from 'vant';
-import { reactive } from 'vue';
+import { useTask } from '../../composables/useTask';
 const handleBack = () => history.back();
-
-interface Task {
-  title: string;
-  price: number;
-  content: string;
-  images: UploaderFileListItem[];
-}
-
-const taskModel = reactive<Task>({
-  title: '',
-  price: null,
-  content: '',
-  images: []
-});
+const { taskModel, handleSubmit } = useTask();
 </script>
 
 <style lang="less" scoped>
