@@ -59,13 +59,11 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { Toast } from 'vant';
-import { useUserDetail } from '../../composables/useUserDetail';
 import Docker from '../../components/Docker.vue';
 import { usePassword } from '../../composables/usePassword';
+import { getUserDetail } from '../../api/user';
 
-const { userDetail } = useUserDetail();
-const { passwordModel, passwordRules, passwordAgainRules, handlePassword } = usePassword();
-
+const router = useRouter();
 const show = ref(false);
 const selectList = [
   { icon: '&#xe660;', text: '个人信息' },
@@ -73,7 +71,25 @@ const selectList = [
   { icon: '&#xe605;', text: '联系客服' }
 ];
 
-const router = useRouter();
+// 获取用户信息
+const useUserDetail = () => {
+  const userDetail = ref({
+    username: '',
+    phone: '',
+    email: '',
+    address: '',
+    avatar: '',
+    avatarFile: []
+  });
+
+  const handleDetail = async () => {
+    const { data: res } = await getUserDetail();
+    userDetail.value = res.data;
+  };
+  handleDetail();
+
+  return { userDetail };
+};
 
 const handleEnter = (index: number) => {
   switch (index) {
@@ -84,7 +100,7 @@ const handleEnter = (index: number) => {
       show.value = true;
       break;
     case 2:
-      // location.href = 'mailto:43055550@qq.com';
+      location.href = 'mailto:43055550@qq.com';
       break;
   }
 };
@@ -94,6 +110,9 @@ const handleLogout = () => {
   localStorage.removeItem('token');
   router.push({ name: 'Home' });
 };
+
+const { userDetail } = useUserDetail();
+const { passwordModel, passwordRules, passwordAgainRules, handlePassword } = usePassword();
 </script>
 
 <style lang="less" scoped>
