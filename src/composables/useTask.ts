@@ -19,7 +19,7 @@ export const useTask = () => {
     imgs: any[];
     files?: any[];
     status?: number;
-    created?: string;
+    createdAt?: string;
   }
 
   const taskModel = ref<Task>({
@@ -32,7 +32,7 @@ export const useTask = () => {
     imgs: [],
     files: [],
     status: null,
-    created: ''
+    createdAt: ''
   });
 
   const btnStatus = reactive({
@@ -48,7 +48,7 @@ export const useTask = () => {
   const handleDetail = async () => {
     const { data: res } = await getTaskDetail(route.params.id as string);
     // 格式化时间
-    res.data.created = formatTime(res.data.created);
+    res.data.createdAt = formatTime(res.data.createdAt);
     taskModel.value = res.data;
     // taskModel.value.files = [];
     return taskModel;

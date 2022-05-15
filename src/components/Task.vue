@@ -28,8 +28,8 @@ export interface TaskProps {
   setter: string;
   getter: string;
   status: number;
-  created: string;
-  updated: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 const props = defineProps({
@@ -43,7 +43,7 @@ const props = defineProps({
 
 // 格式化时间
 const time = computed(() => {
-  return formatTime(props.item.created);
+  return formatTime(props.item.createdAt);
 });
 
 const statusId: number = props.item.status;
