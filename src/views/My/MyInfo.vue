@@ -12,7 +12,7 @@
         <van-field v-model="userModel.address" rows="3" autosize label="收货地址" type="textarea" maxlength="45" placeholder="请输入收货地址" />
         <van-field name="uploader" label="头像">
           <template #input>
-            <van-uploader v-model="userModel.avatarFile" />
+            <van-uploader :max-count="1" v-model="userModel.avatarFile" />
           </template>
         </van-field>
       </van-cell-group>

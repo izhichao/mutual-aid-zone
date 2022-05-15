@@ -1,13 +1,7 @@
 import { Toast } from 'vant';
-import { reactive, ref } from 'vue';
+import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { changePassword, editUser, getUserDetail, login, register } from '../api/user';
-
-const user = {
-  _id: '',
-  username: '',
-  img: ''
-};
 
 export const useUser = () => {
   const router = useRouter();
@@ -38,16 +32,13 @@ export const useUser = () => {
 
       if (res.errno === 0) {
         Toast('登录成功');
-        user._id = res.data._id;
-        user.username = res.data.username;
-        user.img = res.data.img;
-        localStorage.setItem('token', res.token);
+        localStorage.setItem('token', res.data.token);
         router.push('/');
       } else {
         Toast('登录失败');
       }
     } catch {
-      Toast('网络异常');
+      Toast('接口错误');
     }
   };
 

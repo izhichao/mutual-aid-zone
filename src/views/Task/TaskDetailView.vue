@@ -3,7 +3,7 @@
   <div class="main-content">
     <div class="task-content">
       <h2>{{ taskModel.title }}</h2>
-      <p class="task-content__time">发布时间：{{ taskModel.created }}</p>
+      <p class="task-content__time">发布时间：{{ taskModel.createdAt }}</p>
       <p class="task-content__setter">发布人：{{ taskModel.setter }}</p>
 
       <p class="task-content__detail">{{ taskModel.content }}</p>
