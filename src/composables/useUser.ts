@@ -1,7 +1,7 @@
 import { Toast } from 'vant';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { changePassword, editUser, getUserDetail, login, register } from '../api/user';
+import { changePassword, editUser, getUser, login, register } from '../api/user';
 
 export const useUser = () => {
   const router = useRouter();
@@ -35,10 +35,10 @@ export const useUser = () => {
         localStorage.setItem('token', res.data.token);
         router.push('/');
       } else {
-        Toast('登录失败');
+        Toast(res.msg);
       }
-    } catch {
-      Toast('接口错误');
+    } catch (err) {
+      Toast(err);
     }
   };
 
@@ -50,31 +50,37 @@ export const useUser = () => {
         Toast('注册成功');
         router.push('/login');
       } else {
-        Toast('注册失败');
+        Toast(res.msg);
       }
-    } catch {
-      Toast('网络异常');
+    } catch (err) {
+      Toast(err);
     }
   };
 
   const handlePassword = async () => {
-    const { data: res } = await changePassword(userModel.value.password);
-    Toast.success(res.msg);
+    const { data: res } = await changePassword(userModel.value.oldPassword, userModel.value.password);
+    Toast(res.msg);
   };
 
   const handleDetail = async () => {
-    const { data: res } = await getUserDetail();
-    userModel.value = res.data;
+    try {
+      const { data: res } = await getUser();
+      res.data.password = '';
+      userModel.value = res.data;
+    } catch (err) {
+      Toast(err);
+    }
   };
 
-  const handleEdit = () => {
+  const handleEdit = async () => {
     const formData = new FormData();
     formData.append('username', userModel.value.username);
     formData.append('phone', userModel.value.phone);
     formData.append('email', userModel.value.email);
     userModel.value.address && formData.append('address', userModel.value.address);
-    userModel.value.avatarFile && formData.append('avatar', userModel.value.avatarFile[0].file);
-    editUser(formData);
+    userModel.value.avatarFile && userModel.value.avatarFile.length !== 0 && formData.append('avatar', userModel.value.avatarFile[0].file);
+    const { data: res } = await editUser(formData);
+    Toast(res.msg);
   };
   return {
     userModel,

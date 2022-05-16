@@ -31,17 +31,19 @@ export const register = (username: string, phone: string, email: string, passwor
 };
 
 /** 获取用户详情 */
-export const getUserDetail = () => {
+export const getUser = () => {
   return instance.get('/api/user/detail');
 };
 
 /**
  * 修改密码
+ * @param oldPassword 旧密码
  * @param password 新密码
  * @returns
  */
-export const changePassword = (password: string) => {
+export const changePassword = (oldPassword: string, password: string) => {
   return instance.post('/api/user/password', {
+    oldPassword,
     password
   });
 };
@@ -49,7 +51,7 @@ export const changePassword = (password: string) => {
 /**
  * 修改用户信息
  * @param formData 用户信息
- * @returns 
+ * @returns
  */
 export const editUser = (formData: FormData) => {
   return instance.post('/api/user/edit', formData);

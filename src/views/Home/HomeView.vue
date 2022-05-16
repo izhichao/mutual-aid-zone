@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <router-link :to="{ name: 'My' }" class="header__img" v-if="isLogin">
-      <img src="https://zhichao.org/profile.jpg" />
+      <img :src="userModel.avatar" />
     </router-link>
     <router-link :to="{ name: 'Login' }" class="header__login iconfont" v-else="isLogin">&#xe6de;</router-link>
     <van-search shape="round" placeholder="请输入搜索关键词" />
@@ -27,7 +27,10 @@ import Task, { TaskProps } from '../../components/Task.vue';
 import Docker from '../../components/Docker.vue';
 import { ref } from 'vue';
 import { getTasks } from '../../api/task';
+import { useUser } from '../../composables/useUser';
 
+const { userModel, handleDetail } = useUser();
+handleDetail();
 // 获取所有任务
 const taskList = ref<TaskProps[]>([]);
 
