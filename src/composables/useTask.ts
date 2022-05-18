@@ -17,9 +17,10 @@ export const useTask = () => {
     setter?: string;
     getter?: string;
     imgs: any[];
-    files?: any[];
+    imgFiles?: any[];
     status?: number;
     createdAt?: string;
+    [propName: string]: any;
   }
 
   const taskModel = ref<Task>({
@@ -30,7 +31,7 @@ export const useTask = () => {
     setter: '',
     getter: '',
     imgs: [],
-    files: [],
+    imgFiles: [],
     status: null,
     createdAt: ''
   });
@@ -42,7 +43,7 @@ export const useTask = () => {
   });
 
   // TODO:用户名获取
-  const userId = '123456';
+  const userId = '6281f546321e768efb7b8ae4';
 
   /** 根据id获取任务详情 */
   const handleDetail = async () => {
@@ -50,7 +51,6 @@ export const useTask = () => {
     // 格式化时间
     res.data.createdAt = formatTime(res.data.createdAt);
     taskModel.value = res.data;
-    // taskModel.value.files = [];
     return taskModel;
   };
 
@@ -77,8 +77,8 @@ export const useTask = () => {
     formData.append('title', taskModel.value.title);
     formData.append('price', taskModel.value.price.toString());
     formData.append('content', taskModel.value.content);
-    taskModel.value.files && taskModel.value.files.forEach((item) => {
-      formData.append('files', item.file);
+    taskModel.value.imgFiles && taskModel.value.imgFiles.forEach((item) => {
+      formData.append('imgFiles', item.file);
     });
 
     if (type === 'create') {

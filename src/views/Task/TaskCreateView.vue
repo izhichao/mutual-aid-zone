@@ -18,7 +18,7 @@
         />
         <van-field name="uploader" label="图片上传">
           <template #input>
-            <van-uploader :max-count="6" v-model="taskModel.files" />
+            <van-uploader :max-count="6" v-model="taskModel.imgFiles" />
           </template>
         </van-field>
       </van-cell-group>

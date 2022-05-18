@@ -20,7 +20,7 @@ instance.interceptors.response.use(
     return config;
   },
   (error) => {
-    let message = '';
+    let message = '未知错误，请联系管理员！';
     if (error && error.response) {
       switch (error.response.status) {
         case 302:
@@ -63,7 +63,7 @@ instance.interceptors.response.use(
           message = 'HTTP 版本不受支持！';
           break;
         default:
-          message = '异常问题，请联系管理员！';
+          message = '未知错误，请联系管理员！';
           break;
       }
     }
