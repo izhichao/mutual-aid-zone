@@ -15,8 +15,8 @@ export const getGoods = () => {
  * @param num 充值金额
  * @returns
  */
-export const recharge = (num: number) => {
-  return instance.post('/api/store/charge', { num });
+export const recharge = (amount: number) => {
+  return instance.post('/api/store/recharge', { amount });
 };
 
 /**
