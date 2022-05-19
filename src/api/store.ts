@@ -12,7 +12,7 @@ export const getGoods = () => {
 
 /**
  * 余额充值
- * @param num 充值金额
+ * @param amount 充值金额
  * @returns
  */
 export const recharge = (amount: number) => {

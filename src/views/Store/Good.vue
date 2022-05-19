@@ -31,18 +31,13 @@ const props = defineProps({
   }
 });
 
-const { balance } = useBalance();
+const { handleBalance } = useBalance();
 
 const handleExchange = async (_id: string) => {
-  if (balance.value <= props.item.price) {
-    Toast('余额不足,请充值！');
-    return;
-  }
-
   const { data: res } = await exchange(_id);
   if (res.errno === 0) {
-      Toast('兑换成功');
-      getBalance();
+    Toast(res.msg);
+    handleBalance();
   }
 };
 </script>
