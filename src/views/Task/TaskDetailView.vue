@@ -34,10 +34,17 @@
 
 <script lang="ts" setup>
 import { ImagePreview } from 'vant';
+import { ref } from 'vue';
 import { useTask } from '../../composables/useTask';
 const handleBack = () => history.back();
 const { taskModel, btnStatus, handleDelete, handlePushEdit, handleGiveup, handleFinish, handleAccept } = useTask();
-
+const imgsRows = ref('');
+const imgsLength = taskModel.value.imgs.length;
+if (imgsLength >0 && imgsLength <= 3) {
+  imgsRows.value = '100px';
+} else if (imgsLength > 3) {
+  imgsRows.value = '100px 100px';
+}
 // 图片放大功能
 const handleImagePreview = (pos: number) => {
   ImagePreview({
@@ -104,7 +111,7 @@ const handleImagePreview = (pos: number) => {
   &__imgs {
     display: grid;
     grid-template-columns: 100px 100px 100px;
-    grid-template-rows: 100px 100px;
+    grid-template-rows: v-bind(imgsRows);
     gap: 5px;
     margin-top: 20px;
 
