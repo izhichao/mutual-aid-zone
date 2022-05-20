@@ -11,9 +11,7 @@
 
 <script lang="ts" setup>
 import { PropType } from 'vue';
-import { Toast } from 'vant';
 import { useBalance } from '../../composables/useBalance';
-import { exchange, getBalance } from '../../api/store';
 
 // 声明Good接口，并导出给StoreView使用
 export interface GoodProps {
@@ -23,7 +21,7 @@ export interface GoodProps {
   img: string;
 }
 
-const props = defineProps({
+defineProps({
   item: {
     type: Object as PropType<GoodProps>,
     default: () => {},
@@ -31,15 +29,7 @@ const props = defineProps({
   }
 });
 
-const { handleBalance } = useBalance();
-
-const handleExchange = async (_id: string) => {
-  const { data: res } = await exchange(_id);
-  if (res.errno === 0) {
-    Toast(res.msg);
-    handleBalance();
-  }
-};
+const { handleExchange } = useBalance();
 </script>
 
 <style lang="less" scoped>

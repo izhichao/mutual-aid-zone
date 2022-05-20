@@ -26,7 +26,6 @@
 import { useUser } from '../../composables/useUser';
 const handleBack = () => history.back();
 const { userModel, usernameRules, phoneRules, emailRules, handleEdit, handleDetail } = useUser();
-handleDetail();
 </script>
 
 <style lang="less" scoped>

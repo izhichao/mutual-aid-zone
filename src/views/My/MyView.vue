@@ -58,7 +58,6 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { Toast } from 'vant';
 import Docker from '../../components/Docker.vue';
 import { useUser } from '../../composables/useUser';
 
@@ -84,14 +83,7 @@ const handleEnter = (index: number) => {
   }
 };
 
-const handleLogout = () => {
-  Toast('注销成功');
-  localStorage.removeItem('token');
-  router.push({ name: 'Home' });
-};
-
-const { userModel, passwordRules, passwordAgainRules, handlePassword, handleDetail } = useUser();
-handleDetail();
+const { userModel, passwordRules, passwordAgainRules, handlePassword, handleLogout } = useUser();
 </script>
 
 <style lang="less" scoped>

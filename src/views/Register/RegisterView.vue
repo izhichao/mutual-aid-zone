@@ -58,6 +58,14 @@
 <script lang="ts" setup>
 import { useUser } from '../../composables/useUser';
 const { userModel, usernameRules, phoneRules, emailRules, passwordRules, passwordAgainRules, handleRegister } = useUser();
+// 进入注册页时，重置用户信息
+userModel.value = {
+  username: '',
+  password: '',
+  phone: '',
+  email: '',
+  avatar: ''
+};
 </script>
 
 <style lang="less" scoped>

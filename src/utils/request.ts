@@ -31,6 +31,8 @@ instance.interceptors.response.use(
           break;
         case 401:
           message = '您未登录，请先登录！';
+          localStorage.removeItem('token');
+          localStorage.removeItem('user');
           break;
         case 403:
           message = '您没有权限操作！';

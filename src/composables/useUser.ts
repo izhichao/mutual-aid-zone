@@ -1,12 +1,12 @@
+import { StorageSerializers, useStorage } from '@vueuse/core';
 import { Toast } from 'vant';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { changePassword, editUser, getUser, login, register } from '../api/user';
 
-export const useUser = () => {
-  const router = useRouter();
-
-  const userModel = ref({
+const userModel = useStorage(
+  'user',
+  {
     username: '',
     oldPassword: '',
     password: '',
@@ -16,7 +16,27 @@ export const useUser = () => {
     address: '',
     avatar: '',
     avatarFile: []
-  });
+  },
+  undefined,
+  {
+    serializer: StorageSerializers.object
+  }
+);
+
+export const useUser = () => {
+  const router = useRouter();
+
+  // const userModel = ref({
+  //   username: '',
+  //   oldPassword: '',
+  //   password: '',
+  //   passwordAgain: '',
+  //   phone: '',
+  //   email: '',
+  //   address: '',
+  //   avatar: '',
+  //   avatarFile: []
+  // });
 
   const usernameRules = [{ pattern: /^[a-zA-Z0-9_!]{2,12}$/, message: '用户名长度为2-12位' }];
   const passwordRules = [{ pattern: /^[a-zA-Z0-9_!]{6,16}$/, message: '密码长度为6-16位' }];
@@ -34,6 +54,8 @@ export const useUser = () => {
         Toast('登录成功');
         localStorage.setItem('token', res.data.token);
         router.push('/');
+        // 登录后获取用户信息
+        handleDetail();
       } else {
         Toast(res.msg);
       }
@@ -68,7 +90,7 @@ export const useUser = () => {
       res.data.password = '';
       userModel.value = res.data;
     } catch (err) {
-      Toast(err);
+      console.log(err);
     }
   };
 
@@ -82,7 +104,37 @@ export const useUser = () => {
     const { data: res } = await editUser(formData);
     Toast(res.msg);
   };
+
+  const handleLogout = () => {
+    Toast('注销成功');
+    userModel.value = {
+      username: '',
+      phone: '',
+      avatar: ''
+    };
+    localStorage.removeItem('token');
+    router.push({ name: 'Home' });
+  };
+
+  const handleFirstIn = () => {
+    const token = localStorage.getItem('token');
+
+    // 第一次访问页面时，若token存在，则请求用户信息
+    if (token) {
+      // 若token非法，则移除token
+      try {
+        handleDetail();
+      } catch (error) {
+        userModel.value = {
+          username: '',
+          phone: '',
+          avatar: ''
+        };
+      }
+    }
+  };
   return {
+    // user,
     userModel,
     usernameRules,
     phoneRules,
@@ -93,6 +145,8 @@ export const useUser = () => {
     handleRegister,
     handlePassword,
     handleDetail,
-    handleEdit
+    handleEdit,
+    handleLogout,
+    handleFirstIn
   };
 };

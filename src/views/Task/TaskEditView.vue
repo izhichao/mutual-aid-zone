@@ -16,7 +16,7 @@
           placeholder="请输入描述"
           show-word-limit
         />
-        <van-field name="uploader" label="图片上传">
+        <van-field name="uploader" label="新增图片">
           <template #input>
             <van-uploader :max-count="6" v-model="taskModel.imgFiles" />
           </template>

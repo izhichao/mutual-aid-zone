@@ -15,27 +15,12 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, PropType } from 'vue';
+import { computed } from 'vue';
 import { formatTime } from '../utils/formatTime';
 
-// 声明Task接口，并导出给TaskView、Store使用
-export interface TaskProps {
-  _id: number;
-  title: string;
-  content: string;
-  type: string;
-  price: number;
-  setter: string;
-  getter: string;
-  status: number;
-  createdAt: string;
-  updatedAt: string;
-}
-
 const props = defineProps({
-  // item用于接受每一条任务的数据
   item: {
-    type: Object as PropType<TaskProps>,
+    type: Object,
     default: () => {},
     required: true
   }
@@ -52,7 +37,7 @@ enum statusType {
   已接单,
   已完成
 }
-// 动态渲染按钮类型
+// 动态渲染任务状态
 const status = statusType[statusId];
 </script>
 

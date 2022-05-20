@@ -1,6 +1,6 @@
 import { Toast } from 'vant';
 import { ref } from 'vue';
-import { recharge, getBalance } from '../api/store';
+import { recharge, getBalance, exchange } from '../api/store';
 
 const balance = ref(0);
 export const useBalance = () => {
@@ -26,5 +26,13 @@ export const useBalance = () => {
     }
   };
 
-  return { balance, rechargeNum, handleBalance, handleRecharge };
+  const handleExchange = async (_id: string) => {
+    const { data: res } = await exchange(_id);
+    if (res.errno === 0) {
+      Toast(res.msg);
+      handleBalance();
+    }
+  };
+
+  return { balance, rechargeNum, handleExchange, handleBalance, handleRecharge };
 };

@@ -10,12 +10,10 @@
 
   <div class="main-content">
     <div class="task-list">
-      <!-- 将各个任务通过props的方式传递给task组件 -->
       <Task v-for="(item, index) in taskList" :key="item._id" :item="item"></Task>
     </div>
   </div>
 
-  <!-- 底栏 -->
   <router-link :to="{ name: 'Create' }">
     <van-button round icon="plus" type="primary" class="addBtn"></van-button>
   </router-link>
@@ -23,26 +21,18 @@
 </template>
 
 <script lang="ts" setup>
-import Task, { TaskProps } from '../../components/Task.vue';
-import Docker from '../../components/Docker.vue';
 import { ref } from 'vue';
-import { getTasks } from '../../api/task';
+import Task from '../../components/Task.vue';
+import Docker from '../../components/Docker.vue';
 import { useUser } from '../../composables/useUser';
+import { useTask } from '../../composables/useTask';
 
-const { userModel, handleDetail } = useUser();
-handleDetail();
-// 获取所有任务
-const taskList = ref<TaskProps[]>([]);
-
-const handleTaskList = async () => {
-  const { data: res } = await getTasks();
-  taskList.value = res.data;
-};
-
-handleTaskList();
+const { taskList, handleTaskList } = useTask();
+handleTaskList(-1);
 
 // 顶栏头像(登录/未登录)
 const isLogin = ref(false);
+const { userModel } = useUser();
 if (localStorage.getItem('token')) {
   isLogin.value = true;
 }
