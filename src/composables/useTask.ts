@@ -13,12 +13,37 @@ import {
   getTasks,
   giveupTask
 } from '../api/task';
+import { Toast } from 'vant';
 
 export const useTask = () => {
   const route = useRoute();
   const router = useRouter();
 
-  const rules = [{ required: true, message: '请填写完整' }]; // 获取所有任务
+  const rules = [{ required: true, message: '请填写完整' }];
+  const titleRules = [
+    ...rules,
+    {
+      validator: (val: string) => {
+        if (val.length > 15) {
+          return '标题不能超过15字';
+        } else if (val.length < 5) {
+          return '标题不能少于5字';
+        }
+      }
+    }
+  ];
+  const priceRules = [
+    ...rules,
+    {
+      validator: (val: number) => {
+        if (val < 0) {
+          return '价格不能为小于零';
+        } else if (val >= 1000) {
+          return '价格不能超过1000';
+        }
+      }
+    }
+  ];
 
   interface Task {
     _id?: string;
@@ -96,7 +121,7 @@ export const useTask = () => {
       }
     });
 
-  const handleSubmit = (type: string) => {
+  const handleSubmit = async (type: string) => {
     const formData = new FormData();
     formData.append('title', taskModel.value.title);
     formData.append('price', taskModel.value.price.toString());
@@ -107,30 +132,47 @@ export const useTask = () => {
       });
 
     if (type === 'create') {
-      createTask(formData);
+      const { data: res } = await createTask(formData);
+      router.push({ name: 'Detail', params: { id: res.data._id } });
+      Toast('发布成功');
     } else if (type === 'edit') {
       formData.append('_id', route.params.id.toString());
-      editTask(formData);
+      const { data: res } = await editTask(formData);
+      if (res.errno === 0) {
+        router.push({ name: 'Detail', params: { id: res.data._id } });
+        Toast('编辑成功');
+      } else {
+        Toast(res.msg);
+      }
     }
   };
   const handleDelete = () => {
     deleteTask(taskModel.value._id);
+    Toast('删除成功');
+    router.push({ name: 'Home' });
   };
   const handlePushEdit = () => {
     router.push({ name: 'Edit', params: { id: route.params.id } });
   };
   const handleGiveup = () => {
     giveupTask(taskModel.value._id);
+    Toast('放弃成功');
+    router.go(0);
   };
   const handleFinish = () => {
     finishTask(taskModel.value._id);
+    Toast('任务完成');
+    router.go(0);
   };
   const handleAccept = () => {
     acceptTask(taskModel.value._id);
+    Toast('接受成功');
+    router.go(0);
   };
-
   return {
     rules,
+    titleRules,
+    priceRules,
     taskModel,
     taskList,
     btnStatus,
