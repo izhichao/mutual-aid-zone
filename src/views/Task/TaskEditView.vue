@@ -3,8 +3,8 @@
   <div class="main-content">
     <van-form @submit="handleSubmit('edit')" validate-trigger="onSubmit">
       <van-cell-group inset>
-        <van-field v-model="taskModel.title" label="标题" placeholder="请输入标题" :rules="rules" />
-        <van-field v-model="taskModel.price" type="number" label="价格" placeholder="请输入价格" :rules="rules" />
+        <van-field v-model="taskModel.title" label="标题" placeholder="请输入标题" :rules="titleRules" />
+        <van-field v-model="taskModel.price" type="number" label="价格" placeholder="请输入价格" :rules="priceRules" />
         <van-field
           v-model="taskModel.content"
           :rules="rules"
@@ -30,7 +30,7 @@
 <script lang="ts" setup>
 import { useTask } from '../../composables/useTask';
 const handleBack = () => history.back();
-const { rules, taskModel, handleSubmit } = useTask();
+const { rules, titleRules, priceRules, taskModel, handleSubmit } = useTask();
 </script>
 
 <style lang="less" scoped>
