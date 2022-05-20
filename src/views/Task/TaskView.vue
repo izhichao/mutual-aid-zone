@@ -14,34 +14,19 @@
 
 <script lang="ts" setup>
 import { ref, watch } from 'vue';
-import Task, { TaskProps } from '../../components/Task.vue';
+import Task from '../../components/Task.vue';
 import Docker from '../../components/Docker.vue';
-import { getAcceptTasks, getPublishTasks } from '../../api/task';
+import { useTask } from '../../composables/useTask';
 
-const useTaskList = () => {
-  const taskList = ref<TaskProps[]>([]);
-  const active = ref(0);
-  const handleTaskList = async (active: number) => {
-    if (active === 0) {
-      const { data: res } = await getPublishTasks();
-      taskList.value = res.data;
-    } else {
-      const { data: res } = await getAcceptTasks();
-      taskList.value = res.data;
-    }
-  };
-
-  watch(
-    () => active.value,
-    (newVal) => {
-      handleTaskList(newVal);
-    },
-    { immediate: true }
-  );
-  return { taskList, active };
-};
-
-const { taskList, active } = useTaskList();
+const { taskList, handleTaskList } = useTask();
+const active = ref(0);
+watch(
+  () => active.value,
+  (newVal) => {
+    handleTaskList(newVal);
+  },
+  { immediate: true }
+);
 </script>
 
 <style lang="less" scoped>

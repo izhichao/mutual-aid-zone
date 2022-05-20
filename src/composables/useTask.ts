@@ -1,13 +1,24 @@
 import { reactive, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { formatTime } from '../utils/formatTime';
-import { acceptTask, createTask, deleteTask, editTask, finishTask, getTaskDetail, giveupTask } from '../api/task';
+import {
+  acceptTask,
+  createTask,
+  deleteTask,
+  editTask,
+  finishTask,
+  getAcceptTasks,
+  getPublishTasks,
+  getTaskDetail,
+  getTasks,
+  giveupTask
+} from '../api/task';
 
 export const useTask = () => {
   const route = useRoute();
   const router = useRouter();
 
-  const rules = [{ required: true, message: '请填写完整' }];
+  const rules = [{ required: true, message: '请填写完整' }]; // 获取所有任务
 
   interface Task {
     _id?: string;
@@ -35,6 +46,7 @@ export const useTask = () => {
     status: null,
     createdAt: ''
   });
+  const taskList = ref<Task[]>([]);
 
   const btnStatus = reactive({
     publish: false,
@@ -42,10 +54,21 @@ export const useTask = () => {
     accept: false
   });
 
-  // TODO:用户名获取
-  const userId = '6281f546321e768efb7b8ae4';
+  // 获取任务列表
+  const handleTaskList = async (active: number) => {
+    if (active === 0) {
+      const { data: res } = await getPublishTasks();
+      taskList.value = res.data;
+    } else if (active === 1) {
+      const { data: res } = await getAcceptTasks();
+      taskList.value = res.data;
+    } else {
+      const { data: res } = await getTasks();
+      taskList.value = res.data;
+    }
+  };
 
-  /** 根据id获取任务详情 */
+  // 根据id获取任务详情
   const handleDetail = async () => {
     const { data: res } = await getTaskDetail(route.params.id as string);
     // 格式化时间
@@ -57,6 +80,7 @@ export const useTask = () => {
   // 根据用户设置按钮状态
   route.params.id &&
     handleDetail().then((taskModel) => {
+      const userId = JSON.parse(localStorage.getItem('user'))._id;
       if (taskModel.value.status === 2) {
         return;
       }
@@ -77,9 +101,10 @@ export const useTask = () => {
     formData.append('title', taskModel.value.title);
     formData.append('price', taskModel.value.price.toString());
     formData.append('content', taskModel.value.content);
-    taskModel.value.imgFiles && taskModel.value.imgFiles.forEach((item) => {
-      formData.append('imgFiles', item.file);
-    });
+    taskModel.value.imgFiles &&
+      taskModel.value.imgFiles.forEach((item) => {
+        formData.append('imgFiles', item.file);
+      });
 
     if (type === 'create') {
       createTask(formData);
@@ -107,7 +132,9 @@ export const useTask = () => {
   return {
     rules,
     taskModel,
+    taskList,
     btnStatus,
+    handleTaskList,
     handleSubmit,
     handleDelete,
     handlePushEdit,

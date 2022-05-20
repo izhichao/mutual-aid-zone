@@ -38,6 +38,7 @@ import { ref } from 'vue';
 import { useTask } from '../../composables/useTask';
 const handleBack = () => history.back();
 const { taskModel, btnStatus, handleDelete, handlePushEdit, handleGiveup, handleFinish, handleAccept } = useTask();
+// 动态渲染图片占位格子
 const imgsRows = ref('');
 const imgsLength = taskModel.value.imgs.length;
 if (imgsLength >0 && imgsLength <= 3) {
