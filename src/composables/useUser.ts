@@ -1,6 +1,5 @@
 import { StorageSerializers, useStorage } from '@vueuse/core';
 import { Toast } from 'vant';
-import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { changePassword, editUser, getUser, login, register } from '../api/user';
 
@@ -25,18 +24,6 @@ const userModel = useStorage(
 
 export const useUser = () => {
   const router = useRouter();
-
-  // const userModel = ref({
-  //   username: '',
-  //   oldPassword: '',
-  //   password: '',
-  //   passwordAgain: '',
-  //   phone: '',
-  //   email: '',
-  //   address: '',
-  //   avatar: '',
-  //   avatarFile: []
-  // });
 
   const usernameRules = [{ pattern: /^[a-zA-Z0-9_!]{2,12}$/, message: '用户名长度为2-12位' }];
   const passwordRules = [{ pattern: /^[a-zA-Z0-9_!]{6,16}$/, message: '密码长度为6-16位' }];
@@ -103,6 +90,7 @@ export const useUser = () => {
     userModel.value.avatarFile && userModel.value.avatarFile.length !== 0 && formData.append('avatar', userModel.value.avatarFile[0].file);
     const { data: res } = await editUser(formData);
     Toast(res.msg);
+    router.go(0);
   };
 
   const handleLogout = () => {
@@ -134,7 +122,6 @@ export const useUser = () => {
     }
   };
   return {
-    // user,
     userModel,
     usernameRules,
     phoneRules,
