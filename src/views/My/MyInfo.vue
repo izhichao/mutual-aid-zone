@@ -25,7 +25,7 @@
 <script lang="ts" setup>
 import { useUser } from '../../composables/useUser';
 const handleBack = () => history.back();
-const { userModel, usernameRules, phoneRules, emailRules, handleEdit, handleDetail } = useUser();
+const { userModel, usernameRules, phoneRules, emailRules, handleEdit } = useUser();
 </script>
 
 <style lang="less" scoped>

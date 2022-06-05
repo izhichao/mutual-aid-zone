@@ -1,4 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
+import { handleDetail } from './composables/useUser';
 
 const routes = [
   {
@@ -64,6 +65,10 @@ router.beforeEach((to, from, next) => {
   const { name } = to;
   const isLoginOrRegister = name === 'Login' || name === 'Register';
   const isHome = name === 'Home';
+  if (token) {
+    // 有token时，获取当前用户信息
+    handleDetail();
+  }
 
   // 当没有token时，且访问的页面不是登录注册页时，跳转到登录页
   if (!token && !isLoginOrRegister && !isHome) {

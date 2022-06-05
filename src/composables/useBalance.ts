@@ -9,7 +9,6 @@ export const useBalance = () => {
     const { data: res } = await getBalance();
     balance.value = res.data.balance;
   };
-  handleBalance();
 
   // 充值
   const rechargeNum = ref<number>();

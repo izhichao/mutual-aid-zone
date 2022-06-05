@@ -22,9 +22,24 @@ const userModel = useStorage(
   }
 );
 
+export const handleDetail = async () => {
+  try {
+    const { data: res } = await getUser();
+    res.data.password = '';
+    userModel.value = res.data;
+  } catch (err) {
+    localStorage.removeItem('token');
+    userModel.value = {
+      username: '',
+      phone: '',
+      avatar: ''
+    };
+    location.reload();
+  }
+};
+
 export const useUser = () => {
   const router = useRouter();
-
   const usernameRules = [{ pattern: /^[a-zA-Z0-9_!]{2,12}$/, message: '用户名长度为2-12位' }];
   const passwordRules = [{ pattern: /^[a-zA-Z0-9_!]{6,16}$/, message: '密码长度为6-16位' }];
   const phoneRules = [{ pattern: /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/, message: '请输入正确的手机号' }];
@@ -41,8 +56,6 @@ export const useUser = () => {
         Toast('登录成功');
         localStorage.setItem('token', res.data.token);
         router.push('/');
-        // 登录后获取用户信息
-        handleDetail();
       } else {
         Toast(res.msg);
       }
@@ -71,16 +84,6 @@ export const useUser = () => {
     Toast(res.msg);
   };
 
-  const handleDetail = async () => {
-    try {
-      const { data: res } = await getUser();
-      res.data.password = '';
-      userModel.value = res.data;
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   const handleEdit = async () => {
     const formData = new FormData();
     formData.append('username', userModel.value.username);
@@ -104,23 +107,6 @@ export const useUser = () => {
     router.push({ name: 'Home' });
   };
 
-  const handleFirstIn = () => {
-    const token = localStorage.getItem('token');
-
-    // 第一次访问页面时，若token存在，则请求用户信息
-    if (token) {
-      // 若token非法，则移除token
-      try {
-        handleDetail();
-      } catch (error) {
-        userModel.value = {
-          username: '',
-          phone: '',
-          avatar: ''
-        };
-      }
-    }
-  };
   return {
     userModel,
     usernameRules,
@@ -131,9 +117,7 @@ export const useUser = () => {
     handleLogin,
     handleRegister,
     handlePassword,
-    handleDetail,
     handleEdit,
-    handleLogout,
-    handleFirstIn
+    handleLogout
   };
 };

@@ -26,7 +26,8 @@
 <script lang="ts" setup>
 import { useBalance } from '../../composables/useBalance';
 
-const { balance, rechargeNum, handleRecharge } = useBalance();
+const { balance, rechargeNum, handleBalance, handleRecharge } = useBalance();
+handleBalance();
 </script>
 
 <style lang="less" scoped>
