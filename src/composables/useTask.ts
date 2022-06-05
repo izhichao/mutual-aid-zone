@@ -96,10 +96,15 @@ export const useTask = () => {
   // 根据id获取任务详情
   const handleDetail = async () => {
     const { data: res } = await getTaskDetail(route.params.id as string);
-    // 格式化时间
-    res.data.createdAt = formatTime(res.data.createdAt);
-    taskModel.value = res.data;
-    return taskModel;
+    if (res.errno === 0) {
+      // 格式化时间
+      res.data.createdAt = formatTime(res.data.createdAt);
+      taskModel.value = res.data;
+      return taskModel;
+    } else {
+      Toast(res.msg);
+      router.push('/');
+    }
   };
 
   // 根据用户设置按钮状态
@@ -133,8 +138,12 @@ export const useTask = () => {
 
     if (type === 'create') {
       const { data: res } = await createTask(formData);
-      router.push({ name: 'Detail', params: { id: res.data._id } });
-      Toast('发布成功');
+      if (res.errno === 0) {
+        router.push({ name: 'Detail', params: { id: res.data._id } });
+        Toast('发布成功');
+      } else {
+        Toast(res.msg);
+      }
     } else if (type === 'edit') {
       formData.append('_id', route.params.id.toString());
       const { data: res } = await editTask(formData);
