@@ -40,7 +40,17 @@ export const handleDetail = async () => {
 
 export const useUser = () => {
   const router = useRouter();
-  const usernameRules = [{ pattern: /^[a-zA-Z0-9_!]{2,12}$/, message: '用户名长度为2-12位' }];
+  const usernameRules = [
+    {
+      validator: (val: string) => {
+        if (val.length > 12) {
+          return '用户名不能大于12位';
+        } else if (val.length < 2) {
+          return '用户名不能少于2位';
+        }
+      }
+    }
+  ];
   const passwordRules = [{ pattern: /^[a-zA-Z0-9_!]{6,16}$/, message: '密码长度为6-16位' }];
   const phoneRules = [{ pattern: /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/, message: '请输入正确的手机号' }];
   const emailRules = [

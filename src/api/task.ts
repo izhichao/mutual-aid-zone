@@ -5,6 +5,10 @@ export const getTasks = () => {
   return instance.get('/api/task');
 };
 
+export const getSearchTasks = (keyword: string) => {
+  return instance.get('/api/task/search', { params: { keyword } });
+};
+
 /** 获取我发布的 */
 export const getPublishTasks = () => {
   return instance.get('/api/task/publish');

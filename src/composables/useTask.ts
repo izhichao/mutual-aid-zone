@@ -9,6 +9,7 @@ import {
   finishTask,
   getAcceptTasks,
   getPublishTasks,
+  getSearchTasks,
   getTaskDetail,
   getTasks,
   giveupTask
@@ -20,14 +21,15 @@ export const useTask = () => {
   const router = useRouter();
 
   const rules = [{ required: true, message: '请填写完整' }];
+  const keyword = ref('');
   const titleRules = [
     ...rules,
     {
       validator: (val: string) => {
         if (val.length > 15) {
           return '标题不能超过15字';
-        } else if (val.length < 5) {
-          return '标题不能少于5字';
+        } else if (val.length < 3) {
+          return '标题不能少于3字';
         }
       }
     }
@@ -91,6 +93,11 @@ export const useTask = () => {
       const { data: res } = await getTasks();
       taskList.value = res.data;
     }
+  };
+
+  const handleSearch = async (keyword: string) => {
+    const { data: res } = await getSearchTasks(keyword);
+    taskList.value = res.data;
   };
 
   // 根据id获取任务详情
@@ -179,6 +186,7 @@ export const useTask = () => {
     router.go(0);
   };
   return {
+    keyword,
     rules,
     titleRules,
     priceRules,
@@ -186,6 +194,7 @@ export const useTask = () => {
     taskList,
     btnStatus,
     handleTaskList,
+    handleSearch,
     handleSubmit,
     handleDelete,
     handlePushEdit,
