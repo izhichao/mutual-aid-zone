@@ -4,7 +4,7 @@
       <img :src="userModel.avatar" />
     </router-link>
     <router-link :to="{ name: 'Login' }" class="header__login iconfont" v-else="isLogin">&#xe6de;</router-link>
-    <van-search shape="round" placeholder="请输入搜索关键词" />
+    <van-search shape="round" v-model="keyword" placeholder="请输入搜索关键词" @search="handleSearch" />
     <router-link :to="{ name: 'Home' }" class="header__chat iconfont">&#xe70a;</router-link>
   </div>
 
@@ -27,7 +27,7 @@ import Docker from '../../components/Docker.vue';
 import { useUser } from '../../composables/useUser';
 import { useTask } from '../../composables/useTask';
 
-const { taskList, handleTaskList } = useTask();
+const { keyword, taskList, handleSearch, handleTaskList } = useTask();
 handleTaskList(-1);
 
 // 顶栏头像(登录/未登录)
