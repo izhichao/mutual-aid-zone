@@ -82,7 +82,14 @@ export const useTask = () => {
   });
 
   // 获取任务列表
+  const loading = ref(false);
   const handleTaskList = async (active: number) => {
+    // 若100ms内未获取到数据 则展示骨架屏
+    setTimeout(() => {
+      if (!taskList.value.length) {
+        loading.value = true;
+      }
+    }, 100);
     if (active === 0) {
       const { data: res } = await getPublishTasks();
       taskList.value = res.data;
@@ -93,6 +100,7 @@ export const useTask = () => {
       const { data: res } = await getTasks();
       taskList.value = res.data;
     }
+    loading.value = false;
   };
 
   const handleSearch = async (keyword: string) => {
@@ -187,6 +195,7 @@ export const useTask = () => {
   };
   return {
     keyword,
+    loading,
     rules,
     titleRules,
     priceRules,
