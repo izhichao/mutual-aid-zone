@@ -6,7 +6,9 @@
 
   <div class="main-content">
     <div class="task-list">
-      <Task v-for="item in taskList" :key="item._id" :item="item"></Task>
+      <van-skeleton title :row="3" :loading="loading">
+        <Task v-for="item in taskList" :key="item._id" :item="item"></Task>
+      </van-skeleton>
     </div>
   </div>
   <Docker :currentIndex="1" />
@@ -18,7 +20,7 @@ import Task from '../../components/Task.vue';
 import Docker from '../../components/Docker.vue';
 import { useTask } from '../../composables/useTask';
 
-const { taskList, handleTaskList } = useTask();
+const { loading, taskList, handleTaskList } = useTask();
 const active = ref(0);
 watch(
   () => active.value,
@@ -31,14 +33,22 @@ watch(
 
 <style lang="less" scoped>
 @import '../../style/variables.less';
-::v-deep(.van-tabs__wrap) {
+:deep(.van-skeleton) {
+  margin-top: 10px;
+  padding-top: 15px;
+  height: 140px;
+  box-sizing: border-box;
+  background-color: #fff;
+}
+
+:deep(.van-tabs__wrap) {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
 }
 
-::v-deep(.van-tabs) {
+:deep(.van-tabs) {
   &__wrap {
     height: 49px;
     border-bottom: 1px solid @borderColor;

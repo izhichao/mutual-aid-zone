@@ -10,7 +10,9 @@
 
   <div class="main-content">
     <div class="task-list">
-      <Task v-for="(item, index) in taskList" :key="item._id" :item="item"></Task>
+      <van-skeleton title :row="3" :loading="loading">
+        <Task v-for="item in taskList" :key="item._id" :item="item"></Task>
+      </van-skeleton>
     </div>
   </div>
 
@@ -26,8 +28,8 @@ import Task from '../../components/Task.vue';
 import Docker from '../../components/Docker.vue';
 import { useUser } from '../../composables/useUser';
 import { useTask } from '../../composables/useTask';
+const { loading, keyword, taskList, handleSearch, handleTaskList } = useTask();
 
-const { keyword, taskList, handleSearch, handleTaskList } = useTask();
 handleTaskList(-1);
 
 // 顶栏头像(登录/未登录)
@@ -41,6 +43,13 @@ if (localStorage.getItem('token')) {
 <style lang="less" scoped>
 @import '../../style/variables.less';
 @import '../../style/mixins.less';
+:deep(.van-skeleton) {
+  margin-top: 10px;
+  padding-top: 15px;
+  height: 140px;
+  box-sizing: border-box;
+  background-color: #fff;
+}
 .header {
   position: absolute;
   top: 0;
@@ -79,7 +88,7 @@ if (localStorage.getItem('token')) {
     color: @fontColor;
   }
 
-  ::v-deep(.van-search) {
+  :deep(.van-search) {
     flex: 1;
     height: 49px;
 
@@ -88,7 +97,7 @@ if (localStorage.getItem('token')) {
     }
   }
 
-  ::v-deep(.van-field__control) {
+  :deep(.van-field__control) {
     color: #666;
   }
 }
