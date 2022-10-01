@@ -1,7 +1,12 @@
 import axios from 'axios';
 
+let baseURL = 'http://localhost:8000';
+if (process.env.NODE_ENV === 'production') {
+  baseURL = '/zone'
+}
+
 const instance = axios.create({
-  baseURL: 'http://localhost:8000',
+  baseURL,
   timeout: 3000
 });
 
