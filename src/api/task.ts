@@ -1,8 +1,8 @@
 import instance from '../utils/request';
 
 /** 获取所有任务 */
-export const getTasks = () => {
-  return instance.get('/api/task');
+export const getTasks = (page: number, pageSize: number) => {
+  return instance.get('/api/task', { params: { page, pageSize } });
 };
 
 export const getSearchTasks = (keyword: string) => {
@@ -10,13 +10,13 @@ export const getSearchTasks = (keyword: string) => {
 };
 
 /** 获取我发布的 */
-export const getPublishTasks = () => {
-  return instance.get('/api/task/publish');
+export const getPublishTasks = (page: number, pageSize: number) => {
+  return instance.get('/api/task/publish', { params: { page, pageSize } });
 };
 
 /** 获取我接受的 */
-export const getAcceptTasks = () => {
-  return instance.get('/api/task/accept');
+export const getAcceptTasks = (page: number, pageSize: number) => {
+  return instance.get('/api/task/accept', { params: { page, pageSize } });
 };
 
 /**

@@ -5,11 +5,17 @@
   </van-tabs>
 
   <div class="main-content">
-    <div class="task-list">
-      <van-skeleton title :row="3" :loading="loading">
+    <van-list
+      class="task-list"
+      v-model:loading="loading"
+      :finished="finished"
+      finished-text="没有更多了"
+      @load="onLoad"
+    >
+      <van-skeleton title :row="3" :loading="firstLoading">
         <Task v-for="item in taskList" :key="item._id" :item="item"></Task>
       </van-skeleton>
-    </div>
+    </van-list>
   </div>
   <Docker :currentIndex="1" />
 </template>
@@ -20,14 +26,21 @@ import Task from '../../components/Task.vue';
 import Docker from '../../components/Docker.vue';
 import { useTask } from '../../composables/useTask';
 
-const { loading, taskList, handleTaskList } = useTask();
+const { page, loading, finished, firstLoading, taskList, handleTaskList } = useTask();
 const active = ref(0);
+
+// 触底加载
+const onLoad = () => {
+  handleTaskList(active.value);
+};
+
 watch(
   () => active.value,
   (newVal) => {
+    page.value = 1;
+    taskList.value = [];
     handleTaskList(newVal);
-  },
-  { immediate: true }
+  }
 );
 </script>
 
