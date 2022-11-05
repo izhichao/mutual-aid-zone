@@ -5,17 +5,19 @@
   </van-tabs>
 
   <div class="main-content">
-    <van-list
-      class="task-list"
-      v-model:loading="loading"
-      :finished="finished"
-      finished-text="没有更多了"
-      @load="onLoad"
-    >
-      <van-skeleton title :row="3" :loading="firstLoading">
-        <Task v-for="item in taskList" :key="item._id" :item="item"></Task>
-      </van-skeleton>
-    </van-list>
+    <van-pull-refresh style="min-height: 80vh" v-model="loading" @refresh="onRefresh">
+      <van-list
+        class="task-list"
+        v-model:loading="loading"
+        :finished="finished"
+        finished-text="没有更多了"
+        @load="onLoad"
+      >
+        <van-skeleton title :row="3" :loading="firstLoading">
+          <Task v-for="item in taskList" :key="item._id" :item="item"></Task>
+        </van-skeleton>
+      </van-list>
+    </van-pull-refresh>
   </div>
   <Docker :currentIndex="1" />
 </template>
@@ -25,21 +27,30 @@ import { ref, watch } from 'vue';
 import Task from '../../components/Task.vue';
 import Docker from '../../components/Docker.vue';
 import { useTask } from '../../composables/useTask';
+import { Toast } from 'vant';
 
 const { page, loading, finished, firstLoading, taskList, handleTaskList } = useTask();
 const active = ref(0);
 
 // 触底加载
 const onLoad = () => {
+  console.log(1);
   handleTaskList(active.value);
+};
+
+const onRefresh = () => {
+  page.value = 1;
+  taskList.value = [];
+  finished.value = false;
+  loading.value = true;
+  onLoad();
+  Toast('刷新成功');
 };
 
 watch(
   () => active.value,
-  (newVal) => {
-    page.value = 1;
-    taskList.value = [];
-    handleTaskList(newVal);
+  () => {
+    onRefresh();
   }
 );
 </script>
