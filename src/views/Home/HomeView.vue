@@ -9,11 +9,22 @@
   </div>
 
   <div class="main-content">
-    <div class="task-list">
+    <van-list
+      class="task-list"
+      v-model:loading="loading"
+      :finished="finished"
+      finished-text="没有更多了"
+      @load="onLoad"
+    >
+      <van-skeleton title :row="3" :loading="firstLoading">
+        <Task v-for="item in taskList" :key="item._id" :item="item"></Task>
+      </van-skeleton>
+    </van-list>
+    <!-- <div class="task-list">
       <van-skeleton title :row="3" :loading="loading">
         <Task v-for="item in taskList" :key="item._id" :item="item"></Task>
       </van-skeleton>
-    </div>
+    </div> -->
   </div>
 
   <router-link :to="{ name: 'Create' }">
@@ -28,9 +39,12 @@ import Task from '../../components/Task.vue';
 import Docker from '../../components/Docker.vue';
 import { useUser } from '../../composables/useUser';
 import { useTask } from '../../composables/useTask';
-const { loading, keyword, taskList, handleSearch, handleTaskList } = useTask();
+const { loading, finished, firstLoading, keyword, taskList, handleSearch, handleTaskList } = useTask();
 
-handleTaskList(-1);
+// 触底加载
+const onLoad = () => {
+  handleTaskList(-1);
+};
 
 // 顶栏头像(登录/未登录)
 const isLogin = ref(false);
