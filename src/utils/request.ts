@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 let baseURL = 'http://localhost:8000';
-if (process.env.NODE_ENV === 'production') {
-  baseURL = '/zone'
+if (import.meta.env.MODE === 'production') {
+  baseURL = '/zone';
 }
 
 const instance = axios.create({
