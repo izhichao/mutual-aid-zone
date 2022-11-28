@@ -34,7 +34,6 @@ const active = ref(0);
 
 // 触底加载
 const onLoad = () => {
-  console.log(1);
   handleTaskList(active.value);
 };
 
