@@ -4,7 +4,7 @@
       <img :src="userModel.avatar" />
     </router-link>
     <router-link :to="{ name: 'Login' }" class="header__login iconfont" v-else="isLogin">&#xe6de;</router-link>
-    <van-search shape="round" v-model="keyword" placeholder="请输入搜索关键词" @search="handleSearch" />
+    <van-search shape="round" v-model="keyword" placeholder="请输入搜索关键词" @search="handleSearch(keyword)" />
     <router-link :to="{ name: 'Home' }" class="header__chat iconfont">&#xe70a;</router-link>
   </div>
 
@@ -35,9 +35,11 @@ import { ref } from 'vue';
 import Task from '../../components/Task.vue';
 import Docker from '../../components/Docker.vue';
 import { useUser } from '../../composables/useUser';
-import { useTask } from '../../composables/useTask';
+import { useTaskList } from '../../composables/useTaskList';
 import { Toast } from 'vant';
-const { page, loading, finished, firstLoading, keyword, taskList, handleSearch, handleTaskList } = useTask();
+
+const { page, loading, finished, firstLoading, taskList, handleSearch, handleTaskList } = useTaskList();
+const keyword = ref('');
 
 // 触底加载
 const onLoad = () => {
