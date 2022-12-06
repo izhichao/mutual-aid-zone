@@ -26,10 +26,10 @@
 import { ref, watch } from 'vue';
 import Task from '../../components/Task.vue';
 import Docker from '../../components/Docker.vue';
-import { useTask } from '../../composables/useTask';
+import { useTaskList } from '../../composables/useTaskList';
 import { Toast } from 'vant';
 
-const { page, loading, finished, firstLoading, taskList, handleTaskList } = useTask();
+const { page, loading, finished, firstLoading, taskList, handleTaskList } = useTaskList();
 const active = ref(0);
 
 // 触底加载
