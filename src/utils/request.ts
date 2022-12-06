@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 let baseURL = 'http://localhost:8000';
-if (import.meta.env.MODE === 'production') {
+if (import.meta.env.PROD) {
   baseURL = '/zone';
 }
 
