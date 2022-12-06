@@ -2,18 +2,18 @@
   <van-nav-bar title="任务详情" left-text="返回" left-arrow @click-left="handleBack" />
   <div class="main-content">
     <div class="task-content">
-      <h2>{{ taskModel.title }}</h2>
-      <p class="task-content__time">发布时间：{{ taskModel.createdAt }}</p>
-      <p class="task-content__setter">发布人：{{ taskModel.setterName }}</p>
+      <h2>{{ returnTaskModel.title }}</h2>
+      <p class="task-content__time">发布时间：{{ returnTaskModel.createdAt }}</p>
+      <p class="task-content__setter">发布人：{{ returnTaskModel.setter.username }}</p>
 
-      <p class="task-content__detail">{{ taskModel.content }}</p>
-      <p class="task-content__price">&yen; {{ taskModel.price }}</p>
+      <p class="task-content__detail">{{ returnTaskModel.content }}</p>
+      <p class="task-content__price">&yen; {{ returnTaskModel.price }}</p>
 
       <div class="task-content__imgs">
-        <van-image fit="cover" v-for="(item, index) in taskModel.imgs" :key="item" :src="item" @click="handleImagePreview(index)" />
+        <van-image fit="cover" v-for="(item, index) in returnTaskModel.imgs" :key="item" :src="item" @click="handleImagePreview(index)" />
       </div>
 
-      <van-steps :active="taskModel.status">
+      <van-steps :active="returnTaskModel.status">
         <van-step>未接单</van-step>
         <van-step>已接单</van-step>
         <van-step>已完成</van-step>
@@ -37,10 +37,10 @@ import { ImagePreview } from 'vant';
 import { ref } from 'vue';
 import { useTask } from '../../composables/useTask';
 const handleBack = () => history.back();
-const { taskModel, btnStatus, handleDelete, handlePushEdit, handleGiveup, handleFinish, handleAccept } = useTask();
+const { returnTaskModel, btnStatus, handleDelete, handlePushEdit, handleGiveup, handleFinish, handleAccept } = useTask();
 // 动态渲染图片占位格子
 const imgsRows = ref('');
-const imgsLength = taskModel.value.imgs.length;
+const imgsLength = returnTaskModel.value.imgs.length;
 if (imgsLength >0 && imgsLength <= 3) {
   imgsRows.value = '100px';
 } else if (imgsLength > 3) {
@@ -49,7 +49,7 @@ if (imgsLength >0 && imgsLength <= 3) {
 // 图片放大功能
 const handleImagePreview = (pos: number) => {
   ImagePreview({
-    images: taskModel.value.imgs,
+    images: returnTaskModel.value.imgs,
     startPosition: pos
   });
 };

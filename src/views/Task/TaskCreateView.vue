@@ -3,10 +3,10 @@
   <div class="main-content">
     <van-form @submit="handleSubmit('create')" validate-trigger="onSubmit">
       <van-cell-group inset>
-        <van-field v-model="taskModel.title" label="标题" placeholder="请输入标题" :rules="titleRules" />
-        <van-field v-model="taskModel.price" type="number" label="价格" placeholder="请输入价格" :rules="priceRules" />
+        <van-field v-model="sendTaskModel.title" label="标题" placeholder="请输入标题" :rules="titleRules" />
+        <van-field v-model="sendTaskModel.price" type="number" label="价格" placeholder="请输入价格" :rules="priceRules" />
         <van-field
-          v-model="taskModel.content"
+          v-model="sendTaskModel.content"
           :rules="rules"
           rows="3"
           autosize
@@ -18,7 +18,7 @@
         />
         <van-field name="uploader" label="图片上传">
           <template #input>
-            <van-uploader :max-count="6" v-model="taskModel.imgFiles" />
+            <van-uploader :max-count="6" v-model="sendTaskModel.imgFiles" />
           </template>
         </van-field>
       </van-cell-group>
@@ -30,7 +30,7 @@
 <script lang="ts" setup>
 import { useTask } from '../../composables/useTask';
 const handleBack = () => history.back();
-const { titleRules, priceRules, rules, taskModel, handleSubmit } = useTask();
+const { titleRules, priceRules, rules, sendTaskModel, handleSubmit } = useTask();
 </script>
 
 <style lang="less" scoped>
