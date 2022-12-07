@@ -49,6 +49,17 @@ export const changePassword = (oldPassword: string, password: string) => {
 };
 
 /**
+ * 忘记密码
+ * @param email 邮箱
+ * @returns 
+ */
+export const forgetPassword = (email: string) => {
+  return instance.post('/api/user/forget', {
+    email
+  });
+};
+
+/**
  * 修改用户信息
  * @param formData 用户信息
  * @returns
