@@ -27,14 +27,37 @@
 
     <div class="login__link">
       <router-link :to="{ name: 'Register' }">立即注册</router-link>
-      <router-link :to="{ name: 'Register' }">忘记密码</router-link>
+      <span @click="showForget = true">忘记密码</span>
     </div>
   </div>
+
+  <van-popup v-model:show="showForget" round>
+    <div class="forget">
+      <van-form @submit="handleForgetPassword" validate-trigger="onSubmit">
+        <van-cell-group inset>
+          <van-field
+            v-model="emailForget"
+            type="text"
+            label="邮箱"
+            autocomplete="true"
+            placeholder="请输入您的邮箱"
+            :rules="emailRules"
+            @keyup.enter="handleForgetPassword"
+          />
+        </van-cell-group>
+        <van-button type="primary" size="small" round native-type="submit">立即找回</van-button>
+      </van-form>
+    </div>
+  </van-popup>
 </template>
 
 <script lang="ts" setup>
+import { ref } from 'vue';
 import { useUser } from '../../composables/useUser';
-const { userModel, usernameRules, passwordRules, handleLogin } = useUser();
+
+const showForget = ref(false);
+const { userModel, emailForget, usernameRules, passwordRules, emailRules, handleLogin, handleForgetPassword } =
+  useUser();
 </script>
 
 <style lang="less" scoped>
@@ -61,10 +84,21 @@ const { userModel, usernameRules, passwordRules, handleLogin } = useUser();
   }
 
   &__link {
-    a {
+    a,
+    span {
       color: @fontLightColor;
       margin: 0 10px;
     }
+  }
+}
+
+.forget {
+  width: 80vw;
+  padding: 20px 0;
+  text-align: center;
+  .van-button {
+    margin-top: 10px;
+    height: var(--van-button-small-height);
   }
 }
 </style>

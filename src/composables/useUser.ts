@@ -1,7 +1,8 @@
 import { StorageSerializers, useStorage } from '@vueuse/core';
 import { Toast } from 'vant';
+import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { changePassword, editUser, getUser, login, register } from '../api/user';
+import { changePassword, editUser, forgetPassword, getUser, login, register } from '../api/user';
 
 const userModel = useStorage(
   'user',
@@ -52,11 +53,21 @@ export const useUser = () => {
     }
   ];
   const passwordRules = [{ pattern: /^[a-zA-Z0-9_!]{6,16}$/, message: '密码长度为6-16位' }];
-  const phoneRules = [{ pattern: /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/, message: '请输入正确的手机号' }];
-  const emailRules = [
-    { pattern: /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/, message: '请输入正确的邮箱' }
+  const phoneRules = [
+    {
+      pattern: /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/,
+      message: '请输入正确的手机号'
+    }
   ];
-  const passwordAgainRules = [{ validator: () => userModel.value.password === userModel.value.passwordAgain, message: '两次密码不一致' }];
+  const emailRules = [
+    {
+      pattern: /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/,
+      message: '请输入正确的邮箱'
+    }
+  ];
+  const passwordAgainRules = [
+    { validator: () => userModel.value.password === userModel.value.passwordAgain, message: '两次密码不一致' }
+  ];
 
   const handleLogin = async () => {
     try {
@@ -76,7 +87,12 @@ export const useUser = () => {
 
   const handleRegister = async () => {
     try {
-      const { data: res } = await register(userModel.value.username, userModel.value.phone, userModel.value.email, userModel.value.password);
+      const { data: res } = await register(
+        userModel.value.username,
+        userModel.value.phone,
+        userModel.value.email,
+        userModel.value.password
+      );
 
       if (res.errno === 0) {
         Toast('注册成功');
@@ -94,13 +110,21 @@ export const useUser = () => {
     Toast(res.msg);
   };
 
+  const emailForget = ref();
+  const handleForgetPassword = async () => {
+    const { data: res } = await forgetPassword(emailForget.value);
+    Toast(res.msg);
+  };
+
   const handleEdit = async () => {
     const formData = new FormData();
     formData.append('username', userModel.value.username);
     formData.append('phone', userModel.value.phone);
     formData.append('email', userModel.value.email);
     userModel.value.address && formData.append('address', userModel.value.address);
-    userModel.value.avatarFile && userModel.value.avatarFile.length !== 0 && formData.append('avatar', userModel.value.avatarFile[0].file);
+    userModel.value.avatarFile &&
+      userModel.value.avatarFile.length !== 0 &&
+      formData.append('avatar', userModel.value.avatarFile[0].file);
     const { data: res } = await editUser(formData);
     Toast(res.msg);
     router.go(0);
@@ -119,6 +143,7 @@ export const useUser = () => {
 
   return {
     userModel,
+    emailForget,
     usernameRules,
     phoneRules,
     emailRules,
@@ -127,6 +152,7 @@ export const useUser = () => {
     handleLogin,
     handleRegister,
     handlePassword,
+    handleForgetPassword,
     handleEdit,
     handleLogout
   };
