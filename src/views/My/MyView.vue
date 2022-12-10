@@ -10,7 +10,12 @@
       <div class="content__id">手机号: {{ userModel.phone }}</div>
 
       <div class="content__select">
-        <div class="content__select__item" v-for="(item, index) in selectList" :key="item.text" @click="handleEnter(index)">
+        <div
+          class="content__select__item"
+          v-for="(item, index) in selectList"
+          :key="item.text"
+          @click="handleEnter(index)"
+        >
           <div class="content__select__item__icon iconfont" v-html="item.icon"></div>
           <div class="content__select__item__title">{{ item.text }}</div>
           <div class="content__select__item__enter iconfont">&#xe679;</div>
@@ -20,15 +25,15 @@
     <van-button type="primary" round block class="content__logout-btn" @click="handleLogout">退 出 登 录</van-button>
   </div>
 
-  <van-overlay :show="show" @click="show = false">
-    <van-form @click.stop @submit="handlePassword" validate-trigger="onSubmit">
+  <van-popup v-model:show="show" round>
+    <van-form @click.stop @submit="handlePassword" validate-trigger="onSubmit" class="reset">
       <van-cell-group inset>
         <van-field
           v-model="userModel.oldPassword"
           :rules="passwordRules"
           type="password"
           label="原密码"
-          placeholder="请输入您的密码"
+          placeholder="请输入原密码"
           autocomplete="true"
         />
         <van-field
@@ -36,7 +41,7 @@
           :rules="passwordRules"
           type="password"
           label="新密码"
-          placeholder="请输入您的密码"
+          placeholder="请输入新密码"
           autocomplete="true"
         />
         <van-field
@@ -44,13 +49,13 @@
           :rules="passwordAgainRules"
           type="password"
           label="确认密码"
-          placeholder="请再次输入您的密码"
+          placeholder="请再次输入新密码"
           autocomplete="true"
         />
-        <van-button type="primary" round block native-type="submit">提交</van-button>
+        <van-button type="primary" round native-type="submit">提交</van-button>
       </van-cell-group>
     </van-form>
-  </van-overlay>
+  </van-popup>
 
   <Docker :currentIndex="3" />
 </template>
@@ -177,16 +182,14 @@ const { userModel, passwordRules, passwordAgainRules, handlePassword, handleLogo
   }
 }
 
-.van-overlay {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.van-cell-group {
-  padding: 20px 10px 10px;
+.reset {
+  width: 80vw;
+  text-align: center;
+  padding: 20px 0;
+  box-sizing: border-box;
 
   .van-button {
-    margin: 20px auto 10px;
+    margin-top: 20px;
   }
 }
 </style>
