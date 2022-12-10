@@ -93,7 +93,8 @@ export const useUser = () => {
   const handleCode = async (time: number) => {
     try {
       await registerFormRef.value.validate('邮箱');
-      getCode(userModel.value.email);
+      const { data: res } = await getCode(userModel.value.email);
+      Toast(res.msg);
       codeBtnState.value = false;
       codeBtnMsg.value = `${time}秒后再试`;
       const timer = setInterval(() => {
