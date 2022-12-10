@@ -17,7 +17,7 @@
         </van-field>
       </van-cell-group>
 
-      <van-button round block type="primary" native-type="submit">提 交</van-button>
+      <van-button round block type="primary" native-type="submit" class="small-btn">提 交</van-button>
     </van-form>
   </div>
 </template>
