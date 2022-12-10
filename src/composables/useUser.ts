@@ -116,7 +116,8 @@ export const useUser = () => {
         userModel.value.username,
         userModel.value.phone,
         userModel.value.email,
-        userModel.value.password
+        userModel.value.password,
+        code.value
       );
 
       if (res.errno === 0) {
