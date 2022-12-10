@@ -2,7 +2,7 @@ import { StorageSerializers, useStorage } from '@vueuse/core';
 import { Toast } from 'vant';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { changePassword, editUser, forgetPassword, getUser, login, register } from '../api/user';
+import { getCode, changePassword, editUser, forgetPassword, getUser, login, register } from '../api/user';
 
 const userModel = useStorage(
   'user',
@@ -41,6 +41,8 @@ export const handleDetail = async () => {
 
 export const useUser = () => {
   const router = useRouter();
+
+  // 表单校验规则
   const usernameRules = [
     {
       validator: (val: string) => {
@@ -85,6 +87,28 @@ export const useUser = () => {
     }
   };
 
+  const registerFormRef = ref();
+  const codeBtnState = ref(true);
+  const codeBtnMsg = ref('发送验证码');
+  const handleCode = async (time: number) => {
+    try {
+      await registerFormRef.value.validate('邮箱');
+      getCode(userModel.value.email);
+      codeBtnState.value = false;
+      codeBtnMsg.value = `${time}秒后再试`;
+      const timer = setInterval(() => {
+        time--;
+        codeBtnMsg.value = `${time}秒后再试`;
+        if (!time) {
+          clearInterval(timer);
+          codeBtnState.value = true;
+          codeBtnMsg.value = `发送验证码`;
+        }
+      }, 1000);
+    } catch {}
+  };
+
+  const code = ref();
   const handleRegister = async () => {
     try {
       const { data: res } = await register(
@@ -144,6 +168,10 @@ export const useUser = () => {
   return {
     userModel,
     emailForget,
+    code,
+    codeBtnMsg,
+    codeBtnState,
+    registerFormRef,
     usernameRules,
     phoneRules,
     emailRules,
@@ -151,6 +179,7 @@ export const useUser = () => {
     passwordAgainRules,
     handleLogin,
     handleRegister,
+    handleCode,
     handlePassword,
     handleForgetPassword,
     handleEdit,

@@ -30,6 +30,15 @@ export const register = (username: string, phone: string, email: string, passwor
   });
 };
 
+/**
+ * 获取邮箱验证码
+ * @param email
+ * @returns
+ */
+export const getCode = (email: string) => {
+  return instance.post('/api/user/code', { email });
+};
+
 /** 获取用户详情 */
 export const getUser = () => {
   return instance.get('/api/user/detail');
@@ -51,7 +60,7 @@ export const changePassword = (oldPassword: string, password: string) => {
 /**
  * 忘记密码
  * @param email 邮箱
- * @returns 
+ * @returns
  */
 export const forgetPassword = (email: string) => {
   return instance.post('/api/user/forget', {
