@@ -22,7 +22,7 @@
         </div>
       </div>
     </div>
-    <van-button type="primary" round block class="content__logout-btn" @click="handleLogout">退 出 登 录</van-button>
+    <van-button type="primary" round block class="content__logout-btn small-btn" @click="handleLogout">退 出 登 录</van-button>
   </div>
 
   <van-popup v-model:show="show" round>
@@ -52,7 +52,7 @@
           placeholder="请再次输入新密码"
           autocomplete="true"
         />
-        <van-button type="primary" round native-type="submit">提交</van-button>
+        <van-button type="primary" class="small-btn" round native-type="submit">提交</van-button>
       </van-cell-group>
     </van-form>
   </van-popup>

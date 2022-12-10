@@ -45,7 +45,7 @@
             @keyup.enter="handleForgetPassword"
           />
         </van-cell-group>
-        <van-button type="primary" size="small" round native-type="submit">立即找回</van-button>
+        <van-button type="primary" class="small-btn" round native-type="submit" >立即找回</van-button>
       </van-form>
     </div>
   </van-popup>
@@ -98,7 +98,6 @@ const { userModel, emailForget, usernameRules, passwordRules, emailRules, handle
   text-align: center;
   .van-button {
     margin-top: 10px;
-    height: var(--van-button-small-height);
   }
 }
 </style>
