@@ -21,12 +21,13 @@ export const login = (username: string, password: string) => {
  * @param password 密码
  * @returns
  */
-export const register = (username: string, phone: string, email: string, password: string) => {
+export const register = (username: string, phone: string, email: string, password: string, code: string) => {
   return instance.post('/api/user/register', {
     username,
     phone,
     email,
-    password
+    password,
+    code
   });
 };
 
