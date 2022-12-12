@@ -22,7 +22,9 @@
         </div>
       </div>
     </div>
-    <van-button type="primary" round block class="content__logout-btn small-btn" @click="handleLogout">退 出 登 录</van-button>
+    <van-button type="primary" round block class="content__logout-btn small-btn" @click="handleLogout">
+      退 出 登 录
+    </van-button>
   </div>
 
   <van-popup v-model:show="show" round>
@@ -71,6 +73,7 @@ const show = ref(false);
 const selectList = [
   { icon: '&#xe660;', text: '个人信息' },
   { icon: '&#xe628;', text: '修改密码' },
+  { icon: '&#xe626;', text: '我的订单' },
   { icon: '&#xe605;', text: '联系客服' }
 ];
 
@@ -83,7 +86,10 @@ const handleEnter = (index: number) => {
       show.value = true;
       break;
     case 2:
-      location.href = 'mailto:43055550@qq.com';
+      router.push({ name: 'Order' });
+      break;
+    case 3:
+      router.push({ name: 'Ticket' });
       break;
   }
 };
