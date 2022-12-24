@@ -9,12 +9,19 @@
         <img src="https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png" alt="" />
       </div>
       <div class="order__content__right">
-        <h2 class="order__content__title">手机手机手机手机</h2>
-        <div class="order__content__address">收货地址：浙江省杭州市西湖区西湖街道西湖社区</div>
-        <div class="order__content__price">￥120</div>
+        <h2 class="order__content__title bold">手机手机手机手机</h2>
+        <div class="order__content__address">
+          <span class="bold">收货地址</span>
+          浙江省杭州市西湖区西湖街道西湖社区
+        </div>
+        <div class="order__content__id">
+          <span class="bold">订单号</span>
+          63a72040779a611cf6fa271a
+        </div>
       </div>
     </div>
     <div class="order__bottom">
+      <span class="order__bottom__price">￥120</span>
       <van-button size="small">确认收货</van-button>
     </div>
   </div>
@@ -23,6 +30,9 @@
 <script lang="ts" setup></script>
 
 <style lang="less" scoped>
+.bold {
+  font-weight: 700;
+}
 .order {
   padding: 15px 20px;
   margin-top: 10px;
@@ -35,11 +45,11 @@
 
   &__content {
     display: flex;
-    margin-top: 15px;
+    margin: 15px 0;
 
     &__img {
-      width: 60px;
-      height: 60px;
+      width: 80px;
+      height: 80px;
       margin-right: 15px;
       flex-shrink: 0;
       img {
@@ -49,16 +59,27 @@
     }
 
     &__right {
+      flex: 1;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
     }
   }
 
-  
-
   &__bottom {
-    text-align: right;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    &__price {
+      color: crimson;
+      font-weight: 700;
+      font-size: 18px;
+    }
+
+    button {
+      text-align: right;
+    }
   }
 }
 </style>
