@@ -9,10 +9,13 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
-import { getOrders } from '../../api/order';
 import Order from '../../components/Order.vue';
+import { getOrders } from '../../api/order';
+
 const handleBack = () => history.back();
-const ordersList = ref();
+
+// 获取订单列表
+const ordersList = ref([]);
 const handleOrders = async () => {
   const { data: res } = await getOrders();
   ordersList.value = res.data;

@@ -12,19 +12,11 @@
 <script lang="ts" setup>
 import { PropType } from 'vue';
 import { useBalance } from '../../composables/useBalance';
-
-// 声明Good接口，并导出给StoreView使用
-export interface GoodProps {
-  _id: string;
-  name: string;
-  price: number;
-  img: string;
-}
+import { GoodType } from '../../types/store';
 
 defineProps({
   item: {
-    type: Object as PropType<GoodProps>,
-    default: () => {},
+    type: Object as PropType<GoodType>,
     required: true
   }
 });
@@ -63,7 +55,6 @@ const { handleExchange } = useBalance();
     }
 
     span {
-      color: @themeColor;
       color: @priceColor;
       font-weight: 700;
       font-size: 18px;

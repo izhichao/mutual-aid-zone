@@ -37,11 +37,6 @@ import { PropType } from 'vue';
 import { finishOrder } from '../api/order';
 import { OrderType } from '../types/order';
 import { formatTime } from '../utils/formatTime';
-enum statusType {
-  未发货,
-  待收货,
-  已完成
-}
 
 defineProps({
   item: {
@@ -49,6 +44,12 @@ defineProps({
     required: true
   }
 });
+
+enum statusType {
+  未发货,
+  待收货,
+  已完成
+}
 
 const handleFinish = async (_id: string) => {
   const { data: res } = await finishOrder(_id);
