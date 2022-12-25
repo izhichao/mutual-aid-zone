@@ -10,14 +10,14 @@
 </template>
 
 <script lang="ts" setup>
+import { ref } from 'vue';
 import Balance from './Balance.vue';
-import Good, { GoodProps } from './Good.vue';
+import Good from './Good.vue';
 import Docker from '../../components/Docker.vue';
 import { getGoods } from '../../api/store';
-import { ref } from 'vue';
 
 // 获取商品列表
-const goodsList = ref<GoodProps[]>([]);
+const goodsList = ref([]);
 const handleGoods = async () => {
   const { data: res } = await getGoods();
   goodsList.value = res.data;

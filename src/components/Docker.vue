@@ -1,6 +1,6 @@
 <template>
   <div class="docker">
-    <router-link v-for="(item, index) in dockerList" :key="item.to" :to="item.to" :class="{ docker__item: true, 'docker__item--active': currentIndex == index }">
+    <router-link v-for="(item, index) in dockerList" :key="item.to.name" :to="item.to" :class="{ docker__item: true, 'docker__item--active': currentIndex == index }">
       <i class="iconfont" v-html="item.icon"></i>
       <p>{{ item.text }}</p>
     </router-link>
@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts" setup>
-const props = defineProps({
+defineProps({
   currentIndex: Number
 });
 
