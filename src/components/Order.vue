@@ -1,33 +1,49 @@
 <template>
   <div class="order">
     <div class="order__header">
-      <div class="order__header__time">2022年11月1日</div>
-      <div class="order__header__status">待收货</div>
+      <div class="order__header__time">{{ formatTime(item.createdAt) }}</div>
+      <div class="order__header__status">{{ statusType[item.status] }}</div>
     </div>
     <div class="order__content">
       <div class="order__content__img">
-        <img src="https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png" alt="" />
+        <img :src="item.img" />
       </div>
       <div class="order__content__right">
-        <h2 class="order__content__title bold">手机手机手机手机</h2>
+        <h2 class="order__content__title bold">{{ item.good }}</h2>
         <div class="order__content__address">
           <span class="bold">收货地址</span>
-          浙江省杭州市西湖区西湖街道西湖社区
+          {{ item.address }}
         </div>
         <div class="order__content__id">
           <span class="bold">订单号</span>
-          63a72040779a611cf6fa271a
+          {{ item._id }}
         </div>
       </div>
     </div>
     <div class="order__bottom">
-      <span class="order__bottom__price">￥120</span>
-      <van-button size="small">确认收货</van-button>
+      <span class="order__bottom__price">￥{{ item.price }}</span>
+      <van-button size="small" v-if="item.status === 1">确认收货</van-button>
     </div>
   </div>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { PropType } from 'vue';
+import { OrderType } from '../types/order';
+import { formatTime } from '../utils/formatTime';
+enum statusType {
+  未发货,
+  待收货,
+  已完成
+}
+
+defineProps({
+  item: {
+    type: Object as PropType<OrderType>,
+    required: true
+  }
+});
+</script>
 
 <style lang="less" scoped>
 .bold {
@@ -70,7 +86,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    
+
     &__price {
       color: crimson;
       font-weight: 700;

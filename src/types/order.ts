@@ -5,4 +5,5 @@ export type OrderType = {
   img: string;
   address: string;
   status: number;
+  createdAt: string;
 };
