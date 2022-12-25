@@ -4,6 +4,7 @@ export type OrderType = {
   price: string;
   img: string;
   address: string;
+  express: string;
   status: number;
   createdAt: string;
 };
