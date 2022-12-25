@@ -18,17 +18,23 @@
           <span class="bold">订单号</span>
           {{ item._id }}
         </div>
+        <div class="order__content__express" v-if="item.express">
+          <span class="bold">快递单号</span>
+          {{ item.express }}
+        </div>
       </div>
     </div>
     <div class="order__bottom">
-      <span class="order__bottom__price">￥{{ item.price }}</span>
-      <van-button size="small" v-if="item.status === 1">确认收货</van-button>
+      <span class="order__bottom__price">&yen;{{ item.price }}</span>
+      <van-button size="small" v-if="item.status === 1" @click="handleFinish(item._id)">确认收货</van-button>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
+import { Toast } from 'vant';
 import { PropType } from 'vue';
+import { finishOrder } from '../api/order';
 import { OrderType } from '../types/order';
 import { formatTime } from '../utils/formatTime';
 enum statusType {
@@ -43,9 +49,16 @@ defineProps({
     required: true
   }
 });
+
+const handleFinish = async (_id: string) => {
+  const { data: res } = await finishOrder(_id);
+  Toast(res.msg);
+};
 </script>
 
 <style lang="less" scoped>
+@import '../style/variables.less';
+
 .bold {
   font-weight: 700;
 }
@@ -66,7 +79,7 @@ defineProps({
     &__img {
       width: 80px;
       height: 80px;
-      margin-right: 15px;
+      margin-right: 10px;
       flex-shrink: 0;
       img {
         width: 100%;
@@ -88,7 +101,7 @@ defineProps({
     align-items: center;
 
     &__price {
-      color: crimson;
+      color: @priceColor;
       font-weight: 700;
       font-size: 18px;
     }
