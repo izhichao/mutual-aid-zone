@@ -6,8 +6,8 @@
         {{ item.content }}
       </p>
       <ul class="task-content__sub">
-        <li class="task-content__sub__time">{{ time }}</li>
-        <li class="task-content__sub__status">状态：{{ status }}</li>
+        <li class="task-content__sub__time">{{ formatTime(item.createdAt) }}</li>
+        <li class="task-content__sub__status">状态：{{ statusType[item.status] }}</li>
         <li class="task-content__sub__price">&yen; {{ item.price }}</li>
       </ul>
     </div>
@@ -15,30 +15,21 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue';
 import { formatTime } from '../utils/formatTime';
-
-const props = defineProps({
+import { ReturnTaskType } from '../types/task';
+import { PropType } from 'vue';
+defineProps({
   item: {
-    type: Object,
-    default: () => {},
+    type: Object as PropType<ReturnTaskType>,
     required: true
   }
 });
 
-// 格式化时间
-const time = computed(() => {
-  return formatTime(props.item.createdAt);
-});
-
-const statusId: number = props.item.status;
 enum statusType {
   未接单,
   已接单,
   已完成
 }
-// 动态渲染任务状态
-const status = statusType[statusId];
 </script>
 
 <style lang="less" scoped>
