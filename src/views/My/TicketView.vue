@@ -11,27 +11,40 @@
         placeholder="请描述您的问题，客服将在3个工作日内进行回复。"
         show-word-limit
       />
-      <van-button type="primary" class="send__btn small-btn" block round>立即发送</van-button>
+      <van-button type="primary" class="send__btn small-btn" block round @click="handleCreate">立即发送</van-button>
     </div>
 
-    <div class="list" v-for="item in list">
-      <div class="list__title">{{ item.title }}</div>
-      <div class="list__content">{{ item.content }}</div>
+    <div class="list" v-for="item in ticketList">
+      <div class="list__title">{{ item.question }}</div>
+      <div class="list__content">{{ item.answer ? item.answer : '未回复' }}</div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
+import { Toast } from 'vant';
 import { ref } from 'vue';
-
+import { getTickets, createTicket } from '../../api/ticket';
 const handleBack = () => history.back();
 const message = ref();
 
-const list = [
-  {title: 1,content:2},
-  {title: 1,content:2},
-  {title: 1,content:2}
-];
+const handleCreate = async () => {
+  if (message.value) {
+    const { data: res } = await createTicket(message.value);
+    Toast(res.msg);
+    message.value = '';
+    handleTickets();
+  } else {
+    Toast('请先输入内容');
+  }
+};
+
+const ticketList = ref([]);
+const handleTickets = async () => {
+  const { data: res } = await getTickets();
+  ticketList.value = res.data;
+};
+handleTickets();
 </script>
 
 <style lang="less" scoped>
@@ -56,6 +69,7 @@ const list = [
 
   &__content {
     margin-top: 10px;
+    color: #999;
   }
 }
 </style>
