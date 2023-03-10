@@ -1,5 +1,5 @@
 import { ref } from 'vue';
-import { getPublishTasks, getAcceptTasks, getTasks, getSearchTasks } from '../api/task';
+import { getTasks, getSearchTasks } from '../api/task';
 import { ReturnTaskType } from '../types/task';
 
 export const useTaskList = () => {
@@ -26,19 +26,15 @@ export const useTaskList = () => {
       }
     }, 100);
 
-    if (active === 0) {
-      const { data: res } = await getPublishTasks(page.value, pageSize);
-      taskList.value = [...taskList.value, ...res.data.list];
-      total = res.data.total;
-    } else if (active === 1) {
-      const { data: res } = await getAcceptTasks(page.value, pageSize);
-      taskList.value = [...taskList.value, ...res.data.list];
-      total = res.data.total;
-    } else {
-      const { data: res } = await getTasks(page.value, pageSize);
-      taskList.value = [...taskList.value, ...res.data.list];
-      total = res.data.total;
+    enum activeType {
+      publish,
+      accept,
+      all = -1
     }
+
+    const { data: res } = await getTasks(page.value, pageSize, activeType[active]);
+    taskList.value = [...taskList.value, ...res.data.list];
+    total = res.data.total;
 
     // 当页面还未加载完时，增大 page 的值；加载完毕时，将 finished 设置为 true
     if (page.value * pageSize <= total) {
