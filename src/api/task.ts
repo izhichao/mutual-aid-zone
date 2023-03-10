@@ -1,22 +1,12 @@
 import instance from '../utils/request';
 
-/** 获取所有任务 */
-export const getTasks = (page: number, pageSize: number) => {
-  return instance.get('/api/task', { params: { page, pageSize } });
+/** 获取任务 */
+export const getTasks = (page: number, pageSize: number, type?: string) => {
+  return instance.get('/api/task', { params: { page, pageSize, type } });
 };
 
 export const getSearchTasks = (keyword: string) => {
   return instance.get('/api/task/search', { params: { keyword } });
-};
-
-/** 获取我发布的 */
-export const getPublishTasks = (page: number, pageSize: number) => {
-  return instance.get('/api/task/publish', { params: { page, pageSize } });
-};
-
-/** 获取我接受的 */
-export const getAcceptTasks = (page: number, pageSize: number) => {
-  return instance.get('/api/task/accept', { params: { page, pageSize } });
 };
 
 /**
