@@ -15,7 +15,7 @@ const routes = [
   {
     path: '/task/create',
     name: 'Create',
-    component: () => import(/* webpackChunkName: "taskCreate */ './views/Task/TaskCreateView.vue')
+    component: () => import(/* webpackChunkName: "taskCreate */ './views/Task/TaskEditView.vue')
   },
   {
     path: '/task/edit/:id',
