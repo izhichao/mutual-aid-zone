@@ -1,7 +1,7 @@
 <template>
   <div class="register">
     <h1>注册</h1>
-    <van-form @submit="handleRegister" validate-trigger="onSubmit" :validate-first="true" ref="registerFormRef">
+    <van-form @submit="handleRegister" validate-trigger="onSubmit" :validate-first="true" ref="formRef">
       <van-cell-group inset>
         <van-field
           v-model="userModel.username"
@@ -68,21 +68,14 @@
 </template>
 
 <script lang="ts" setup>
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { Toast } from 'vant';
 import { useUser } from '../../composables/useUser';
-const {
-  userModel,
-  code,
-  codeBtnMsg,
-  codeBtnState,
-  registerFormRef,
-  usernameRules,
-  phoneRules,
-  emailRules,
-  passwordRules,
-  passwordAgainRules,
-  handleRegister,
-  handleCode
-} = useUser();
+import { getCode, register } from '../../api/user';
+
+const router = useRouter();
+const { userModel, usernameRules, phoneRules, emailRules, passwordRules, passwordAgainRules } = useUser();
 
 // 进入注册页时，重置用户信息
 userModel.value = {
@@ -91,6 +84,52 @@ userModel.value = {
   phone: '',
   email: '',
   avatar: ''
+};
+
+// 发送验证码
+const formRef = ref();
+const codeBtnState = ref(true);
+const codeBtnMsg = ref('发送验证码');
+const handleCode = async (time: number) => {
+  try {
+    await formRef.value.validate('邮箱');
+    const { data: res } = await getCode(userModel.value.email);
+    Toast(res.msg);
+    codeBtnState.value = false;
+    codeBtnMsg.value = `${time}秒后再试`;
+    const timer = setInterval(() => {
+      time--;
+      codeBtnMsg.value = `${time}秒后再试`;
+      if (!time) {
+        clearInterval(timer);
+        codeBtnState.value = true;
+        codeBtnMsg.value = `发送验证码`;
+      }
+    }, 1000);
+  } catch {}
+};
+
+// 注册
+const code = ref();
+const handleRegister = async () => {
+  try {
+    const { data: res } = await register(
+      userModel.value.username,
+      userModel.value.phone,
+      userModel.value.email,
+      userModel.value.password,
+      code.value
+    );
+
+    if (res.errno === 0) {
+      Toast('注册成功');
+      router.push('/login');
+    } else {
+      Toast(res.msg);
+    }
+  } catch (err) {
+    Toast(err);
+  }
 };
 </script>
 

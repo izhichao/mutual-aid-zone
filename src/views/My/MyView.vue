@@ -65,10 +65,14 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { Toast } from 'vant';
 import Docker from '../../components/Docker.vue';
 import { useUser } from '../../composables/useUser';
+import { changePassword } from '../../api/user';
 
 const router = useRouter();
+const { userModel, passwordRules, passwordAgainRules } = useUser();
+
 const show = ref(false);
 const selectList = [
   { icon: '&#xe660;', text: '个人信息' },
@@ -77,6 +81,25 @@ const selectList = [
   { icon: '&#xe605;', text: '联系客服' }
 ];
 
+// 修改密码
+const handlePassword = async () => {
+  const { data: res } = await changePassword(userModel.value.oldPassword, userModel.value.password);
+  Toast(res.msg);
+};
+
+// 退出登录
+const handleLogout = () => {
+  Toast('注销成功');
+  userModel.value = {
+    username: '',
+    phone: '',
+    avatar: ''
+  };
+  localStorage.removeItem('token');
+  router.push({ name: 'Home' });
+};
+
+// 页面跳转
 const handleEnter = (index: number) => {
   switch (index) {
     case 0:
@@ -93,8 +116,6 @@ const handleEnter = (index: number) => {
       break;
   }
 };
-
-const { userModel, passwordRules, passwordAgainRules, handlePassword, handleLogout } = useUser();
 </script>
 
 <style lang="less" scoped>
