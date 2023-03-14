@@ -1,9 +1,9 @@
-import { reactive, ref } from 'vue';
+import { ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { formatTime } from '../utils/formatTime';
-import { acceptTask, createTask, deleteTask, editTask, finishTask, getTaskDetail, giveupTask } from '../api/task';
+import { createTask, editTask, getTaskDetail } from '../api/task';
 import { Toast } from 'vant';
-import { Task, BaseTask } from '../types';
+import { Task } from '../types';
 
 export const useTask = () => {
   const route = useRoute();
@@ -79,7 +79,6 @@ export const useTask = () => {
     }
   };
 
-  
   // 根据id获取任务详情
   const handleDetail = async () => {
     const { data: res } = await getTaskDetail(route.params.id as string);
@@ -94,66 +93,12 @@ export const useTask = () => {
     }
   };
 
-  // 根据用户设置按钮状态
-  const btnStatus = reactive({
-    publish: false,
-    unaccept: false,
-    accept: false
-  });
-
-  route.params.id &&
-    handleDetail().then((taskModel) => {
-      const userId = JSON.parse(localStorage.getItem('user'))._id;
-      if (taskModel.value.status === 2) {
-        return;
-      }
-      if (taskModel.value.setter._id === userId) {
-        // 任务发布者
-        btnStatus.publish = true;
-      } else if (taskModel.value.getter._id === userId) {
-        // 任务接收者
-        btnStatus.accept = true;
-      } else if (taskModel.value.status !== 1) {
-        // 任务未接单时，路人浏览
-        btnStatus.unaccept = true;
-      }
-    });
-
-  const handleDelete = () => {
-    deleteTask(TaskModel.value._id);
-    Toast('删除成功');
-    router.push({ name: 'Home' });
-  };
-  const handlePushEdit = () => {
-    router.push({ name: 'Edit', params: { id: route.params.id } });
-  };
-  const handleGiveup = () => {
-    giveupTask(TaskModel.value._id);
-    Toast('放弃成功');
-    router.go(0);
-  };
-  const handleFinish = () => {
-    finishTask(TaskModel.value._id);
-    Toast('任务完成');
-    router.go(0);
-  };
-  const handleAccept = () => {
-    acceptTask(TaskModel.value._id);
-    Toast('接受成功');
-    router.go(0);
-  };
   return {
     rules,
     titleRules,
     priceRules,
-    sendTaskModel: TaskModel,
-    returnTaskModel: TaskModel,
-    btnStatus,
-    handleSubmit,
-    handleDelete,
-    handlePushEdit,
-    handleGiveup,
-    handleFinish,
-    handleAccept
+    TaskModel,
+    handleDetail,
+    handleSubmit
   };
 };
