@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
-import { handleDetail } from './composables/useUser';
+import { useUser } from './composables/useUser';
 
 const routes = [
   {
@@ -69,6 +69,7 @@ const router = createRouter({
   routes
 });
 
+const { handleDetail } = useUser();
 router.beforeEach((to, from, next) => {
   const token = localStorage.getItem('token');
   // 有token时，访问登录注册页跳转至首页

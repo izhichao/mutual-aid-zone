@@ -33,7 +33,7 @@ export const useTask = () => {
       return TaskModel;
     } else {
       Toast(res.msg);
-      // router.push('/');
+      router.push('/');
     }
   };
 

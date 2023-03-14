@@ -45,7 +45,7 @@
             @keyup.enter="handleForgetPassword"
           />
         </van-cell-group>
-        <van-button type="primary" class="small-btn" round native-type="submit" >立即找回</van-button>
+        <van-button type="primary" class="small-btn" round native-type="submit">立即找回</van-button>
       </van-form>
     </div>
   </van-popup>
@@ -53,11 +53,38 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { Toast } from 'vant';
 import { useUser } from '../../composables/useUser';
+import { forgetPassword, login } from '../../api/user';
 
 const showForget = ref(false);
-const { userModel, emailForget, usernameRules, passwordRules, emailRules, handleLogin, handleForgetPassword } =
-  useUser();
+
+const router = useRouter();
+const { userModel, usernameRules, passwordRules, emailRules } = useUser();
+
+// 忘记密码
+const emailForget = ref();
+const handleForgetPassword = async () => {
+  const { data: res } = await forgetPassword(emailForget.value);
+  Toast(res.msg);
+};
+
+// 登录
+const handleLogin = async () => {
+  try {
+    const { data: res } = await login(userModel.value.username, userModel.value.password);
+    if (res.errno === 0) {
+      Toast('登录成功');
+      localStorage.setItem('token', res.data.token);
+      router.push('/');
+    } else {
+      Toast(res.msg);
+    }
+  } catch (err) {
+    Toast(err);
+  }
+};
 </script>
 
 <style lang="less" scoped>
