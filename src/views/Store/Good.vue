@@ -12,11 +12,11 @@
 <script lang="ts" setup>
 import { PropType } from 'vue';
 import { useBalance } from '../../composables/useBalance';
-import { GoodType } from '../../types/store';
+import { Good } from '../../types';
 
 defineProps({
   item: {
-    type: Object as PropType<GoodType>,
+    type: Object as PropType<Good>,
     required: true
   }
 });

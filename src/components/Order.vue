@@ -35,12 +35,12 @@
 import { Toast } from 'vant';
 import { PropType } from 'vue';
 import { finishOrder } from '../api/order';
-import { OrderType } from '../types/order';
+import { Order } from '../types';
 import { formatTime } from '../utils/formatTime';
 
 defineProps({
   item: {
-    type: Object as PropType<OrderType>,
+    type: Object as PropType<Order>,
     required: true
   }
 });

@@ -1,9 +1,9 @@
 import { ref } from 'vue';
 import { getTasks, getSearchTasks } from '../api/task';
-import { ReturnTaskType } from '../types/task';
+import { Task } from '../types';
 
 export const useTaskList = () => {
-  const taskList = ref<ReturnTaskType[]>([]);
+  const taskList = ref<Task[]>([]);
 
   // 获取任务列表
   const firstLoading = ref(false);
