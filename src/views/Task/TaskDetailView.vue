@@ -41,17 +41,16 @@
 </template>
 
 <script lang="ts" setup>
-import { ImagePreview, Toast } from 'vant';
 import { reactive, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import { ImagePreview, Toast } from 'vant';
 import { useTask } from '../../composables/useTask';
 import { acceptTask, deleteTask, finishTask, giveupTask } from '../../api/task';
 const route = useRoute();
 const router = useRouter();
-const { TaskModel, handleDetail } = useTask();
+const { TaskModel, handleDetail, handleBack } = useTask();
 
 // 页面按钮操作
-const handleBack = () => history.back();
 const handlePushEdit = () => {
   router.push({ name: 'Edit', params: { id: route.params.id } });
 };
