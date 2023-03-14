@@ -24,6 +24,10 @@ handleOrders();
 </script>
 
 <style lang="less" scoped>
+.main-content {
+  bottom: 0;
+}
+
 .order-list {
   padding: 0 0 10px;
 }
