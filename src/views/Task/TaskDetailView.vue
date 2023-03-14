@@ -2,18 +2,24 @@
   <van-nav-bar title="任务详情" left-text="返回" left-arrow @click-left="handleBack" />
   <div class="main-content">
     <div class="task-content">
-      <h2>{{ returnTaskModel.title }}</h2>
-      <p class="task-content__time">发布时间：{{ returnTaskModel.createdAt }}</p>
-      <p class="task-content__setter">发布人：{{ returnTaskModel.setter.username }}</p>
+      <h2>{{ TaskModel.title }}</h2>
+      <p class="task-content__time">发布时间：{{ TaskModel.createdAt }}</p>
+      <p class="task-content__setter">发布人：{{ TaskModel.setter.username }}</p>
 
-      <p class="task-content__detail">{{ returnTaskModel.content }}</p>
-      <p class="task-content__price">&yen; {{ returnTaskModel.price }}</p>
+      <p class="task-content__detail">{{ TaskModel.content }}</p>
+      <p class="task-content__price">&yen; {{ TaskModel.price }}</p>
 
       <div class="task-content__imgs">
-        <van-image fit="cover" v-for="(item, index) in returnTaskModel.imgs" :key="item" :src="item" @click="handleImagePreview(index)" />
+        <van-image
+          fit="cover"
+          v-for="(item, index) in TaskModel.imgs"
+          :key="item"
+          :src="item"
+          @click="handleImagePreview(index)"
+        />
       </div>
 
-      <van-steps :active="returnTaskModel.status">
+      <van-steps :active="TaskModel.status">
         <van-step>未接单</van-step>
         <van-step>已接单</van-step>
         <van-step>已完成</van-step>
@@ -28,28 +34,79 @@
       <van-button round block type="warning" @click="handleGiveup">放 弃</van-button>
       <van-button round block type="primary" @click="handleFinish">完 成</van-button>
     </div>
-    <van-button round block type="primary" v-if="btnStatus.unaccept" @click="handleAccept">接 受</van-button>
+    <div class="btns" v-if="btnStatus.unaccept">
+      <van-button round block type="primary" @click="handleAccept">接 受</van-button>
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ImagePreview } from 'vant';
-import { ref } from 'vue';
+import { ImagePreview, Toast } from 'vant';
+import { reactive, ref } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 import { useTask } from '../../composables/useTask';
+import { acceptTask, deleteTask, finishTask, giveupTask } from '../../api/task';
+const route = useRoute();
+const router = useRouter();
+const { TaskModel, handleDetail } = useTask();
+
+// 页面按钮操作
 const handleBack = () => history.back();
-const { returnTaskModel, btnStatus, handleDelete, handlePushEdit, handleGiveup, handleFinish, handleAccept } = useTask();
+const handlePushEdit = () => {
+  router.push({ name: 'Edit', params: { id: route.params.id } });
+};
+const handleDelete = () => {
+  deleteTask(TaskModel.value._id);
+  Toast('删除成功');
+  router.push({ name: 'Home' });
+};
+const handleGiveup = () => {
+  giveupTask(TaskModel.value._id);
+  Toast('放弃成功');
+  router.go(0);
+};
+const handleFinish = () => {
+  finishTask(TaskModel.value._id);
+  Toast('任务完成');
+  router.go(0);
+};
+const handleAccept = () => {
+  acceptTask(TaskModel.value._id);
+  Toast('接受成功');
+  router.go(0);
+};
+
+// 获取内容并根据用户设置按钮状态
+const btnStatus = reactive({
+  publish: false,
+  unaccept: false,
+  accept: false
+});
+handleDetail().then((taskModel) => {
+  const userId = JSON.parse(localStorage.getItem('user'))._id;
+  if (taskModel.value.status === 2) return;
+  if (taskModel.value.setter._id === userId) {
+    btnStatus.publish = true; // 任务发布者
+  } else if (taskModel.value.getter?._id === userId) {
+    btnStatus.accept = true; // 任务接收者
+  } else if (taskModel.value.status !== 1) {
+    btnStatus.unaccept = true; // 任务未接单时，路人浏览
+  }
+});
+
 // 动态渲染图片占位格子
 const imgsRows = ref('');
-const imgsLength = returnTaskModel.value.imgs.length;
-if (imgsLength >0 && imgsLength <= 3) {
+const imgsLength = TaskModel.value.imgs.length;
+if (imgsLength > 0 && imgsLength <= 3) {
   imgsRows.value = '100px';
 } else if (imgsLength > 3) {
   imgsRows.value = '100px 100px';
 }
+
 // 图片放大功能
 const handleImagePreview = (pos: number) => {
   ImagePreview({
-    images: returnTaskModel.value.imgs,
+    images: TaskModel.value.imgs,
     startPosition: pos
   });
 };
@@ -62,16 +119,12 @@ const handleImagePreview = (pos: number) => {
   bottom: 0;
 }
 
-.van-button {
-  margin: 30px auto;
-}
-
 .btns {
   display: flex;
   justify-content: center;
 
   .van-button {
-    margin: 30px 10px;
+    margin: 30px 15px;
   }
 }
 
