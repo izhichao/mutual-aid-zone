@@ -3,7 +3,7 @@ import { useRoute, useRouter } from 'vue-router';
 import { formatTime } from '../utils/formatTime';
 import { acceptTask, createTask, deleteTask, editTask, finishTask, getTaskDetail, giveupTask } from '../api/task';
 import { Toast } from 'vant';
-import { ReturnTaskType, SendTaskType } from '../types/task';
+import { Task, BaseTask } from '../types';
 
 export const useTask = () => {
   const route = useRoute();
@@ -36,20 +36,26 @@ export const useTask = () => {
     }
   ];
 
-  const sendTaskModel = reactive<SendTaskType>({
+  const TaskModel = ref<Task>({
+    _id: '',
     title: '',
     content: '',
-    price: '',
-    imgFiles: []
+    price: null,
+    setter: { _id: '' },
+    getter: { _id: '' },
+    imgFiles: [],
+    imgs: [],
+    status: null,
+    createdAt: ''
   });
 
   const handleSubmit = async (type: string) => {
     const formData = new FormData();
-    formData.append('title', sendTaskModel.title);
-    formData.append('price', sendTaskModel.price.toString());
-    formData.append('content', sendTaskModel.content);
-    sendTaskModel.imgFiles &&
-      sendTaskModel.imgFiles.forEach((item) => {
+    formData.append('title', TaskModel.value.title);
+    formData.append('price', TaskModel.value.price.toString());
+    formData.append('content', TaskModel.value.content);
+    TaskModel.value.imgFiles &&
+      TaskModel.value.imgFiles.forEach((item) => {
         formData.append('imgFiles', item.file);
       });
 
@@ -73,25 +79,15 @@ export const useTask = () => {
     }
   };
 
-  const returnTaskModel = ref<ReturnTaskType>({
-    _id: '',
-    title: '',
-    content: '',
-    price: null,
-    setter: { _id: '' },
-    getter: { _id: '' },
-    imgs: [],
-    status: null,
-    createdAt: ''
-  });
+  
   // 根据id获取任务详情
   const handleDetail = async () => {
     const { data: res } = await getTaskDetail(route.params.id as string);
     if (res.errno === 0) {
       // 格式化时间
       res.data.createdAt = formatTime(res.data.createdAt);
-      returnTaskModel.value = res.data;
-      return returnTaskModel;
+      TaskModel.value = res.data;
+      return TaskModel;
     } else {
       Toast(res.msg);
       router.push('/');
@@ -124,7 +120,7 @@ export const useTask = () => {
     });
 
   const handleDelete = () => {
-    deleteTask(returnTaskModel.value._id);
+    deleteTask(TaskModel.value._id);
     Toast('删除成功');
     router.push({ name: 'Home' });
   };
@@ -132,17 +128,17 @@ export const useTask = () => {
     router.push({ name: 'Edit', params: { id: route.params.id } });
   };
   const handleGiveup = () => {
-    giveupTask(returnTaskModel.value._id);
+    giveupTask(TaskModel.value._id);
     Toast('放弃成功');
     router.go(0);
   };
   const handleFinish = () => {
-    finishTask(returnTaskModel.value._id);
+    finishTask(TaskModel.value._id);
     Toast('任务完成');
     router.go(0);
   };
   const handleAccept = () => {
-    acceptTask(returnTaskModel.value._id);
+    acceptTask(TaskModel.value._id);
     Toast('接受成功');
     router.go(0);
   };
@@ -150,8 +146,8 @@ export const useTask = () => {
     rules,
     titleRules,
     priceRules,
-    sendTaskModel,
-    returnTaskModel,
+    sendTaskModel: TaskModel,
+    returnTaskModel: TaskModel,
     btnStatus,
     handleSubmit,
     handleDelete,
