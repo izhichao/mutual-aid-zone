@@ -11,8 +11,11 @@
 
 <script lang="ts" setup>
 import { PropType } from 'vue';
+import { useRouter } from 'vue-router';
+import { exchange } from '../../api/store';
 import { useBalance } from '../../composables/useBalance';
 import { Good } from '../../types';
+import { Toast } from 'vant';
 
 defineProps({
   item: {
@@ -21,7 +24,17 @@ defineProps({
   }
 });
 
-const { handleExchange } = useBalance();
+const router = useRouter();
+const { handleBalance } = useBalance();
+// 兑换商品
+const handleExchange = async (_id: string) => {
+  const { data: res } = await exchange(_id);
+  if (res.errno === 0) {
+    Toast(res.msg);
+    handleBalance();
+  }
+  res.msg === '兑换成功' && router.push({ name: 'Order' });
+};
 </script>
 
 <style lang="less" scoped>

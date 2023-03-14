@@ -24,10 +24,28 @@
 </template>
 
 <script lang="ts" setup>
+import { ref } from 'vue';
+import { Toast } from 'vant';
+import { recharge } from '../../api/store';
 import { useBalance } from '../../composables/useBalance';
 
-const { balance, rechargeNum, handleBalance, handleRecharge } = useBalance();
+const { balance, handleBalance } = useBalance();
 handleBalance();
+
+// 充值
+const rechargeNum = ref<number>();
+const handleRecharge = async () => {
+  if ([undefined, null, 0, ''].includes(rechargeNum.value)) {
+    Toast('请输入充值金额');
+    return;
+  }
+  const { data: res } = await recharge(rechargeNum.value);
+  if (res.errno === 0) {
+    Toast('充值成功');
+    balance.value = res.data.balance;
+    rechargeNum.value = null;
+  }
+};
 </script>
 
 <style lang="less" scoped>
