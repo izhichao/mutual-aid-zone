@@ -5,7 +5,7 @@
     </router-link>
     <router-link :to="{ name: 'Login' }" class="header__login iconfont" v-else="isLogin">&#xe6de;</router-link>
     <van-search shape="round" v-model="keyword" placeholder="请输入搜索关键词" @search="handleSearch(keyword)" />
-    <router-link :to="{ name: 'Home' }" class="header__chat iconfont">&#xe70a;</router-link>
+    <router-link :to="{ name: 'Chat' }" class="header__chat iconfont">&#xe70a;</router-link>
   </div>
 
   <div class="main-content">
