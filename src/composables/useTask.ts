@@ -3,13 +3,13 @@ import { useRoute, useRouter } from 'vue-router';
 import { formatTime } from '../utils/formatTime';
 import { getTaskDetail } from '../api/task';
 import { Toast } from 'vant';
-import { Task } from '../types';
+import { ITask } from '../types';
 
 export const useTask = () => {
   const route = useRoute();
   const router = useRouter();
 
-  const TaskModel = ref<Task>({
+  const TaskModel = ref<ITask>({
     _id: '',
     title: '',
     content: '',

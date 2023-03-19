@@ -14,12 +14,12 @@ import { PropType } from 'vue';
 import { useRouter } from 'vue-router';
 import { exchange } from '../../api/store';
 import { useBalance } from '../../composables/useBalance';
-import { Good } from '../../types';
+import { IGood } from '../../types';
 import { Toast } from 'vant';
 
 defineProps({
   item: {
-    type: Object as PropType<Good>,
+    type: Object as PropType<IGood>,
     required: true
   }
 });
