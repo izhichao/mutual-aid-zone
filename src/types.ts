@@ -1,11 +1,11 @@
-export interface Good {
+export interface IGood {
   _id: string;
   name: string;
   price: number;
   img: string;
 }
 
-export interface Order {
+export interface IOrder {
   _id: string;
   good: string;
   price: string;
@@ -16,7 +16,14 @@ export interface Order {
   createdAt: string;
 }
 
-export interface BaseTask {
+export interface IChat {
+  sender: string;
+  receiver: string;
+  content: string;
+  createdAt: string;
+}
+
+export interface IBaseTask {
   _id?: string;
   title: string;
   price: string;
@@ -24,7 +31,7 @@ export interface BaseTask {
   imgFiles?: any[];
 }
 
-export interface Task extends BaseTask {
+export interface ITask extends IBaseTask {
   setter: { _id: string; username?: string };
   getter?: { _id: string; username?: string };
   imgs: string[];
