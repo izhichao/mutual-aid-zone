@@ -2,24 +2,32 @@
   <van-nav-bar title="任务详情" left-text="返回" left-arrow @click-left="handleBack" />
   <div class="main-content">
     <div class="task-content">
-      <h2>{{ TaskModel.title }}</h2>
-      <p class="task-content__time">发布时间：{{ TaskModel.createdAt }}</p>
-      <p class="task-content__setter">发布人：{{ TaskModel.setter.username }}</p>
+      <h2>{{ taskModel.title }}</h2>
+      <p class="task-content__time">发布时间：{{ taskModel.createdAt }}</p>
+      <p class="task-content__setter">
+        发布人：{{ taskModel.setter.username }}
+        <router-link
+          :to="{ name: 'ChatDetail', params: { id: taskModel.setter._id } }"
+          v-if="taskModel.setter._id !== userModel._id"
+        >
+          去私聊
+        </router-link>
+      </p>
 
-      <p class="task-content__detail">{{ TaskModel.content }}</p>
-      <p class="task-content__price">&yen; {{ TaskModel.price }}</p>
+      <p class="task-content__detail">{{ taskModel.content }}</p>
+      <p class="task-content__price">&yen; {{ taskModel.price }}</p>
 
       <div class="task-content__imgs">
         <van-image
           fit="cover"
-          v-for="(item, index) in TaskModel.imgs"
+          v-for="(item, index) in taskModel.imgs"
           :key="item"
           :src="item"
           @click="handleImagePreview(index)"
         />
       </div>
 
-      <van-steps :active="TaskModel.status">
+      <van-steps :active="taskModel.status">
         <van-step>未接单</van-step>
         <van-step>已接单</van-step>
         <van-step>已完成</van-step>
@@ -45,32 +53,34 @@ import { reactive, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { ImagePreview, Toast } from 'vant';
 import { useTask } from '../../composables/useTask';
+import { useUser } from '../../composables/useUser';
 import { acceptTask, deleteTask, finishTask, giveupTask } from '../../api/task';
 const route = useRoute();
 const router = useRouter();
-const { TaskModel, handleDetail, handleBack } = useTask();
+const { taskModel, handleDetail, handleBack } = useTask();
+const { userModel } = useUser();
 
 // 页面按钮操作
 const handlePushEdit = () => {
   router.push({ name: 'Edit', params: { id: route.params.id } });
 };
 const handleDelete = () => {
-  deleteTask(TaskModel.value._id);
+  deleteTask(taskModel.value._id);
   Toast('删除成功');
   router.push({ name: 'Home' });
 };
 const handleGiveup = () => {
-  giveupTask(TaskModel.value._id);
+  giveupTask(taskModel.value._id);
   Toast('放弃成功');
   router.go(0);
 };
 const handleFinish = () => {
-  finishTask(TaskModel.value._id);
+  finishTask(taskModel.value._id);
   Toast('任务完成');
   router.go(0);
 };
 const handleAccept = () => {
-  acceptTask(TaskModel.value._id);
+  acceptTask(taskModel.value._id);
   Toast('接受成功');
   router.go(0);
 };
@@ -95,7 +105,7 @@ handleDetail().then((taskModel) => {
 
 // 动态渲染图片占位格子
 const imgsRows = ref('');
-const imgsLength = TaskModel.value.imgs.length;
+const imgsLength = taskModel.value.imgs.length;
 if (imgsLength > 0 && imgsLength <= 3) {
   imgsRows.value = '100px';
 } else if (imgsLength > 3) {
@@ -105,7 +115,7 @@ if (imgsLength > 0 && imgsLength <= 3) {
 // 图片放大功能
 const handleImagePreview = (pos: number) => {
   ImagePreview({
-    images: TaskModel.value.imgs,
+    images: taskModel.value.imgs,
     startPosition: pos
   });
 };
@@ -147,6 +157,10 @@ const handleImagePreview = (pos: number) => {
   }
   &__setter {
     margin-top: 5px;
+
+    a {
+      color: @themeColor;
+    }
   }
 
   &__detail {
