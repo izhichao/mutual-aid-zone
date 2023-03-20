@@ -13,6 +13,7 @@
           去私聊
         </router-link>
       </p>
+      <p class="task-content__getter" v-if="taskModel.status !== 0">接收人：{{ taskModel.getter?.username }}</p>
 
       <p class="task-content__detail">{{ taskModel.content }}</p>
       <p class="task-content__price">&yen; {{ taskModel.price }}</p>
@@ -155,7 +156,7 @@ const handleImagePreview = (pos: number) => {
   &__time {
     margin-top: 10px;
   }
-  &__setter {
+  &__setter,&__getter {
     margin-top: 5px;
 
     a {
