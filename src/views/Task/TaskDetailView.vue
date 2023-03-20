@@ -7,7 +7,7 @@
       <p class="task-content__setter">
         发布人：{{ taskModel.setter.username }}
         <router-link
-          :to="{ name: 'ChatDetail', params: { id: taskModel.setter._id } }"
+          :to="{ name: 'ChatDetail', params: { id: taskModel.setter._id || ' '  } }"
           v-if="taskModel.setter._id !== userModel._id"
         >
           去私聊
