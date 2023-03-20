@@ -41,8 +41,8 @@ export const getCode = (email: string) => {
 };
 
 /** 获取用户详情 */
-export const getUser = () => {
-  return instance.get('/api/user/detail');
+export const getUser = (_id?: string) => {
+  return instance.get('/api/user/detail', { params: { _id } });
 };
 
 /**
