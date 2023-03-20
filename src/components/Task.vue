@@ -16,11 +16,11 @@
 
 <script lang="ts" setup>
 import { formatTime } from '../utils/formatTime';
-import { ReturnTaskType } from '../types/task';
+import { ITask } from '../types';
 import { PropType } from 'vue';
 defineProps({
   item: {
-    type: Object as PropType<ReturnTaskType>,
+    type: Object as PropType<ITask>,
     required: true
   }
 });

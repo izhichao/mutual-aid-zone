@@ -20,7 +20,7 @@ export interface IChat {
   sender: string;
   receiver: string;
   content: string;
-  createdAt: string;
+  createdAt?: string;
 }
 
 export interface IBaseTask {

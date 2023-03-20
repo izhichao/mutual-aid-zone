@@ -4,6 +4,7 @@ import { getUser } from '../api/user';
 const userModel = useStorage(
   'user',
   {
+    _id: '',
     username: '',
     oldPassword: '',
     password: '',

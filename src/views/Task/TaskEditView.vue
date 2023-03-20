@@ -3,10 +3,10 @@
   <div class="main-content">
     <van-form @submit="handleSubmit(text.type)" validate-trigger="onSubmit">
       <van-cell-group inset>
-        <van-field v-model="TaskModel.title" label="标题" placeholder="请输入标题" :rules="titleRules" />
-        <van-field v-model="TaskModel.price" type="number" label="价格" placeholder="请输入价格" :rules="priceRules" />
+        <van-field v-model="taskModel.title" label="标题" placeholder="请输入标题" :rules="titleRules" />
+        <van-field v-model="taskModel.price" type="number" label="价格" placeholder="请输入价格" :rules="priceRules" />
         <van-field
-          v-model="TaskModel.content"
+          v-model="taskModel.content"
           :rules="rules"
           rows="3"
           autosize
@@ -18,7 +18,7 @@
         />
         <van-field name="uploader" :label="text.label">
           <template #input>
-            <van-uploader :max-count="6" v-model="TaskModel.imgFiles" />
+            <van-uploader :max-count="6" v-model="taskModel.imgFiles" />
           </template>
         </van-field>
       </van-cell-group>
@@ -36,7 +36,7 @@ import { useRoute, useRouter } from 'vue-router';
 import { createTask, editTask } from '../../api/task';
 import { useTask } from '../../composables/useTask';
 
-const { TaskModel, handleBack, handleDetail } = useTask();
+const { taskModel, handleBack, handleDetail } = useTask();
 const route = useRoute();
 const router = useRouter();
 
@@ -55,11 +55,11 @@ if (route.name === 'Edit') {
 
 const handleSubmit = async (type: string) => {
   const formData = new FormData();
-  formData.append('title', TaskModel.value.title);
-  formData.append('price', TaskModel.value.price.toString());
-  formData.append('content', TaskModel.value.content);
-  TaskModel.value.imgFiles &&
-    TaskModel.value.imgFiles.forEach((item) => {
+  formData.append('title', taskModel.value.title);
+  formData.append('price', taskModel.value.price.toString());
+  formData.append('content', taskModel.value.content);
+  taskModel.value.imgFiles &&
+    taskModel.value.imgFiles.forEach((item) => {
       formData.append('imgFiles', item.file);
     });
 
