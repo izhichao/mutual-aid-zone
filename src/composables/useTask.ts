@@ -9,7 +9,7 @@ export const useTask = () => {
   const route = useRoute();
   const router = useRouter();
 
-  const TaskModel = ref<ITask>({
+  const taskModel = ref<ITask>({
     _id: '',
     title: '',
     content: '',
@@ -29,8 +29,8 @@ export const useTask = () => {
     if (res.errno === 0) {
       // 格式化时间
       res.data.createdAt = formatTime(res.data.createdAt);
-      TaskModel.value = res.data;
-      return TaskModel;
+      taskModel.value = res.data;
+      return taskModel;
     } else {
       Toast(res.msg);
       router.push('/');
@@ -38,7 +38,7 @@ export const useTask = () => {
   };
 
   return {
-    TaskModel,
+    taskModel,
     handleBack,
     handleDetail
   };
