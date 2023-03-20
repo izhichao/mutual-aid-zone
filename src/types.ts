@@ -16,11 +16,17 @@ export interface IOrder {
   createdAt: string;
 }
 
-export interface IChat {
+export interface IBaseChat {
   sender: string;
   receiver: string;
   content: string;
-  createdAt?: string;
+}
+
+export interface IChat extends IBaseChat {
+  target: string;
+  username: string;
+  avatar: string;
+  createdAt: string;
 }
 
 export interface IBaseTask {

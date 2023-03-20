@@ -1,23 +1,33 @@
 <template>
-  <div class="chat">
-    <div class="chat__left">
-      <div class="chat__img">
-        <img src="https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png" alt="" />
+  <router-link :to="{ name: 'ChatDetail', params: { id: chat.target } }">
+    <div class="chat">
+      <div class="chat__left">
+        <div class="chat__img">
+          <img :src="chat.avatar" />
+        </div>
+      </div>
+      <div class="chat__right">
+        <div class="chat__top">
+          <div class="chat__name">{{ chat.username }}</div>
+          <div class="chat__time">{{ formatTime(chat.createdAt).slice(0, 10) }}</div>
+        </div>
+        <div class="chat__content">{{ chat.content }}</div>
       </div>
     </div>
-    <div class="chat__right">
-      <div class="chat__top">
-        <div class="chat__name">只抄</div>
-        <div class="chat__time">3月18日</div>
-      </div>
-      <div class="chat__content">
-        为了更好的用户体验，我们将于3.18日凌晨对官网进行维护。为了更好的用户体验，我们将于3.18日凌晨对官网进行维护。
-      </div>
-    </div>
-  </div>
+  </router-link>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { PropType } from 'vue';
+import { IChat } from '../types';
+import { formatTime } from '../utils/formatTime';
+defineProps({
+  chat: {
+    type: Object as PropType<IChat>,
+    required: true
+  }
+});
+</script>
 
 <style lang="less" scoped>
 .chat {
@@ -28,6 +38,10 @@
 
   &:nth-child(1) {
     margin-top: 10px;
+  }
+
+  &__right {
+    flex: 1;
   }
 
   &__top {
