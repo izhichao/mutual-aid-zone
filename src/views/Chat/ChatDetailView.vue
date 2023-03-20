@@ -48,8 +48,8 @@ const chatList = ref<IBaseChat[]>();
 // 连接socket.io
 let baseURL = 'http://localhost:8000';
 if (import.meta.env.PROD) {
-  baseURL = '/zone';
 }
+baseURL = '';
 const socket = io(baseURL, { query: { sender } });
 
 // 接受消息
@@ -88,8 +88,6 @@ const contentRef = ref();
 watch(
   () => chatList.value,
   () => {
-    console.log(1);
-
     nextTick(() => {
       contentRef.value.scrollTop = contentRef.value.scrollHeight - contentRef.value.clientHeight;
     });
