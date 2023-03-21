@@ -7,7 +7,7 @@
       <p class="task-content__setter">
         发布人：{{ taskModel.setter.username }}
         <router-link
-          :to="{ name: 'ChatDetail', params: { id: taskModel.setter._id || ' '  } }"
+          :to="{ name: 'ChatDetail', params: { id: taskModel.setter._id || ' ' } }"
           v-if="taskModel.setter._id !== userModel._id"
         >
           去私聊
@@ -35,16 +35,19 @@
       </van-steps>
     </div>
 
-    <div class="btns" v-if="btnStatus.publish">
+    <div class="btns" v-if="btnStatus.unacceptForSetter">
       <van-button round block type="danger" @click="handleDelete">删 除</van-button>
       <van-button round block type="primary" @click="handlePushEdit">编 辑</van-button>
     </div>
-    <div class="btns" v-if="btnStatus.accept">
-      <van-button round block type="warning" @click="handleGiveup">放 弃</van-button>
+    <div class="btns" v-if="btnStatus.unacceptForGetter">
+      <van-button round block type="primary" @click="handleAccept">接 受</van-button>
+    </div>
+    <div class="btns" v-if="btnStatus.acceptForSetter">
+      <van-button round block type="danger" @click="handleDelete">删 除</van-button>
       <van-button round block type="primary" @click="handleFinish">完 成</van-button>
     </div>
-    <div class="btns" v-if="btnStatus.unaccept">
-      <van-button round block type="primary" @click="handleAccept">接 受</van-button>
+    <div class="btns" v-if="btnStatus.acceptForGetter">
+      <van-button round block type="warning" @click="handleGiveup">放 弃</van-button>
     </div>
   </div>
 </template>
@@ -88,19 +91,28 @@ const handleAccept = () => {
 
 // 获取内容并根据用户设置按钮状态
 const btnStatus = reactive({
-  publish: false,
-  unaccept: false,
-  accept: false
+  unacceptForSetter: false,
+  unacceptForGetter: false,
+  acceptForSetter: false,
+  acceptForGetter: false
 });
 handleDetail().then((taskModel) => {
-  const userId = JSON.parse(localStorage.getItem('user'))._id;
-  if (taskModel.value.status === 2) return;
-  if (taskModel.value.setter._id === userId) {
-    btnStatus.publish = true; // 任务发布者
-  } else if (taskModel.value.getter?._id === userId) {
-    btnStatus.accept = true; // 任务接收者
-  } else if (taskModel.value.status !== 1) {
-    btnStatus.unaccept = true; // 任务未接单时，路人浏览
+  const userId = userModel.value._id;
+  const { setter, getter, status } = taskModel.value;
+  if (status === 2) return;
+
+  if (status === 0) {
+    if (setter._id === userId) {
+      btnStatus.unacceptForSetter = true;
+    } else {
+      btnStatus.unacceptForGetter = true;
+    }
+  } else if (status === 1) {
+    if (setter._id === userId) {
+      btnStatus.acceptForSetter = true;
+    } else if (getter?._id === userId) {
+      btnStatus.acceptForGetter = true;
+    }
   }
 });
 
@@ -156,7 +168,8 @@ const handleImagePreview = (pos: number) => {
   &__time {
     margin-top: 10px;
   }
-  &__setter,&__getter {
+  &__setter,
+  &__getter {
     margin-top: 5px;
 
     a {
