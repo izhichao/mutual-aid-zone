@@ -61,8 +61,10 @@ socket.on('chat', (message: IBaseChat) => {
 const content = ref();
 const handleSend = () => {
   const message: IBaseChat = { sender, receiver, content: content.value };
-  socket.emit('chat', message);
-  chatList.value.push(message);
+  if (message.content) {
+    socket.emit('chat', message);
+    chatList.value.push(message);
+  }
   content.value = '';
 };
 
