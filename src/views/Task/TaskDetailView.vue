@@ -68,23 +68,23 @@ const { userModel } = useUser();
 const handlePushEdit = () => {
   router.push({ name: 'Edit', params: { id: route.params.id } });
 };
-const handleDelete = () => {
-  deleteTask(taskModel.value._id);
+const handleDelete = async () => {
+  await deleteTask(taskModel.value._id);
   Toast('删除成功');
   router.push({ name: 'Home' });
 };
-const handleGiveup = () => {
-  giveupTask(taskModel.value._id);
+const handleGiveup = async () => {
+  await giveupTask(taskModel.value._id);
   Toast('放弃成功');
   router.go(0);
 };
-const handleFinish = () => {
-  finishTask(taskModel.value._id);
+const handleFinish = async () => {
+  await finishTask(taskModel.value._id);
   Toast('任务完成');
   router.go(0);
 };
-const handleAccept = () => {
-  acceptTask(taskModel.value._id);
+const handleAccept = async () => {
+  await acceptTask(taskModel.value._id);
   Toast('接受成功');
   router.go(0);
 };
