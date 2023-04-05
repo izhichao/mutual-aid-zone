@@ -13,7 +13,15 @@
           去私聊
         </router-link>
       </p>
-      <p class="task-content__getter" v-if="taskModel.status !== 0">接收人：{{ taskModel.getter?.username }}</p>
+      <p class="task-content__getter" v-if="taskModel.status !== 0">
+        接受人：{{ taskModel.getter?.username }}
+        <router-link
+          :to="{ name: 'ChatDetail', params: { id: taskModel.getter?._id || ' ' } }"
+          v-if="taskModel.setter._id === userModel._id"
+        >
+          去私聊
+        </router-link>
+      </p>
 
       <p class="task-content__detail">{{ taskModel.content }}</p>
       <p class="task-content__price">&yen; {{ taskModel.price }}</p>
