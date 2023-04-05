@@ -20,10 +20,8 @@ export const useTaskList = () => {
     isLock = true;
 
     // 若100ms内未获取到数据 则展示骨架屏
-    setTimeout(() => {
-      if (!taskList.value.length) {
-        firstLoading.value = true;
-      }
+    let timer = setTimeout(() => {
+      firstLoading.value = true;
     }, 100);
 
     enum activeType {
@@ -35,6 +33,7 @@ export const useTaskList = () => {
     const { data: res } = await getTasks(page.value, pageSize, activeType[active]);
     taskList.value = [...taskList.value, ...res.data.list];
     total = res.data.total;
+    clearTimeout(timer);
 
     // 当页面还未加载完时，增大 page 的值；加载完毕时，将 finished 设置为 true
     if (page.value * pageSize <= total) {
