@@ -53,6 +53,7 @@ enum statusType {
 
 const handleFinish = async (_id: string) => {
   const { data: res } = await finishOrder(_id);
+  location.reload();
   Toast(res.msg);
 };
 </script>
