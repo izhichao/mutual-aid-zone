@@ -16,8 +16,4 @@
 
 更多界面，请自行 clone 运行
 
-![](./images/1.png)
-
-![](./images/2.png)
-
-![](./images/3.png)
+<img src="https://minio.zhichao.org/images/mutual-aid-zone1.webp" width="270"/><img src="https://minio.zhichao.org/images/mutual-aid-zone2.webp" width="270"/><img src="https://minio.zhichao.org/images/mutual-aid-zone3.webp" width="270"/>
