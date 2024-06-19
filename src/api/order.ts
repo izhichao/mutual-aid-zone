@@ -1,9 +1,9 @@
 import instance from '../utils/request';
 
 export const getOrders = () => {
-  return instance.get('/api/order');
+  return instance.get('/order');
 };
 
 export const finishOrder = (_id: string) => {
-  return instance.post('/api/order/finish', { _id });
+  return instance.post('/order/finish', { _id });
 };

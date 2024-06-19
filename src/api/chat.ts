@@ -1,9 +1,9 @@
 import instance from '../utils/request';
 
 export const getUserChats = () => {
-  return instance.get('/api/chat/user');
+  return instance.get('/chat/user');
 };
 
 export const getPastChats = (_id: string) => {
-  return instance.get('/api/chat/past', { params: { _id } });
+  return instance.get('/chat/past', { params: { _id } });
 };

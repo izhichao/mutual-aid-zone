@@ -1,9 +1,9 @@
 import instance from '../utils/request';
 
 export const getTickets = () => {
-  return instance.get('/api/ticket');
+  return instance.get('/ticket');
 };
 
 export const createTicket = (question: string) => {
-  return instance.post('/api/ticket/question', { question });
+  return instance.post('/ticket/question', { question });
 };
