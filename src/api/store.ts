@@ -2,12 +2,12 @@ import instance from '../utils/request';
 
 /** 获取余额 */
 export const getBalance = () => {
-  return instance.get('/api/store/balance');
+  return instance.get('/store/balance');
 };
 
 /** 获取商品列表 */
 export const getGoods = () => {
-  return instance.get('/api/store');
+  return instance.get('/store');
 };
 
 /**
@@ -16,7 +16,7 @@ export const getGoods = () => {
  * @returns
  */
 export const recharge = (amount: number) => {
-  return instance.post('/api/store/recharge', { amount });
+  return instance.post('/store/recharge', { amount });
 };
 
 /**
@@ -25,5 +25,5 @@ export const recharge = (amount: number) => {
  * @returns
  */
 export const exchange = (_id: string) => {
-  return instance.post('/api/store/exchange', { _id });
+  return instance.post('/store/exchange', { _id });
 };

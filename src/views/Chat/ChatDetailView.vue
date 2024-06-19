@@ -36,6 +36,7 @@ import { IBaseChat } from '../../types';
 import { useUser } from '../../composables/useUser';
 import { getPastChats } from '../../api/chat';
 import { getUser } from '../../api/user';
+import { baseURL } from '../../utils/request';
 
 const route = useRoute();
 const { userModel } = useUser();
@@ -46,10 +47,6 @@ const handleBack = () => history.back();
 const chatList = ref<IBaseChat[]>();
 
 // 连接socket.io
-let baseURL = 'http://localhost:8000';
-if (import.meta.env.PROD) {
-  baseURL = '';
-}
 const socket = io(baseURL, { query: { sender } });
 
 // 接受消息

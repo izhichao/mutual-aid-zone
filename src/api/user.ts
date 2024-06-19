@@ -7,7 +7,7 @@ import instance from '../utils/request';
  * @returns
  */
 export const login = (username: string, password: string) => {
-  return instance.post('/api/user/login', {
+  return instance.post('/user/login', {
     username,
     password
   });
@@ -22,7 +22,7 @@ export const login = (username: string, password: string) => {
  * @returns
  */
 export const register = (username: string, phone: string, email: string, password: string, code: string) => {
-  return instance.post('/api/user/register', {
+  return instance.post('/user/register', {
     username,
     phone,
     email,
@@ -37,12 +37,12 @@ export const register = (username: string, phone: string, email: string, passwor
  * @returns
  */
 export const getCode = (email: string) => {
-  return instance.post('/api/user/code', { email });
+  return instance.post('/user/code', { email });
 };
 
 /** 获取用户详情 */
 export const getUser = (_id?: string) => {
-  return instance.get('/api/user/detail', { params: { _id } });
+  return instance.get('/user/detail', { params: { _id } });
 };
 
 /**
@@ -52,7 +52,7 @@ export const getUser = (_id?: string) => {
  * @returns
  */
 export const changePassword = (oldPassword: string, password: string) => {
-  return instance.post('/api/user/password', {
+  return instance.post('/user/password', {
     oldPassword,
     password
   });
@@ -64,7 +64,7 @@ export const changePassword = (oldPassword: string, password: string) => {
  * @returns
  */
 export const forgetPassword = (email: string) => {
-  return instance.post('/api/user/forget', {
+  return instance.post('/user/forget', {
     email
   });
 };
@@ -75,5 +75,5 @@ export const forgetPassword = (email: string) => {
  * @returns
  */
 export const editUser = (formData: FormData) => {
-  return instance.post('/api/user/edit', formData);
+  return instance.post('/user/edit', formData);
 };

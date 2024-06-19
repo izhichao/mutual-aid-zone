@@ -2,11 +2,11 @@ import instance from '../utils/request';
 
 /** 获取任务 */
 export const getTasks = (page: number, pageSize: number, type?: string) => {
-  return instance.get('/api/task', { params: { page, pageSize, type } });
+  return instance.get('/task', { params: { page, pageSize, type } });
 };
 
 export const getSearchTasks = (keyword: string) => {
-  return instance.get('/api/task/search', { params: { keyword } });
+  return instance.get('/task/search', { params: { keyword } });
 };
 
 /**
@@ -15,7 +15,7 @@ export const getSearchTasks = (keyword: string) => {
  * @returns
  */
 export const getTaskDetail = (_id: string) => {
-  return instance.get('/api/task/detail', {
+  return instance.get('/task/detail', {
     params: { _id }
   });
 };
@@ -26,7 +26,7 @@ export const getTaskDetail = (_id: string) => {
  * @returns
  */
 export const createTask = (formData: FormData) => {
-  return instance.post('/api/task/create', formData);
+  return instance.post('/task/create', formData);
 };
 
 /**
@@ -35,7 +35,7 @@ export const createTask = (formData: FormData) => {
  * @returns
  */
 export const deleteTask = (_id: string) => {
-  return instance.post('/api/task/delete', { _id });
+  return instance.post('/task/delete', { _id });
 };
 
 /**
@@ -44,7 +44,7 @@ export const deleteTask = (_id: string) => {
  * @returns
  */
 export const editTask = (formData: FormData) => {
-  return instance.post('/api/task/edit', formData);
+  return instance.post('/task/edit', formData);
 };
 
 /**
@@ -53,7 +53,7 @@ export const editTask = (formData: FormData) => {
  * @returns
  */
 export const acceptTask = (_id: string) => {
-  return instance.post('/api/task/accept', { _id });
+  return instance.post('/task/accept', { _id });
 };
 
 /**
@@ -62,7 +62,7 @@ export const acceptTask = (_id: string) => {
  * @returns
  */
 export const giveupTask = (_id: string) => {
-  return instance.post('/api/task/giveup', { _id });
+  return instance.post('/task/giveup', { _id });
 };
 
 /**
@@ -71,5 +71,5 @@ export const giveupTask = (_id: string) => {
  * @returns
  */
 export const finishTask = (_id: string) => {
-  return instance.post('/api/task/finish', { _id });
+  return instance.post('/task/finish', { _id });
 };
