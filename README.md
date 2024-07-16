@@ -6,7 +6,7 @@
 
 前端用的是 Vue3 + TypeScript + Vite + setup语法糖
 
-后端用的是 Koa，代码见 [mutual-aid-zone-node](https://github.com/LBVIIC/mutual-aid-zone-node)
+后端用的是 Koa，代码见 [mutual-aid-zone-server](https://github.com/izhichao/mutual-aid-zone-server)
 
 ## 介绍
 
