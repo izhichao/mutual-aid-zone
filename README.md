@@ -16,4 +16,4 @@
 
 更多界面，请自行 clone 运行
 
-<img src="https://minio.zhichao.org/images/mutual-aid-zone1.webp" width="270"/><img src="https://minio.zhichao.org/images/mutual-aid-zone2.webp" width="270"/><img src="https://minio.zhichao.org/images/mutual-aid-zone3.webp" width="270"/>
+<img src="https://s3.zhichao.org/images/mutual-aid-zone1.webp" width="270"/><img src="https://s3.zhichao.org/images/mutual-aid-zone2.webp" width="270"/><img src="https://s3.zhichao.org/images/mutual-aid-zone3.webp" width="270"/>
