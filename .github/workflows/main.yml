@@ -45,3 +45,4 @@ jobs:
           source: dist
           target: ${{ secrets.TARGET }}
           strip_components: 1
+          rm: true
