@@ -47,7 +47,7 @@ const handleBack = () => history.back();
 const chatList = ref<IBaseChat[]>();
 
 // 连接socket.io
-const url = new URL(baseURL);
+const url = new URL(baseURL, window.location.origin);
 const socket = io(url.origin, { path: `${url.pathname === '/' ? '' : url.pathname}/socket.io/`, query: { sender } });
 
 // 接受消息
