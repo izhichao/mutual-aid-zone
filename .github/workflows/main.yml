@@ -1,0 +1,47 @@
+name: deploy-website
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    # if: contains(github.event.head_commit.message, 'build')
+    strategy:
+      matrix:
+        node-version: [24]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Install pnpm 🔧
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Use Node.js ${{ matrix.node-version }} 🔧
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+
+      - name: Install dependencies 🔧
+        run: pnpm install
+
+      - name: Install and Build 🔧
+        run: pnpm build
+
+      - name: Deploy
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          port: ${{ secrets.PORT }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          passphrase: ${{ secrets.PASSPHRASE }}
+          source: dist
+          target: ${{ secrets.TARGET }}
+          strip_components: 1
