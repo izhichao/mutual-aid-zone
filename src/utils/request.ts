@@ -1,8 +1,6 @@
 import axios from 'axios';
 
-export const baseURL = import.meta.env.PROD
-  ? import.meta.env.VITE_API_URL || '/'
-  : import.meta.env.VITE_API_URL || 'http://localhost:8000';
+export const baseURL = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? '/api' : 'http://localhost:8000');
 
 const instance = axios.create({
   baseURL,
